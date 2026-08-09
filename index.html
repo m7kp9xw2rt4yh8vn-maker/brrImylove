@@ -18,72 +18,14 @@
         .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        /* -- القلب النيون الكبير والمرتاح في المنتصف -- */
-        .heart-container-center { 
-            position: relative; 
-            width: 320px; 
-            height: 320px; 
-            margin: 40px auto 30px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2; 
-        }
+        .heart-wrapper-3d { position: relative; width: 280px; height: 280px; margin: 40px auto 10px; z-index: 2; display: flex; justify-content: center; align-items: center; }
+        .heart-path-text { position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.4rem; color: #ff4d94; text-shadow: 0 0 12px #ff4d94; white-space: nowrap; animation: spinText 25s linear infinite; }
+        @keyframes spinText { from { transform: rotate(0deg) translateX(115px) rotate(0deg); } to { transform: rotate(360deg) translateX(115px) rotate(-360deg); } }
 
-        .neon-heart {
-            position: relative;
-            width: 120px;
-            height: 110px;
-            background: #ff4d94;
-            transform: rotate(-45deg);
-            box-shadow: 0 0 35px #ff4d94, 0 0 70px rgba(255, 77, 148, 0.6);
-            animation: heartPulse 1.2s infinite alternate ease-in-out;
-        }
-        .neon-heart::before,
-        .neon-heart::after {
-            content: "";
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background: #ff4d94;
-            border-radius: 50%;
-        }
-        .neon-heart::before { top: -60px; left: 0; }
-        .neon-heart::after { left: 60px; top: 0; }
-
-        @keyframes heartPulse {
-            0% { transform: rotate(-45deg) scale(1); filter: brightness(1); }
-            100% { transform: rotate(-45deg) scale(1.1); filter: brightness(1.2); }
-        }
-
-        /* حلقة الكلمات التي تدور حول القلب بوضوح وبدون إيموجي */
-        .orbit-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            animation: spinOrbit 18s linear infinite;
-        }
-
-        @keyframes spinOrbit {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .orbit-item {
-            position: absolute;
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.4rem;
-            color: #ffd1dc;
-            text-shadow: 0 0 12px #ff4d94;
-            white-space: nowrap;
-            /* عكس الدوران لتبقى الكلمات مقروءة بوضوح */
-            animation: counterSpin 18s linear infinite;
-        }
-
-        @keyframes counterSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
-        }
+        .name-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; z-index: 2; position: relative; }
+        .aya-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; text-shadow: 0 0 25px rgba(255,77,148,0.7); }
+        .header-heart { font-size: 2.5rem; animation: heartbeat 1.5s infinite ease-in-out; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
         .glass-section { background: rgba(20, 10, 15, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 77, 148, 0.2); width: 90%; max-width: 700px; margin: 40px auto; padding: 30px 20px; border-radius: 20px; z-index: 2; box-shadow: 0 10px 30px rgba(0,0,0,0.4); opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .glass-section.visible { opacity: 1; transform: translateY(0); }
@@ -148,10 +90,11 @@
         </div>
     </div>
 
-    <!-- القلب الكبير في المنتصف مع النصوص الددورة بدقة وبدون أي إيموجي -->
-    <div class="heart-container-center">
-        <div class="neon-heart"></div>
-        <div class="orbit-ring" id="orbit-ring-container"></div>
+    <div class="heart-wrapper-3d" id="heart-path-container"></div>
+
+    <div class="name-wrapper">
+        <h1 class="aya-title">Aya</h1>
+        <div class="header-heart">❤️</div>
     </div>
 
     <section class="glass-section">
@@ -189,24 +132,14 @@
     </footer>
 
     <script>
-        // توزيع الكلمات نصوص صريحة بدون أي إيموجي لتلف بنظام ووضوح تام
-        const orbitContainer = document.getElementById('orbit-ring-container');
-        const items = ["I love you", "Aya", "Forever", "My Love"];
-        const totalItems = 6;
-
-        for (let i = 0; i < totalItems; i++) {
+        const heartContainer = document.getElementById('heart-path-container');
+        const totalWords = 36;
+        for (let i = 0; i < totalWords; i++) {
             const span = document.createElement('span');
-            span.className = 'orbit-item';
-            span.innerText = items[i % items.length];
-
-            const angle = (i / totalItems) * 360;
-            const radius = 125; // المسافة بين النص وقلب النيون ليبقى الشكل مريحاً
-
-            const x = Math.cos((angle * Math.PI) / 180) * radius;
-            const y = Math.sin((angle * Math.PI) / 180) * radius;
-
-            span.style.transform = `translate(${x}px, ${y}px)`;
-            orbitContainer.appendChild(span);
+            span.className = 'heart-path-text';
+            span.innerText = "I love you";
+            span.style.animationDelay = `-${i * (25 / totalWords)}s`;
+            heartContainer.appendChild(span);
         }
 
         function startExperience() {
