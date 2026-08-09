@@ -18,9 +18,23 @@
         .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        .heart-wrapper-3d { position: relative; width: 280px; height: 280px; margin: 40px auto 10px; z-index: 2; display: flex; justify-content: center; align-items: center; }
-        .heart-path-text { position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.4rem; color: #ff4d94; text-shadow: 0 0 12px #ff4d94; white-space: nowrap; animation: spinText 25s linear infinite; }
-        @keyframes spinText { from { transform: rotate(0deg) translateX(115px) rotate(0deg); } to { transform: rotate(360deg) translateX(115px) rotate(-360deg); } }
+        .heart-wrapper-3d { position: relative; width: 300px; height: 300px; margin: 30px auto 10px; z-index: 2; }
+        
+        .heart-path-text {
+            position: absolute;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.25rem;
+            color: #ff4d94;
+            text-shadow: 0 0 10px #ff4d94;
+            white-space: nowrap;
+            animation: spinHeart 28s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes spinHeart {
+            0% { transform: rotate(0deg) translate(0, 0) rotate(0deg); }
+            100% { transform: rotate(360deg) translate(0, 0) rotate(-360deg); }
+        }
 
         .name-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; z-index: 2; position: relative; }
         .aya-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; text-shadow: 0 0 25px rgba(255,77,148,0.7); }
@@ -42,8 +56,9 @@
         .video-box { width: 200px; height: 280px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.6); background: #000; box-shadow: 0 5px 20px rgba(255, 77, 148, 0.3); }
         .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+        /* تم إعادة فيديو الشات إلى الوضع الأصلي (cover) لتظهر الأشرطة السوداء مجدداً */
         .chat-video-box { width: 240px; height: 440px; border-radius: 25px; overflow: hidden; border: 3px solid rgba(255, 77, 148, 0.8); box-shadow: 0 5px 25px rgba(255, 77, 148, 0.4); background: #000; margin: 0 auto; }
-        .chat-video-box video { width: 100%; height: 100%; object-fit: fill; display: block; }
+        .chat-video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid #ff4d94; padding: 8px 20px; margin: 5px; border-radius: 25px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 0.95rem; transition: 0.3s; }
         .msg-btn:active { background: #ff4d94; }
@@ -52,7 +67,6 @@
         .floating-bubble { position: fixed; bottom: 20px; right: 20px; background: rgba(20, 10, 15, 0.9); border: 2px solid #ff4d94; color: #fff; padding: 10px 18px; border-radius: 25px; z-index: 998; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.5); font-family: 'Playfair Display', serif; font-size: 0.9rem; transition: 0.3s; }
         .floating-bubble:hover { transform: scale(1.05); background: rgba(255, 77, 148, 0.3); }
 
-        /* -- تصميم البطاقة العائمة الفخمة (Modal) -- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -71,7 +85,7 @@
 <body>
 
     <div id="intro-screen">
-        <h1>A Special Universe For You... ❤️</h1>
+        <h1>A Special Universe For You...</h1>
         <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
     </div>
 
@@ -81,13 +95,11 @@
 
     <div id="elements-container"></div>
 
-    <!-- زر الفقاعة العائمة -->
-    <div class="floating-bubble" onclick="openFloatingModal()">💌 Tap for Aya</div>
+    <div class="floating-bubble" onclick="openFloatingModal()">💌 Tap for show</div>
 
-    <!-- نافذة البطاقة العائمة الفخمة -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3>For My Love, Aya ✨</h3>
+            <h3>For My Love, Aya</h3>
             <p id="modal-text-content">Aya, you make my heart skip a beat every single day. 💖</p>
             <button class="close-modal-btn" onclick="closeFloatingModal()">Close ❤️</button>
         </div>
@@ -131,17 +143,29 @@
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya ❤️</p>
+        <p>Made with all my heart for you </p>
     </footer>
 
     <script>
         const heartContainer = document.getElementById('heart-path-container');
-        const totalWords = 36;
+        const totalWords = 40;
+
         for (let i = 0; i < totalWords; i++) {
             const span = document.createElement('span');
             span.className = 'heart-path-text';
             span.innerText = "I love you";
-            span.style.animationDelay = `-${i * (25 / totalWords)}s`;
+
+            const t = (i / totalWords) * 2 * Math.PI;
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            
+            const posX = x * 8.5 + 150;
+            const posY = y * 8.5 + 130;
+
+            span.style.left = `${posX}px`;
+            span.style.top = `${posY}px`;
+            span.style.animationDelay = `-${i * (28 / totalWords)}s`;
+            
             heartContainer.appendChild(span);
         }
 
@@ -158,7 +182,6 @@
             document.getElementById('msg-display').innerText = txt; 
         }
 
-        /* دوال تحكم البطاقة العائمة الفخمة */
         const floatingMsgs = [
             "Aya, you make my heart skip a beat every single day. 💖",
             "No matter where I go, my thoughts always lead back to you, Aya. ✨",
@@ -173,7 +196,6 @@
         }
 
         function closeFloatingModal(e) {
-            // إغلاق البطاقة عند الضغط على الزر أو على الخلفية المعتمة
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
