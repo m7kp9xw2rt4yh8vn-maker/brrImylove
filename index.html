@@ -2,129 +2,55 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To My Love - A Cinematic Gift</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <title>For My Aya ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #030303; background-image: radial-gradient(circle at 20% 20%, rgba(255, 77, 148, 0.08) 0%, transparent 40%), radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 40%), linear-gradient(135deg, #090005 0%, #030303 100%); font-family: 'Poppins', sans-serif; color: #fff; overflow-x: hidden; text-align: center; }
+        body { background-color: #030303; background-image: radial-gradient(circle at 20% 20%, rgba(255, 77, 148, 0.08) 0%, transparent 40%), linear-gradient(135deg, #090005 0%, #030303 100%); color: #fff; font-family: 'Poppins', sans-serif; text-align: center; overflow-x: hidden; padding-bottom: 50px; }
 
-        #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: radial-gradient(circle, #1a0011 0%, #050003 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.2s ease; }
-        #intro-screen h1 { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; margin-bottom: 25px; text-shadow: 0 0 25px rgba(255,77,148,0.7); padding: 0 20px; }
-
-        .enter-btn { background: rgba(255, 77, 148, 0.15); color: #fff; border: 2px solid #ff4d94; padding: 16px 45px; font-size: 1.25rem; font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; backdrop-filter: blur(5px); transition: 0.4s; }
-        .enter-btn:hover { transform: scale(1.08); background: #ff4d94; box-shadow: 0 0 40px #ff4d94; }
-
-        /* تأثير سقوط الورود والقلوب */
         .falling-element { position: fixed; top: -50px; font-size: 22px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        header { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2; padding: 20px; }
-        header h1 { font-family: 'Great Vibes', cursive; font-size: 5.5rem; color: #ff4d94; text-shadow: 0 0 30px rgba(255,77,148,0.6); }
-        header p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: #ddd; max-width: 600px; }
+        .heart-wrapper { position: relative; width: 300px; height: 300px; margin: 60px auto 20px; display: flex; justify-content: center; align-items: center; animation: heartbeat 1.5s infinite ease-in-out; z-index: 2; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .heart-text { position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.6rem; color: #ff4d94; text-shadow: 0 0 10px #ff4d94; white-space: nowrap; transition: 0.5s; }
 
-        /* خصائص الظهور التدريجي عند التمرير (Scroll Reveal) */
-        .glass-section { background: rgba(20, 10, 15, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 77, 148, 0.2); max-width: 800px; margin: 50px auto; padding: 40px; border-radius: 25px; z-index: 2; box-shadow: 0 0 25px rgba(0,0,0,0.5); opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s ease; }
-        .glass-section.visible { opacity: 1; transform: translateY(0); }
+        .aya-name { font-family: 'Great Vibes', cursive; font-size: 4rem; color: #ff4d94; margin-bottom: 20px; text-shadow: 0 0 30px #ff4d94; z-index: 2; position: relative; }
         
-        .glass-section h2 { font-family: 'Great Vibes', cursive; color: #ff758c; font-size: 3.5rem; margin-bottom: 25px; }
-
-        .media-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+        .glass-section { background: rgba(20, 10, 15, 0.6); backdrop-filter: blur(15px); max-width: 600px; margin: 20px auto; padding: 30px; border-radius: 30px; border: 1px solid rgba(255, 77, 148, 0.3); z-index: 2; position: relative; }
         
-        .polaroid { background: #fff; color: #333; padding: 12px 12px 35px 12px; border-radius: 4px; width: 220px; transition: 0.4s; box-shadow: 0 0 20px rgba(255, 77, 148, 0.2); }
-        .polaroid:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 35px rgba(255, 77, 148, 0.6); }
-        .polaroid img { width: 100%; height: 200px; object-fit: cover; }
-        .polaroid p { margin-top: 10px; font-family: 'Playfair Display', serif; color: #555; }
-
-        .video-box { width: 220px; height: 270px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.5); background: #000; transition: 0.4s; box-shadow: 0 0 20px rgba(255, 77, 148, 0.2); }
-        .video-box:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 35px rgba(255, 77, 148, 0.6); }
+        .media-grid { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
+        .polaroid { background: #fff; color: #333; padding: 10px 10px 30px 10px; width: 180px; border-radius: 5px; }
+        .polaroid img { width: 100%; height: 160px; object-fit: cover; }
+        
+        .video-box { width: 220px; height: 380px; border-radius: 20px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.5); background: #000; }
         .video-box video { width: 100%; height: 100%; object-fit: cover; }
 
-        .chat-video-box { width: 260px; height: 480px; border-radius: 30px; overflow: hidden; border: 3px solid rgba(255, 77, 148, 0.6); box-shadow: 0 0 30px rgba(255, 77, 148, 0.3); background: #000; margin: 0 auto; transition: 0.4s; }
-        .chat-video-box:hover { transform: scale(1.03); box-shadow: 0 0 45px rgba(255, 77, 148, 0.7); }
-        .chat-video-box video { width: 100%; height: 100%; object-fit: cover; }
-
-        .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid #ff4d94; padding: 10px 25px; margin: 5px; border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; transition: 0.3s; }
-        .msg-btn:hover { background: #ff4d94; box-shadow: 0 0 15px #ff4d94; }
-        #msg-display { margin-top: 20px; font-size: 1.4rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; }
-
-        footer { padding: 30px; color: #777; font-family: 'Playfair Display', serif; }
+        .msg-btn { background: linear-gradient(45deg, #ff4d94, #ff758c); color: white; border: none; padding: 15px 40px; border-radius: 50px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.2rem; transition: 0.3s; }
+        #msg-display { margin-top: 25px; font-size: 1.5rem; color: #fff; font-style: italic; font-family: 'Playfair Display', serif; min-height: 70px; }
     </style>
 </head>
 <body>
 
-    <div id="intro-screen">
-        <h1>A Special Universe For You... ❤️</h1>
-        <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
-    </div>
-
-    <audio id="bg-music" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mp3">
-    </audio>
-
     <div id="elements-container"></div>
-
-    <header>
-        <h1>My Forever Love</h1>
-        <p>"Every second with you feels like a beautiful dream come true."</p>
-    </header>
+    <div class="heart-wrapper" id="heart"></div>
+    <h1 class="aya-name">Aya ❤️</h1>
 
     <section class="glass-section">
-        <h2>Secret Notes</h2>
-        <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place.')">About You</button>
-        <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
-        <div id="msg-display"></div>
-    </section>
-
-    <!-- قسمك الخاص -->
-    <section class="glass-section">
-        <h2>My Moments</h2>
+        <h2>My Memories with You</h2>
         <div class="media-grid">
-            <div class="polaroid"><img src="boy1.jpg"><p>Sweet memory</p></div>
-            <div class="polaroid"><img src="boy2.jpg"><p>Thinking of you</p></div>
-            <div class="video-box"><video autoplay muted loop playsinline><source src="boy-video.mp4" type="video/mp4"></video></div>
+            <div class="polaroid"><img src="girl1.jpg"><p>Your smile</p></div>
+            <div class="polaroid"><img src="girl2.jpg"><p>My princess</p></div>
         </div>
-    </section>
-
-    <!-- قسمها الخاص -->
-    <section class="glass-section">
-        <h2>My Beautiful Princess</h2>
         <div class="media-grid">
-            <div class="polaroid"><img src="girl1.jpg"><p>Your lovely smile</p></div>
-            <div class="polaroid"><img src="girl2.jpg"><p>The light of my days</p></div>
             <div class="video-box"><video autoplay muted loop playsinline><source src="girl-video.mp4" type="video/mp4"></video></div>
+            <div class="video-box"><video autoplay muted loop playsinline><source src="chat-video.mp4" type="video/mp4"></video></div>
         </div>
+        <button class="msg-btn" onclick="nextMsg()">See another word for you</button>
+        <div id="msg-display">"Every moment with you is a treasure, Aya..."</div>
     </section>
-
-    <!-- قسم فيديو الشات -->
-    <section class="glass-section">
-        <h2>Our Conversations</h2>
-        <p style="font-family: 'Playfair Display', serif; margin-bottom: 20px; color: #ddd;">The sweet chats that started it all...</p>
-        <div class="chat-video-box">
-            <video autoplay muted loop playsinline>
-                <source src="chat-video.mp4" type="video/mp4">
-            </video>
-        </div>
-    </section>
-
-    <footer>
-        <p>Made with all my heart for you ❤️</p>
-    </footer>
 
     <script>
-        function startExperience() {
-            const intro = document.getElementById('intro-screen');
-            const music = document.getElementById('bg-music');
-            intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 1200);
-            music.play().catch(error => console.log(error));
-            setInterval(createFallingElement, 350);
-        }
-
-        function showMsg(txt) { 
-            document.getElementById('msg-display').innerText = txt; 
-        }
-
         function createFallingElement() {
             const symbols = ['❤️', '🌹', '🌸', '💖', '🌷', '✨'];
             const el = document.createElement('div');
@@ -132,24 +58,39 @@
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
             el.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            el.style.opacity = Math.random() * 0.7 + 0.3;
             document.getElementById('elements-container').appendChild(el);
-            
-            setTimeout(() => { el.remove(); }, 7000);
+            setTimeout(() => el.remove(), 7000);
+        }
+        setInterval(createFallingElement, 400);
+
+        const heart = document.getElementById('heart');
+        for (let i = 0; i < 18; i++) {
+            const span = document.createElement('span');
+            span.className = 'heart-text';
+            span.innerText = "I love you Aya";
+            const angle = (i / 18) * Math.PI * 2;
+            const x = 110 * Math.sin(angle);
+            const y = -110 * Math.cos(angle);
+            span.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
+            heart.appendChild(span);
         }
 
-        /* كود تفعيل الظهور التدريجي عند التمرير */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        const msgs = [
+            "Aya, you are the most beautiful chapter in my life. ❤️",
+            "I don't just love you, I adore everything about you, Aya.",
+            "Meeting you was fate, but loving you is my choice forever. 🌹",
+            "Aya, your smile is the only light I need in my darkest days.",
+            "If I had to live my life again, I would find you sooner! ✨"
+        ];
+        
+        let idx = 0;
+        function nextMsg() {
+            document.getElementById('msg-display').innerText = msgs[idx];
+            idx = (idx + 1) % msgs.length;
+            document.querySelectorAll('.heart-text').forEach(el => {
+                el.style.color = `hsl(${Math.random() * 360}, 70%, 70%)`;
             });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.glass-section').forEach(section => {
-            observer.observe(section);
-        });
+        }
     </script>
 </body>
 </html>
