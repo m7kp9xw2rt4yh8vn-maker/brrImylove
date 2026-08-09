@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Aya - A Cinematic Universe</title>
-    
-    <!-- توحيد لون شريط المتصفح العلوي مع خلفية الموقع السوداء -->
+    <!-- توحيد لون شريط الحالة مع لون خلفية الموقع لجميع الأجهزة والمتصفحات -->
     <meta name="theme-color" content="#020202">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+    <title>For My Aya - A Cinematic Universe</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -227,12 +225,14 @@
         }
         .close-modal-btn:hover { background: #ff3385; transform: scale(1.08); box-shadow: 0 0 30px #ff4d94; }
 
-        /* تصميم هادئ ونظيف لمودال الموسيقى */
         .music-card-modal {
             border-color: rgba(168, 85, 247, 0.8);
             background: radial-gradient(circle at center, rgba(35, 15, 50, 0.95) 0%, rgba(12, 5, 20, 0.98) 100%);
             box-shadow: 0 0 70px rgba(168, 85, 247, 0.4), inset 0 0 30px rgba(168, 85, 247, 0.15);
-            padding: 40px 25px;
+            position: relative;
+            overflow: hidden;
+            max-width: 420px;
+            padding: 35px 25px;
         }
         .music-card-modal h3 {
             color: #d8b4fe;
@@ -243,25 +243,44 @@
 
         .ui-music-display {
             position: relative;
-            width: 200px; height: 200px;
-            margin: 25px auto 30px auto;
+            width: 190px; height: 190px;
+            margin: 15px auto 20px auto;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(15, 5, 25, 0.9) 70%);
-            border: 2px solid rgba(168, 85, 247, 0.5);
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(15, 5, 25, 0.95) 80%);
+            border: 2.5px solid rgba(168, 85, 247, 0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4), inset 0 0 20px rgba(168, 85, 247, 0.3);
+            z-index: 2;
         }
 
         .ui-music-display::before {
             content: '';
             position: absolute;
-            width: 100%; height: 100%;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            background: linear-gradient(45deg, #a855f7, #ff4d94, #3b82f6, #a855f7);
             border-radius: 50%;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0.6;
+            animation: auraGlow 6s linear infinite;
+        }
+
+        @keyframes auraGlow {
+            0% { filter: blur(12px); opacity: 0.5; transform: rotate(0deg); }
+            50% { filter: blur(18px); opacity: 0.8; transform: rotate(180deg); }
+            100% { filter: blur(12px); opacity: 0.5; transform: rotate(360deg); }
+        }
+
+        .vinyl-grooves {
+            position: absolute;
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
             animation: spinVinyl 10s linear infinite;
+            pointer-events: none;
         }
 
         @keyframes spinVinyl {
@@ -270,8 +289,9 @@
         }
 
         .cinematic-headphone {
-            width: 60px; height: 60px; fill: #d8b4fe;
+            width: 55px; height: 55px; fill: #d8b4fe;
             filter: drop-shadow(0 0 10px rgba(216, 180, 254, 0.8));
+            margin-bottom: 8px;
             animation: pulseHeadphone 2s ease-in-out infinite;
         }
 
@@ -281,7 +301,7 @@
         }
 
         .sound-waves {
-            display: flex; gap: 4px; align-items: flex-end; height: 18px; margin-top: 15px;
+            display: flex; gap: 4px; align-items: flex-end; height: 18px;
         }
 
         .wave-bar {
@@ -300,13 +320,31 @@
             100% { transform: scaleY(1.25); }
         }
 
-        /* تعديل الـ Footer ومسافة الأمان عشان ميحصلش أي تداخل مع الأزرار العائمة */
+        #music-falling-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; overflow: hidden; z-index: 1;
+        }
+
+        .music-note-particle {
+            position: absolute; top: -20px; width: 20px; height: 20px;
+            animation: musicFall linear infinite; opacity: 0.7;
+            filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+        }
+
+        @keyframes musicFall {
+            0% { transform: translateY(-10px) translateX(0) rotate(0deg) scale(0.6); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(420px) translateX(15px) rotate(360deg) scale(1.1); opacity: 0; }
+        }
+
         footer { 
-            padding: 40px 20px 90px 20px; 
-            color: #888; 
+            padding: 40px 30px 40px 30px; 
+            color: #777; 
             font-family: 'Playfair Display', serif; 
-            font-size: 1rem; 
-            letter-spacing: 1px; 
+            font-size: 0.85rem; 
+            letter-spacing: 0.5px; 
+            text-align: left; 
         }
 
         .inline-svg-heart {
@@ -363,9 +401,12 @@
 
     <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
         <div class="modal-card music-card-modal" onclick="event.stopPropagation()">
-            <h3>Aya's Melody</h3>
+            <div id="music-falling-container"></div>
+
+            <h3 style="position: relative; z-index: 2;">Aya's Melody</h3>
             
             <div class="ui-music-display">
+                <div class="vinyl-grooves"></div>
                 <svg class="cinematic-headphone" viewBox="0 0 24 24">
                     <path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/>
                 </svg>
@@ -378,9 +419,9 @@
                 </div>
             </div>
             
-            <p style="font-size: 1.2rem; color: #e9d5ff; margin-bottom: 25px; font-family: 'Playfair Display', serif; font-style: italic;">Our Special Song Playing...</p>
+            <p style="font-size: 1.1rem; color: #e9d5ff; margin-bottom: 22px; font-family: 'Playfair Display', serif; font-style: italic; position: relative; z-index: 2;">Our Special Song Playing...</p>
             
-            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,0.6);" onclick="closeMusicModal()">Close</button>
+            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,0.6); position: relative; z-index: 2;" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -436,15 +477,17 @@
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya <svg class="inline-svg-heart" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
+        <p>Made with all my heart for Aya <svg class="inline-svg-heart" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
     </footer>
 
     <script>
         function updateLoveCounter() {
             const startDate = new Date(2026, 5, 29);
             const today = new Date();
+            
             const diffTime = today - startDate;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
             document.getElementById('days-count').innerText = diffDays >= 0 ? diffDays : 0;
         }
 
@@ -464,6 +507,7 @@
         }
 
         const bgMusic = document.getElementById('bg-music');
+        let musicParticlesInterval = null;
 
         function startExperience() {
             const intro = document.getElementById('intro-screen');
@@ -496,12 +540,15 @@
 
         function openMusicModal() {
             document.getElementById('musicModalOverlay').classList.add('active');
-            bgMusic.play().catch(error => console.log(error));
+            bgMusic.play().then(() => {
+                startMusicParticles();
+            }).catch(error => console.log(error));
         }
 
         function closeMusicModal(e) {
             document.getElementById('musicModalOverlay').classList.remove('active');
             bgMusic.pause();
+            stopMusicParticles();
         }
 
         const siteBackgroundIcons = [
@@ -509,6 +556,37 @@
             '<svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
             '<svg viewBox="0 0 24 24" fill="none" stroke="#ff70a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>'
         ];
+
+        const musicModalIcons = [
+            '<svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>',
+            '<svg viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>',
+            '<svg viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>'
+        ];
+
+        function startMusicParticles() {
+            const container = document.getElementById('music-falling-container');
+            container.innerHTML = '';
+            if (musicParticlesInterval) clearInterval(musicParticlesInterval);
+            
+            musicParticlesInterval = setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'music-note-particle';
+                particle.innerHTML = musicModalIcons[Math.floor(Math.random() * musicModalIcons.length)];
+                particle.style.left = (Math.random() * 80 + 10) + '%';
+                particle.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                container.appendChild(particle);
+                
+                setTimeout(() => { particle.remove(); }, 4000);
+            }, 350);
+        }
+
+        function stopMusicParticles() {
+            if (musicParticlesInterval) {
+                clearInterval(musicParticlesInterval);
+                musicParticlesInterval = null;
+            }
+            document.getElementById('music-falling-container').innerHTML = '';
+        }
 
         function createFallingElement() {
             const el = document.createElement('div');
@@ -530,6 +608,7 @@
                 dew.style.top = Math.random() * 100 + 'vh';
                 dew.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 dew.style.animationDelay = (Math.random() * 3) + 's';
+                dewContainer.zIndex = 1;
                 dewContainer.appendChild(dew);
             }
         }
