@@ -11,9 +11,8 @@
         body { 
             background-color: #020202; 
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(255, 77, 148, 0.12) 0%, transparent 45%), 
-                radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.12) 0%, transparent 45%), 
-                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 60%), 
+                radial-gradient(circle at 10% 10%, rgba(255, 77, 148, 0.1) 0%, transparent 45%), 
+                radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.1) 0%, transparent 45%), 
                 linear-gradient(135deg, #050103 0%, #020202 100%); 
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
@@ -25,225 +24,219 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: radial-gradient(circle, #1f0515 0%, #030102 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 9999; transition: opacity 1.2s ease; 
+            z-index: 9999; transition: opacity 0.8s ease; 
         }
         #intro-screen h1 { 
-            font-family: 'Great Vibes', cursive; font-size: 3.8rem; color: #ff4d94; 
-            margin-bottom: 25px; text-shadow: 0 0 30px rgba(255,77,148,0.8); padding: 0 20px; 
+            font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d94; 
+            margin-bottom: 25px; text-shadow: 0 0 25px rgba(255,77,148,0.7); padding: 0 20px; 
         }
 
         .enter-btn { 
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.2), rgba(147, 51, 234, 0.2)); 
-            color: #fff; border: 2px solid #ff4d94; padding: 15px 45px; font-size: 1.25rem; 
+            color: #fff; border: 2px solid #ff4d94; padding: 14px 40px; font-size: 1.2rem; 
             font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; 
-            backdrop-filter: blur(10px); transition: all 0.4s ease; 
+            transition: transform 0.3s ease, background 0.3s ease; 
             box-shadow: 0 0 20px rgba(255, 77, 148, 0.3); 
         }
         .enter-btn:hover { 
-            transform: scale(1.1); background: #ff4d94; 
-            box-shadow: 0 0 45px #ff4d94, 0 0 80px rgba(147, 51, 234, 0.5); 
+            transform: scale(1.05); background: #ff4d94; 
         }
 
-        .falling-element { position: fixed; top: -50px; font-size: 22px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
+        .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; will-change: transform; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
         .cascade-container {
-            position: relative; width: 100%; height: 130px; overflow: hidden; margin: 25px auto 5px; z-index: 2;
+            position: relative; width: 100%; height: 110px; overflow: hidden; margin: 20px auto 5px; z-index: 2;
         }
 
         .cascade-text {
-            position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.6rem; color: #ff4d94;
-            text-shadow: 0 0 18px rgba(255, 77, 148, 0.9); white-space: nowrap; animation: cascadeDown 4s linear infinite; opacity: 0;
+            position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #ff4d94;
+            text-shadow: 0 0 15px rgba(255, 77, 148, 0.8); white-space: nowrap; animation: cascadeDown 4s linear infinite; opacity: 0;
+            will-change: transform, opacity;
         }
 
         @keyframes cascadeDown {
-            0% { transform: translateY(-30px) scale(0.9); opacity: 0; }
+            0% { transform: translateY(-20px) scale(0.9); opacity: 0; }
             20% { opacity: 1; }
             80% { opacity: 1; }
-            100% { transform: translateY(100px) scale(1.1); opacity: 0; }
+            100% { transform: translateY(80px) scale(1.05); opacity: 0; }
         }
 
-        .name-wrapper { margin-bottom: 35px; z-index: 2; position: relative; }
+        .name-wrapper { margin-bottom: 30px; z-index: 2; position: relative; }
         .aya-title { 
-            font-family: 'Great Vibes', cursive; font-size: 5.5rem; color: #ff4d94; 
-            text-shadow: 0 0 35px rgba(255,77,148,0.8), 0 0 60px rgba(147,51,234,0.4); 
-            letter-spacing: 2px;
+            font-family: 'Great Vibes', cursive; font-size: 5rem; color: #ff4d94; 
+            text-shadow: 0 0 30px rgba(255,77,148,0.7); letter-spacing: 2px;
         }
 
         .glass-section { 
-            background: linear-gradient(135deg, rgba(25, 12, 20, 0.65), rgba(10, 5, 12, 0.75)); 
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 77, 148, 0.25); width: 90%; max-width: 720px; 
-            margin: 45px auto; padding: 35px 25px; border-radius: 24px; z-index: 2; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(255, 77, 148, 0.05); 
-            opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease, box-shadow 0.4s ease; 
+            background: rgba(25, 12, 20, 0.7); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 77, 148, 0.2); width: 90%; max-width: 700px; 
+            margin: 40px auto; padding: 30px 20px; border-radius: 20px; z-index: 2; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; 
+            will-change: opacity, transform;
         }
         .glass-section.visible { opacity: 1; transform: translateY(0); }
-        .glass-section:hover { box-shadow: 0 20px 50px rgba(255, 77, 148, 0.2), inset 0 0 25px rgba(255, 77, 148, 0.1); }
         
         .glass-section h2 { 
-            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.2rem; margin-bottom: 22px; 
-            text-shadow: 0 0 15px rgba(255,143,163,0.4);
+            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3rem; margin-bottom: 20px; 
         }
 
-        .media-grid { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+        .media-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center; }
         
         .polaroid { 
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 12px 30px rgba(0,0,0,0.6); 
-            padding: 12px 12px 32px 12px; border-radius: 18px; width: 210px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
+            padding: 10px 10px 28px 10px; border-radius: 15px; width: 200px; transition: transform 0.3s ease; 
         }
-        .polaroid:hover { transform: translateY(-12px) rotate(2deg) scale(1.05); box-shadow: 0 20px 45px rgba(255, 77, 148, 0.4); border-color: rgba(255, 77, 148, 0.5); }
-        .polaroid img { width: 100%; height: 190px; object-fit: cover; border-radius: 10px; }
-        .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.05rem; text-shadow: 0 0 8px rgba(0,0,0,0.7); }
+        .polaroid:hover { transform: translateY(-8px); }
+        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+        .polaroid p { margin-top: 12px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1rem; }
 
         .video-box { 
-            width: 210px; height: 290px; border-radius: 18px; overflow: hidden; 
-            border: 2px solid rgba(255, 77, 148, 0.5); background: #000; 
-            box-shadow: 0 8px 25px rgba(255, 77, 148, 0.25); transition: 0.4s ease;
+            width: 200px; height: 280px; border-radius: 15px; overflow: hidden; 
+            border: 2px solid rgba(255, 77, 148, 0.4); background: #000; 
         }
-        .video-box:hover { transform: translateY(-8px) scale(1.03); border-color: #ff4d94; box-shadow: 0 15px 35px rgba(255, 77, 148, 0.4); }
         .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .chat-video-box { 
-            width: 250px; height: 460px; border-radius: 28px; overflow: hidden; 
-            border: 3px solid rgba(255, 77, 148, 0.7); box-shadow: 0 10px 30px rgba(255, 77, 148, 0.3); 
-            background: #000; margin: 0 auto; transition: 0.4s ease;
+            width: 240px; height: 440px; border-radius: 24px; overflow: hidden; 
+            border: 3px solid rgba(255, 77, 148, 0.6); background: #000; margin: 0 auto; 
         }
-        .chat-video-box:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(255, 77, 148, 0.5); }
         .chat-video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .msg-btn { 
-            background: linear-gradient(135deg, rgba(255, 77, 148, 0.1), rgba(255, 77, 148, 0.2)); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.6); padding: 10px 24px; margin: 6px; 
-            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1rem; 
-            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            background: rgba(255, 77, 148, 0.15); 
+            color: #fff; border: 1px solid rgba(255, 77, 148, 0.5); padding: 10px 22px; margin: 6px; 
+            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 0.95rem; 
+            transition: background 0.3s ease, transform 0.2s ease;
         }
-        .msg-btn:hover { background: #ff4d94; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,77,148,0.5); }
-        #msg-display { margin-top: 20px; font-size: 1.25rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 15px; text-shadow: 0 0 10px rgba(255,77,148,0.3); }
+        .msg-btn:hover { background: #ff4d94; transform: translateY(-2px); }
+        #msg-display { margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 15px; }
 
         .floating-container {
-            position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end;
+            position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 998; align-items: flex-end;
         }
 
         .floating-bubble { 
-            background: linear-gradient(135deg, rgba(25, 12, 20, 0.9), rgba(45, 15, 30, 0.9)); 
-            border: 2px solid #ff4d94; color: #fff; padding: 12px 20px; border-radius: 30px; 
-            cursor: pointer; box-shadow: 0 0 25px rgba(255,77,148,0.4); 
-            font-family: 'Playfair Display', serif; font-size: 0.95rem; backdrop-filter: blur(8px); 
+            background: rgba(25, 12, 20, 0.9); 
+            border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 10px 18px; border-radius: 30px; 
+            cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.4); 
+            font-family: 'Playfair Display', serif; font-size: 0.9rem; 
             display: flex; align-items: center; gap: 8px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transition: transform 0.3s ease, background 0.3s ease; 
         }
-        .floating-bubble:hover { transform: scale(1.08) translateY(-3px); background: rgba(255, 77, 148, 0.35); box-shadow: 0 0 35px #ff4d94; }
+        .floating-bubble:hover { transform: translateY(-3px); background: rgba(255, 77, 148, 0.3); }
 
         .music-bubble {
-            border-color: #a855f7;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
-        }
-        .music-bubble:hover {
-            box-shadow: 0 0 35px #a855f7;
-            background: rgba(168, 85, 247, 0.25);
+            border-color: rgba(168, 85, 247, 0.6);
+            background: rgba(25, 15, 35, 0.9);
         }
 
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(10px); 
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; 
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; 
         }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         
         .modal-card { 
-            background: linear-gradient(135deg, rgba(25, 12, 20, 0.95), rgba(12, 5, 10, 0.95)); 
-            border: 2px solid #ff4d94; padding: 40px 30px; border-radius: 28px; width: 85%; max-width: 420px; 
-            box-shadow: 0 0 50px rgba(255, 77, 148, 0.5), inset 0 0 20px rgba(255,77,148,0.1); 
-            text-align: center; transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: rgba(25, 12, 20, 0.95); 
+            border: 2px solid #ff4d94; padding: 35px 25px; border-radius: 24px; width: 85%; max-width: 380px; 
+            box-shadow: 0 0 35px rgba(255, 77, 148, 0.4); 
+            text-align: center; transform: scale(0.9); transition: transform 0.3s ease; 
         }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
-        .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 2.8rem; margin-bottom: 18px; text-shadow: 0 0 15px rgba(255,77,148,0.5); }
-        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.15rem; line-height: 1.7; margin-bottom: 28px; }
+        .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 2.5rem; margin-bottom: 15px; }
+        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; }
         
         .close-modal-btn { 
-            background: #ff4d94; color: #fff; border: none; padding: 12px 35px; 
-            font-family: 'Playfair Display', serif; font-size: 1.05rem; border-radius: 30px; 
-            cursor: pointer; box-shadow: 0 0 20px rgba(255,77,148,0.6); transition: all 0.3s ease; 
+            background: #ff4d94; color: #fff; border: none; padding: 10px 30px; 
+            font-family: 'Playfair Display', serif; font-size: 1rem; border-radius: 30px; 
+            cursor: pointer; transition: transform 0.2s ease; 
         }
-        .close-modal-btn:hover { background: #ff3385; transform: scale(1.08); box-shadow: 0 0 30px #ff4d94; }
+        .close-modal-btn:hover { transform: scale(1.05); }
 
-        .music-card-modal {
-            border-color: #a855f7;
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
+        .music-card-modal { border-color: #a855f7; }
+        .music-card-modal h3 { color: #d8b4fe; }
+        
+        .music-icon-container {
+            width: 100px; height: 100px; border-radius: 50%;
+            background: rgba(168, 85, 247, 0.15);
+            border: 2px solid #a855f7;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
         }
-        .music-card-modal h3 {
-            color: #d8b4fe;
-            text-shadow: 0 0 15px rgba(216, 180, 254, 0.6);
+        .music-icon-container svg {
+            width: 40px; height: 40px; fill: #d8b4fe;
+            animation: spinIcon 10s linear infinite paused;
+            will-change: transform;
         }
-        .album-art {
-            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
-            margin: 0 auto 20px auto; border: 3px solid #a855f7;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
-            animation: spinArt 10s linear infinite paused;
-        }
-        .album-art.playing {
-            animation-play-state: running;
-        }
-        @keyframes spinArt {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .music-icon-container.playing svg { animation-play-state: running; }
+        @keyframes spinIcon { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         .music-controls {
-            display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;
+            display: flex; justify-content: center; align-items: center; margin-top: 10px;
         }
         .play-pause-btn {
             background: linear-gradient(135deg, #a855f7, #ec4899);
             color: #fff; border: none; width: 60px; height: 60px; border-radius: 50%;
-            font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6); transition: 0.3s;
+            font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); transition: transform 0.2s ease;
         }
-        .play-pause-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px #ec4899; }
+        .play-pause-btn:hover { transform: scale(1.08); }
 
-        footer { padding: 30px; color: #666; font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 1px; }
+        footer { padding: 25px; color: #666; font-family: 'Playfair Display', serif; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <div id="intro-screen">
-        <h1>A Special Universe For You... </h1>
+        <h1>A Special Universe For You...</h1>
         <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
     </div>
 
-    <!-- تم ربط الأغنية المحلية هنا -->
-    <audio id="bg-music" loop>
+    <!-- ملف الأغنية بدون تحميل مسبق لتوفير السرعة -->
+    <audio id="bg-music" preload="none" loop>
         <source src="aya-song.mp3" type="audio/mp3">
     </audio>
 
     <div id="elements-container"></div>
 
     <div class="floating-container">
-        <div class="floating-bubble music-bubble" onclick="openMusicModal()">🎵 Our Song</div>
-        <div class="floating-bubble" onclick="openFloatingModal()">💌 Tap for Aya</div>
-    </div>
-
-    <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <h3>For My Love, Aya </h3>
-            <p id="modal-text-content">Aya, you make my heart skip a beat every single day. 💖</p>
-            <button class="close-modal-btn" onclick="closeFloatingModal()">Close </button>
+        <div class="floating-bubble music-bubble" onclick="openMusicModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            Our Song
+        </div>
+        <div class="floating-bubble" onclick="openFloatingModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Tap for Aya
         </div>
     </div>
 
-    <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
+    <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <h3>For My Love, Aya</h3>
+            <p id="modal-text-content">Aya, you make my heart skip a beat every single day. 💖</p>
+            <button class="close-modal-btn" onclick="closeFloatingModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal()">
         <div class="modal-card music-card-modal" onclick="event.stopPropagation()">
             <h3>Aya's Melody</h3>
-            <img src="girl1.jpg" alt="Album Art" class="album-art" id="albumArt">
-            <p style="font-size: 1rem; color: #e9d5ff; margin-bottom: 10px;">Playing: Our Special Song</p>
-            
-            <div class="music-controls">
-                <button class="play-pause-btn" id="playPauseBtn" onclick="togglePlayMusic()">▶</button>
+            <div class="music-icon-container" id="musicIconBox">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             </div>
-            
-            <button class="close-modal-btn" style="margin-top: 25px; background: #a855f7; box-shadow: 0 0 15px rgba(168,85,247,0.6);" onclick="closeMusicModal()">Close</button>
+            <p style="font-size: 0.95rem; color: #e9d5ff; margin-bottom: 8px; font-family: 'Playfair Display', serif;">Our Special Song</p>
+            <div class="music-controls">
+                <button class="play-pause-btn" id="playPauseBtn" onclick="togglePlayMusic()">Play</button>
+            </div>
+            <button class="close-modal-btn" style="margin-top: 20px; background: #a855f7;" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -263,10 +256,11 @@
     <section class="glass-section">
         <h2>My Beautiful Princess</h2>
         <div class="media-grid">
-            <div class="polaroid"><img src="girl1.jpg"><p>Your lovely smile</p></div>
-            <div class="polaroid"><img src="girl2.jpg"><p>The light of my days</p></div>
+            <div class="polaroid"><img src="girl1.jpg" loading="lazy"><p>Your lovely smile</p></div>
+            <div class="polaroid"><img src="girl2.jpg" loading="lazy"><p>The light of my days</p></div>
             <div class="video-box">
-                <video autoplay muted loop playsinline>
+                <!-- تم إضافة preload="none" لتسريع فتح الموقع بشدة -->
+                <video preload="none" muted loop playsinline>
                     <source src="girl-video.mp4" type="video/mp4">
                 </video>
             </div>
@@ -275,29 +269,26 @@
 
     <section class="glass-section">
         <h2>Our Conversations</h2>
-        <p style="font-family: 'Playfair Display', serif; margin-bottom: 18px; color: #ddd; font-size: 1rem;">The sweet chats that started it all...</p>
+        <p style="font-family: 'Playfair Display', serif; margin-bottom: 15px; color: #ddd; font-size: 0.95rem;">The sweet chats that started it all...</p>
         <div class="chat-video-box">
-            <video autoplay muted loop playsinline>
+            <video preload="none" muted loop playsinline>
                 <source src="chat-video.mp4" type="video/mp4">
             </video>
         </div>
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya </p>
+        <p>Made with all my heart for Aya</p>
     </footer>
 
     <script>
         const cascadeContainer = document.getElementById('cascadeContainer');
-        const wordCount = 5;
-
-        for (let i = 0; i < wordCount; i++) {
+        for (let i = 0; i < 4; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${15 + (i * 17)}%`;
-            span.style.animationDelay = `${i * 0.8}s`;
-            span.style.animationDuration = '3.5s';
+            span.style.left = `${15 + (i * 20)}%`;
+            span.style.animationDelay = `${i * 0.9}s`;
             cascadeContainer.appendChild(span);
         }
 
@@ -306,11 +297,12 @@
         function startExperience() {
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 1200);
-            bgMusic.play().then(() => {
-                updatePlayButtonState(true);
-            }).catch(error => console.log(error));
-            setInterval(createFallingElement, 600);
+            setTimeout(() => { intro.style.display = 'none'; }, 800);
+            
+            // تشغيل الفيديوهات تلقائياً بصمت بعد دخول الموقع لضمان خفته وعدم التعليق
+            document.querySelectorAll('video').forEach(v => v.play().catch(() => {}));
+            
+            setInterval(createFallingElement, 800);
         }
 
         function showMsg(txt) { 
@@ -325,12 +317,11 @@
         ];
 
         function openFloatingModal() {
-            const randomMsg = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
-            document.getElementById('modal-text-content').innerText = randomMsg;
+            document.getElementById('modal-text-content').innerText = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
             document.getElementById('modalOverlay').classList.add('active');
         }
 
-        function closeFloatingModal(e) {
+        function closeFloatingModal() {
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
@@ -338,7 +329,7 @@
             document.getElementById('musicModalOverlay').classList.add('active');
         }
 
-        function closeMusicModal(e) {
+        function closeMusicModal() {
             document.getElementById('musicModalOverlay').classList.remove('active');
         }
 
@@ -354,13 +345,13 @@
 
         function updatePlayButtonState(isPlaying) {
             const btn = document.getElementById('playPauseBtn');
-            const art = document.getElementById('albumArt');
+            const iconBox = document.getElementById('musicIconBox');
             if (isPlaying) {
-                btn.innerText = "⏸";
-                art.classList.add('playing');
+                btn.innerText = "Pause";
+                iconBox.classList.add('playing');
             } else {
-                btn.innerText = "▶";
-                art.classList.remove('playing');
+                btn.innerText = "Play";
+                iconBox.classList.remove('playing');
             }
         }
 
@@ -373,9 +364,9 @@
             el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            el.style.animationDuration = (Math.random() * 3 + 4) + 's';
             document.getElementById('elements-container').appendChild(el);
-            setTimeout(() => { el.remove(); }, 8000);
+            setTimeout(() => { el.remove(); }, 7000);
         }
 
         const observer = new IntersectionObserver((entries) => {
