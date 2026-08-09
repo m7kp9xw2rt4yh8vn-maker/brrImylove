@@ -18,14 +18,13 @@
         .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        /* حاوية مسار القلب المتحرك */
-        .heart-path-container {
+        .rose-path-container {
             position: relative;
-            width: 320px;
-            height: 320px;
-            margin: 20px auto 10px;
+            width: 300px;
+            height: 300px;
+            margin: 25px auto 10px;
             z-index: 2;
-            animation: containerSpin 30s linear infinite;
+            animation: containerSpin 35s linear infinite;
         }
 
         @keyframes containerSpin {
@@ -33,15 +32,14 @@
             100% { transform: rotate(360deg); }
         }
 
-        .heart-path-text {
+        .rose-path-text {
             position: absolute;
             font-family: 'Great Vibes', cursive;
             font-size: 1.25rem;
             color: #ff4d94;
             text-shadow: 0 0 10px rgba(255, 77, 148, 0.8);
             white-space: nowrap;
-            /* عكس دوران الحوية ليبقى الكلام واضح ومعدول أثناء الحركة */
-            animation: counterSpin 30s linear infinite;
+            animation: counterSpin 35s linear infinite;
         }
 
         @keyframes counterSpin {
@@ -117,8 +115,7 @@
         </div>
     </div>
 
-    <!-- مسار القلب المتحرك بالمعادلة البرمجية -->
-    <div class="heart-path-container" id="heartPathContainer"></div>
+    <div class="rose-path-container" id="rosePathContainer"></div>
 
     <div class="name-wrapper">
         <h1 class="aya-title">Aya</h1>
@@ -160,24 +157,23 @@
     </footer>
 
     <script>
-        // توزيع الكلمات بدقة على إحداثيات شكل القلب الحقيقي (Parametric Heart Equation)
-        const container = document.getElementById('heartPathContainer');
-        const totalWords = 40;
+        const container = document.getElementById('rosePathContainer');
+        const totalWords = 36;
+        const k = 4;
 
         for (let i = 0; i < totalWords; i++) {
             const span = document.createElement('span');
-            span.className = 'heart-path-text';
+            span.className = 'rose-path-text';
             span.innerText = "I love you";
 
-            const t = (i / totalWords) * 2 * Math.PI;
-            // معادلة القلب الرياضية لتوزيع النص تماماً على شكل قلب
-            const x = 13 * Math.sin(t) - 5 * Math.sin(2 * t) - 2 * Math.sin(3 * t) - Math.sin(4 * t);
-            const y = -13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            const theta = (i / totalWords) * 2 * Math.PI;
+            const r = 90 * Math.cos(k * theta) + 35;
 
-            // ضبط الحجم والمركز داخل الحاوية
-            const scale = 9.5;
-            const posX = 160 + x * scale;
-            const posY = 150 + y * scale;
+            const x = r * Math.cos(theta);
+            const y = r * Math.sin(theta);
+
+            const posX = 150 + x - 30;
+            const posY = 150 + y - 10;
 
             span.style.left = `${posX}px`;
             span.style.top = `${posY}px`;
