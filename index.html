@@ -18,35 +18,9 @@
         .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        /* حاوية حرف A المتحركة */
-        .letter-a-container { 
-            position: relative; 
-            width: 300px; 
-            height: 320px; 
-            margin: 25px auto 10px; 
-            z-index: 2; 
-            animation: containerSpin 35s linear infinite;
-        }
-
-        @keyframes containerSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .letter-a-text { 
-            position: absolute; 
-            font-family: 'Great Vibes', cursive; 
-            font-size: 1.15rem; 
-            color: #ff4d94; 
-            text-shadow: 0 0 10px rgba(255, 77, 148, 0.8); 
-            white-space: nowrap; 
-            animation: counterSpin 35s linear infinite;
-        }
-
-        @keyframes counterSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
-        }
+        .heart-wrapper-3d { position: relative; width: 280px; height: 280px; margin: 40px auto 10px; z-index: 2; display: flex; justify-content: center; align-items: center; }
+        .heart-path-text { position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.4rem; color: #ff4d94; text-shadow: 0 0 12px #ff4d94; white-space: nowrap; animation: spinText 25s linear infinite; }
+        @keyframes spinText { from { transform: rotate(0deg) translateX(115px) rotate(0deg); } to { transform: rotate(360deg) translateX(115px) rotate(-360deg); } }
 
         .name-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; z-index: 2; position: relative; }
         .aya-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; text-shadow: 0 0 25px rgba(255,77,148,0.7); }
@@ -116,8 +90,7 @@
         </div>
     </div>
 
-    <!-- حاوية حرف A المتحركة -->
-    <div class="letter-a-container" id="letterAContainer"></div>
+    <div class="heart-wrapper-3d" id="heart-path-container"></div>
 
     <div class="name-wrapper">
         <h1 class="aya-title">Aya</h1>
@@ -159,29 +132,15 @@
     </footer>
 
     <script>
-        const container = document.getElementById('letterAContainer');
-        const points = [];
-        const steps = 12;
-
-        // رسم حرف A بالنقاط (الساق اليسرى، الساق اليمنى، والشرطة العرضية)
-        for (let i = 0; i <= steps; i++) {
-            points.push({ x: 150 - (i * 8), y: 280 - (i * 22) });
-        }
-        for (let i = 0; i <= steps; i++) {
-            points.push({ x: 150 + (i * 8), y: 16 + (i * 22) });
-        }
-        for (let i = 0; i <= 6; i++) {
-            points.push({ x: 102 + (i * 13), y: 165 });
-        }
-
-        points.forEach((pt) => {
+        const heartContainer = document.getElementById('heart-path-container');
+        const totalWords = 36;
+        for (let i = 0; i < totalWords; i++) {
             const span = document.createElement('span');
-            span.className = 'letter-a-text';
+            span.className = 'heart-path-text';
             span.innerText = "I love you";
-            span.style.left = `${pt.x}px`;
-            span.style.top = `${pt.y}px`;
-            container.appendChild(span);
-        });
+            span.style.animationDelay = `-${i * (25 / totalWords)}s`;
+            heartContainer.appendChild(span);
+        }
 
         function startExperience() {
             const intro = document.getElementById('intro-screen');
