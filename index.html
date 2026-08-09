@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- توحيد لون شريط الحالة مع لون خلفية الموقع لجميع الأجهزة والمتصفحات -->
     <meta name="theme-color" content="#020202">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>For My Aya - A Cinematic Universe</title>
@@ -133,7 +132,7 @@
         .counter-desc {
             font-family: 'Playfair Display', serif; font-style: italic;
             color: #e9d5ff; font-size: 1.15rem; margin-top: 15px; text-shadow: 0 0 10px rgba(255,77,148,0.3);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            display: block; line-height: 1.6; text-align: center;
         }
 
         .media-grid { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
@@ -339,22 +338,24 @@
         }
 
         footer { 
-            padding: 40px 30px 40px 30px; 
+            padding: 30px 25px; 
             color: #777; 
             font-family: 'Playfair Display', serif; 
-            font-size: 0.85rem; 
+            font-size: 0.75rem; 
             letter-spacing: 0.5px; 
             text-align: left; 
+            padding-left: 20px;
         }
 
         .inline-svg-heart {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             fill: #ff4d94;
             filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.8));
             animation: heartBeatSvg 1.5s ease-in-out infinite;
             display: inline-block;
             vertical-align: middle;
+            margin-inline-start: 6px;
         }
 
         @keyframes heartBeatSvg {
@@ -434,8 +435,8 @@
     <section class="glass-section">
         <h2>Our Journey Together</h2>
         <p class="counter-desc">
-            <span>Every single day with you is a blessing</span>
-            <svg class="inline-svg-heart" style="width:18px;height:18px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            Every single day with you is a 
+            <span>blessing</span><svg class="inline-svg-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </p>
         <div class="counter-box">
             <div class="counter-item">
@@ -477,7 +478,7 @@
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya <svg class="inline-svg-heart" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
+        <p>Made with all my heart for Aya <svg class="inline-svg-heart" style="width:11px;height:11px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
     </footer>
 
     <script>
