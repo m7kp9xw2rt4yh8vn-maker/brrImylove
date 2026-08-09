@@ -3,92 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Aya - A Cinematic Gift</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <title>For My Aya - A Cinematic Universe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #030303; background-image: radial-gradient(circle at 20% 20%, rgba(255, 77, 148, 0.08) 0%, transparent 40%), radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 40%), linear-gradient(135deg, #090005 0%, #030303 100%); font-family: 'Poppins', sans-serif; color: #fff; overflow-x: hidden; text-align: center; }
+        
+        body { 
+            background-color: #020202; 
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(255, 77, 148, 0.12) 0%, transparent 45%), 
+                radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.12) 0%, transparent 45%), 
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 60%), 
+                linear-gradient(135deg, #050103 0%, #020202 100%); 
+            font-family: 'Poppins', sans-serif; 
+            color: #fff; 
+            overflow-x: hidden; 
+            text-align: center; 
+        }
 
-        #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: radial-gradient(circle, #1a0011 0%, #050003 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.2s ease; }
-        #intro-screen h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d94; margin-bottom: 25px; text-shadow: 0 0 25px rgba(255,77,148,0.7); padding: 0 20px; }
+        #intro-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: radial-gradient(circle, #1f0515 0%, #030102 100%); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 9999; transition: opacity 1.2s ease; 
+        }
+        #intro-screen h1 { 
+            font-family: 'Great Vibes', cursive; font-size: 3.8rem; color: #ff4d94; 
+            margin-bottom: 25px; text-shadow: 0 0 30px rgba(255,77,148,0.8); padding: 0 20px; 
+        }
 
-        .enter-btn { background: rgba(255, 77, 148, 0.15); color: #fff; border: 2px solid #ff4d94; padding: 14px 40px; font-size: 1.2rem; font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; backdrop-filter: blur(5px); transition: 0.4s; }
-        .enter-btn:hover { transform: scale(1.08); background: #ff4d94; box-shadow: 0 0 40px #ff4d94; }
+        .enter-btn { 
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.2), rgba(147, 51, 234, 0.2)); 
+            color: #fff; border: 2px solid #ff4d94; padding: 15px 45px; font-size: 1.25rem; 
+            font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; 
+            backdrop-filter: blur(10px); transition: all 0.4s ease; 
+            box-shadow: 0 0 20px rgba(255, 77, 148, 0.3); 
+        }
+        .enter-btn:hover { 
+            transform: scale(1.1); background: #ff4d94; 
+            box-shadow: 0 0 45px #ff4d94, 0 0 80px rgba(147, 51, 234, 0.5); 
+        }
 
-        .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
+        .falling-element { position: fixed; top: -50px; font-size: 22px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        /* حاوية التساقط التصاعدي لكلمات الحب */
         .cascade-container {
-            position: relative;
-            width: 100%;
-            height: 120px;
-            overflow: hidden;
-            margin: 20px auto 10px;
-            z-index: 2;
+            position: relative; width: 100%; height: 130px; overflow: hidden; margin: 25px auto 5px; z-index: 2;
         }
 
         .cascade-text {
-            position: absolute;
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.5rem;
-            color: #ff4d94;
-            text-shadow: 0 0 15px rgba(255, 77, 148, 0.8);
-            white-space: nowrap;
-            animation: cascadeDown 4s linear infinite;
-            opacity: 0;
+            position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.6rem; color: #ff4d94;
+            text-shadow: 0 0 18px rgba(255, 77, 148, 0.9); white-space: nowrap; animation: cascadeDown 4s linear infinite; opacity: 0;
         }
 
         @keyframes cascadeDown {
-            0% { transform: translateY(-30px); opacity: 0; }
+            0% { transform: translateY(-30px) scale(0.9); opacity: 0; }
             20% { opacity: 1; }
             80% { opacity: 1; }
-            100% { transform: translateY(90px); opacity: 0; }
+            100% { transform: translateY(100px) scale(1.1); opacity: 0; }
         }
 
-        .name-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; z-index: 2; position: relative; }
-        .aya-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; text-shadow: 0 0 25px rgba(255,77,148,0.7); }
-        .header-heart { font-size: 2.5rem; animation: heartbeat 1.5s infinite ease-in-out; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .name-wrapper { margin-bottom: 35px; z-index: 2; position: relative; }
+        .aya-title { 
+            font-family: 'Great Vibes', cursive; font-size: 5.5rem; color: #ff4d94; 
+            text-shadow: 0 0 35px rgba(255,77,148,0.8), 0 0 60px rgba(147,51,234,0.4); 
+            letter-spacing: 2px;
+        }
 
-        .glass-section { background: rgba(20, 10, 15, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 77, 148, 0.2); width: 90%; max-width: 700px; margin: 40px auto; padding: 30px 20px; border-radius: 20px; z-index: 2; box-shadow: 0 10px 30px rgba(0,0,0,0.4); opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .glass-section { 
+            background: linear-gradient(135deg, rgba(25, 12, 20, 0.65), rgba(10, 5, 12, 0.75)); 
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 77, 148, 0.25); width: 90%; max-width: 720px; 
+            margin: 45px auto; padding: 35px 25px; border-radius: 24px; z-index: 2; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(255, 77, 148, 0.05); 
+            opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease, box-shadow 0.4s ease; 
+        }
         .glass-section.visible { opacity: 1; transform: translateY(0); }
+        .glass-section:hover { box-shadow: 0 20px 50px rgba(255, 77, 148, 0.2), inset 0 0 25px rgba(255, 77, 148, 0.1); }
         
-        .glass-section h2 { font-family: 'Great Vibes', cursive; color: #ff758c; font-size: 3rem; margin-bottom: 20px; }
+        .glass-section h2 { 
+            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.2rem; margin-bottom: 22px; 
+            text-shadow: 0 0 15px rgba(255,143,163,0.4);
+        }
 
-        .media-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center; }
+        .media-grid { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
         
-        .polaroid { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px rgba(0,0,0,0.5); padding: 10px 10px 30px 10px; border-radius: 15px; width: 200px; transition: 0.4s; }
-        .polaroid:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 15px 40px rgba(255, 77, 148, 0.4); }
-        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
-        .polaroid p { margin-top: 12px; font-family: 'Playfair Display', serif; color: #eee; font-size: 1rem; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+        .polaroid { 
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 12px 30px rgba(0,0,0,0.6); 
+            padding: 12px 12px 32px 12px; border-radius: 18px; width: 210px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .polaroid:hover { transform: translateY(-12px) rotate(2deg) scale(1.05); box-shadow: 0 20px 45px rgba(255, 77, 148, 0.4); border-color: rgba(255, 77, 148, 0.5); }
+        .polaroid img { width: 100%; height: 190px; object-fit: cover; border-radius: 10px; }
+        .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.05rem; text-shadow: 0 0 8px rgba(0,0,0,0.7); }
 
-        .video-box { width: 200px; height: 280px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.6); background: #000; box-shadow: 0 5px 20px rgba(255, 77, 148, 0.3); }
+        .video-box { 
+            width: 210px; height: 290px; border-radius: 18px; overflow: hidden; 
+            border: 2px solid rgba(255, 77, 148, 0.5); background: #000; 
+            box-shadow: 0 8px 25px rgba(255, 77, 148, 0.25); transition: 0.4s ease;
+        }
+        .video-box:hover { transform: translateY(-8px) scale(1.03); border-color: #ff4d94; box-shadow: 0 15px 35px rgba(255, 77, 148, 0.4); }
         .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .chat-video-box { width: 240px; height: 440px; border-radius: 25px; overflow: hidden; border: 3px solid rgba(255, 77, 148, 0.8); box-shadow: 0 5px 25px rgba(255, 77, 148, 0.4); background: #000; margin: 0 auto; }
+        .chat-video-box { 
+            width: 250px; height: 460px; border-radius: 28px; overflow: hidden; 
+            border: 3px solid rgba(255, 77, 148, 0.7); box-shadow: 0 10px 30px rgba(255, 77, 148, 0.3); 
+            background: #000; margin: 0 auto; transition: 0.4s ease;
+        }
+        .chat-video-box:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(255, 77, 148, 0.5); }
         .chat-video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid #ff4d94; padding: 8px 20px; margin: 5px; border-radius: 25px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 0.95rem; transition: 0.3s; }
-        .msg-btn:active { background: #ff4d94; }
-        #msg-display { margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; }
+        .msg-btn { 
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.1), rgba(255, 77, 148, 0.2)); 
+            color: #fff; border: 1px solid rgba(255, 77, 148, 0.6); padding: 10px 24px; margin: 6px; 
+            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1rem; 
+            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .msg-btn:hover { background: #ff4d94; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,77,148,0.5); }
+        #msg-display { margin-top: 20px; font-size: 1.25rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 15px; text-shadow: 0 0 10px rgba(255,77,148,0.3); }
 
-        .floating-bubble { position: fixed; bottom: 20px; right: 20px; background: rgba(20, 10, 15, 0.9); border: 2px solid #ff4d94; color: #fff; padding: 10px 18px; border-radius: 25px; z-index: 998; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.5); font-family: 'Playfair Display', serif; font-size: 0.9rem; transition: 0.3s; }
-        .floating-bubble:hover { transform: scale(1.05); background: rgba(255, 77, 148, 0.3); }
+        .floating-container {
+            position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end;
+        }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .floating-bubble { 
+            background: linear-gradient(135deg, rgba(25, 12, 20, 0.9), rgba(45, 15, 30, 0.9)); 
+            border: 2px solid #ff4d94; color: #fff; padding: 12px 20px; border-radius: 30px; 
+            cursor: pointer; box-shadow: 0 0 25px rgba(255,77,148,0.4); 
+            font-family: 'Playfair Display', serif; font-size: 0.95rem; backdrop-filter: blur(8px); 
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .floating-bubble:hover { transform: scale(1.08) translateY(-3px); background: rgba(255, 77, 148, 0.35); box-shadow: 0 0 35px #ff4d94; }
+
+        .music-bubble {
+            border-color: #a855f7;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+        }
+        .music-bubble:hover {
+            box-shadow: 0 0 35px #a855f7;
+            background: rgba(168, 85, 247, 0.25);
+        }
+
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(10px); 
+            display: flex; justify-content: center; align-items: center; z-index: 10000; 
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; 
+        }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         
-        .modal-card { background: rgba(20, 10, 15, 0.85); border: 2px solid #ff4d94; padding: 35px 25px; border-radius: 25px; width: 85%; max-width: 400px; box-shadow: 0 0 40px rgba(255, 77, 148, 0.5); text-align: center; transform: scale(0.8); transition: transform 0.4s ease; }
+        .modal-card { 
+            background: linear-gradient(135deg, rgba(25, 12, 20, 0.95), rgba(12, 5, 10, 0.95)); 
+            border: 2px solid #ff4d94; padding: 40px 30px; border-radius: 28px; width: 85%; max-width: 420px; 
+            box-shadow: 0 0 50px rgba(255, 77, 148, 0.5), inset 0 0 20px rgba(255,77,148,0.1); 
+            text-align: center; transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
-        .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 2.5rem; margin-bottom: 15px; }
-        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; }
+        .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 2.8rem; margin-bottom: 18px; text-shadow: 0 0 15px rgba(255,77,148,0.5); }
+        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.15rem; line-height: 1.7; margin-bottom: 28px; }
         
-        .close-modal-btn { background: #ff4d94; color: #fff; border: none; padding: 10px 30px; font-family: 'Playfair Display', serif; font-size: 1rem; border-radius: 25px; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.6); transition: 0.3s; }
-        .close-modal-btn:hover { background: #ff3385; transform: scale(1.05); }
+        .close-modal-btn { 
+            background: #ff4d94; color: #fff; border: none; padding: 12px 35px; 
+            font-family: 'Playfair Display', serif; font-size: 1.05rem; border-radius: 30px; 
+            cursor: pointer; box-shadow: 0 0 20px rgba(255,77,148,0.6); transition: all 0.3s ease; 
+        }
+        .close-modal-btn:hover { background: #ff3385; transform: scale(1.08); box-shadow: 0 0 30px #ff4d94; }
 
-        footer { padding: 25px; color: #777; font-family: 'Playfair Display', serif; font-size: 0.9rem; }
+        .music-card-modal {
+            border-color: #a855f7;
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
+        }
+        .music-card-modal h3 {
+            color: #d8b4fe;
+            text-shadow: 0 0 15px rgba(216, 180, 254, 0.6);
+        }
+        .album-art {
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            margin: 0 auto 20px auto; border: 3px solid #a855f7;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+            animation: spinArt 10s linear infinite paused;
+        }
+        .album-art.playing {
+            animation-play-state: running;
+        }
+        @keyframes spinArt {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .music-controls {
+            display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;
+        }
+        .play-pause-btn {
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: #fff; border: none; width: 60px; height: 60px; border-radius: 50%;
+            font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6); transition: 0.3s;
+        }
+        .play-pause-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px #ec4899; }
+
+        footer { padding: 30px; color: #666; font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -98,13 +213,17 @@
         <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
     </div>
 
+    <!-- تم ربط الأغنية المحلية هنا -->
     <audio id="bg-music" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mp3">
+        <source src="aya-song.mp3" type="audio/mp3">
     </audio>
 
     <div id="elements-container"></div>
 
-    <div class="floating-bubble" onclick="openFloatingModal()">💌 Tap for Aya</div>
+    <div class="floating-container">
+        <div class="floating-bubble music-bubble" onclick="openMusicModal()">🎵 Our Song</div>
+        <div class="floating-bubble" onclick="openFloatingModal()">💌 Tap for Aya</div>
+    </div>
 
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
@@ -114,12 +233,24 @@
         </div>
     </div>
 
-    <!-- حاوية كلمات الحب المتساقطة فوق اسم Aya مباشرة -->
+    <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
+        <div class="modal-card music-card-modal" onclick="event.stopPropagation()">
+            <h3>Aya's Melody</h3>
+            <img src="girl1.jpg" alt="Album Art" class="album-art" id="albumArt">
+            <p style="font-size: 1rem; color: #e9d5ff; margin-bottom: 10px;">Playing: Our Special Song</p>
+            
+            <div class="music-controls">
+                <button class="play-pause-btn" id="playPauseBtn" onclick="togglePlayMusic()">▶</button>
+            </div>
+            
+            <button class="close-modal-btn" style="margin-top: 25px; background: #a855f7; box-shadow: 0 0 15px rgba(168,85,247,0.6);" onclick="closeMusicModal()">Close</button>
+        </div>
+    </div>
+
     <div class="cascade-container" id="cascadeContainer"></div>
 
     <div class="name-wrapper">
         <h1 class="aya-title">Aya</h1>
-        <div class="header-heart">❤️</div>
     </div>
 
     <section class="glass-section">
@@ -144,7 +275,7 @@
 
     <section class="glass-section">
         <h2>Our Conversations</h2>
-        <p style="font-family: 'Playfair Display', serif; margin-bottom: 15px; color: #ddd; font-size: 0.95rem;">The sweet chats that started it all...</p>
+        <p style="font-family: 'Playfair Display', serif; margin-bottom: 18px; color: #ddd; font-size: 1rem;">The sweet chats that started it all...</p>
         <div class="chat-video-box">
             <video autoplay muted loop playsinline>
                 <source src="chat-video.mp4" type="video/mp4">
@@ -157,7 +288,6 @@
     </footer>
 
     <script>
-        // توليد كلمات "I love you" بتسلسل ناعم فوق اسم Aya
         const cascadeContainer = document.getElementById('cascadeContainer');
         const wordCount = 5;
 
@@ -171,12 +301,15 @@
             cascadeContainer.appendChild(span);
         }
 
+        const bgMusic = document.getElementById('bg-music');
+
         function startExperience() {
             const intro = document.getElementById('intro-screen');
-            const music = document.getElementById('bg-music');
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 1200);
-            music.play().catch(error => console.log(error));
+            bgMusic.play().then(() => {
+                updatePlayButtonState(true);
+            }).catch(error => console.log(error));
             setInterval(createFallingElement, 600);
         }
 
@@ -200,6 +333,39 @@
         function closeFloatingModal(e) {
             document.getElementById('modalOverlay').classList.remove('active');
         }
+
+        function openMusicModal() {
+            document.getElementById('musicModalOverlay').classList.add('active');
+        }
+
+        function closeMusicModal(e) {
+            document.getElementById('musicModalOverlay').classList.remove('active');
+        }
+
+        function togglePlayMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                updatePlayButtonState(true);
+            } else {
+                bgMusic.pause();
+                updatePlayButtonState(false);
+            }
+        }
+
+        function updatePlayButtonState(isPlaying) {
+            const btn = document.getElementById('playPauseBtn');
+            const art = document.getElementById('albumArt');
+            if (isPlaying) {
+                btn.innerText = "⏸";
+                art.classList.add('playing');
+            } else {
+                btn.innerText = "▶";
+                art.classList.remove('playing');
+            }
+        }
+
+        bgMusic.onplay = () => updatePlayButtonState(true);
+        bgMusic.onpause = () => updatePlayButtonState(false);
 
         function createFallingElement() {
             const symbols = ['❤️', '🌹', '🌸', '💖'];
