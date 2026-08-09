@@ -183,35 +183,23 @@
             text-shadow: 0 0 15px rgba(216, 180, 254, 0.6);
         }
 
-        /* حاوية صورة الأغنية المكبرة مع تأثير الـ Base النبضي المتفاعل */
+        /* صورة ثابتة Base نقية تماماً بدون أي غلاف خارجي أو ألوان متحركة */
         .base-img-wrapper {
             position: relative;
-            width: 200px; height: 200px; /* تم تكبير الحجم بشكل ملحوظ وفخم */
+            width: 190px; height: 190px;
             margin: 0 auto 20px auto;
             border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(135deg, #a855f7, #ff4d94, #3b82f6);
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.6);
-            animation: none; /* يتم تشغيل النبض ديناميكياً مع الصوت */
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(168, 85, 247, 0.3);
         }
 
         .base-album-art {
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
             display: block;
-            border: 4px solid #1a0b2e;
         }
 
-        /* فئة نبض الـ Base الصوتي */
-        @keyframes bassPulse {
-            0% { transform: scale(1); box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
-            50% { transform: scale(1.12); box-shadow: 0 0 60px rgba(255, 77, 148, 0.9), 0 0 90px rgba(168, 85, 247, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
-        }
-
-        .is-pulsing {
-            animation: bassPulse 0.45s infinite ease-in-out;
-        }
-
+        /* حاوية الإيموجي والنوتات بتوزيع متناسق وفاخر على كافة البطاقة */
         #music-falling-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -223,16 +211,16 @@
         .music-note-particle {
             position: absolute;
             top: -30px;
-            font-size: 22px;
+            font-size: 20px;
             animation: musicFall linear infinite;
-            opacity: 0.9;
+            opacity: 0.8;
         }
 
         @keyframes musicFall {
-            0% { transform: translateY(-20px) rotate(0deg) scale(0.8); opacity: 0; }
+            0% { transform: translateY(-20px) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
             20% { opacity: 1; }
             80% { opacity: 1; }
-            100% { transform: translateY(420px) rotate(360deg) scale(1.25); opacity: 0; }
+            100% { transform: translateY(450px) translateX(15px) rotate(360deg) scale(1.15); opacity: 0; }
         }
 
         footer { padding: 30px; color: #666; font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 1px; }
@@ -270,14 +258,14 @@
         </div>
     </div>
 
-    <!-- نافذة الأغنية بتصميم فاخر ومكبر مع تأثير الـ Base -->
+    <!-- نافذة الأغنية بصورة Base نقية والإيموجي المتناسق -->
     <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
-        <div class="modal-card music-card-modal" id="musicModalCard" onclick="event.stopPropagation()">
+        <div class="modal-card music-card-modal" onclick="event.stopPropagation()">
             <div id="music-falling-container"></div>
 
             <h3>Aya's Melody</h3>
             
-            <div class="base-img-wrapper" id="baseImgWrapper">
+            <div class="base-img-wrapper">
                 <img src="my-love.jpg" alt="Aya" class="base-album-art">
             </div>
             
@@ -376,7 +364,6 @@
             document.getElementById('musicModalOverlay').classList.add('active');
             bgMusic.play().then(() => {
                 startMusicParticles();
-                document.getElementById('baseImgWrapper').classList.add('is-pulsing');
             }).catch(error => console.log(error));
         }
 
@@ -384,7 +371,6 @@
             document.getElementById('musicModalOverlay').classList.remove('active');
             bgMusic.pause();
             stopMusicParticles();
-            document.getElementById('baseImgWrapper').classList.remove('is-pulsing');
         }
 
         function startMusicParticles() {
@@ -397,12 +383,13 @@
                 const particle = document.createElement('div');
                 particle.className = 'music-note-particle';
                 particle.innerHTML = notes[Math.floor(Math.random() * notes.length)];
-                particle.style.left = Math.random() * 85 + 'px';
-                particle.style.animationDuration = (Math.random() * 1.5 + 1.8) + 's';
+                // توزيع متوازن ومنتظم للإيموجي على كامل مساحة البطاقة
+                particle.style.left = (Math.random() * 88 + 6) + '%';
+                particle.style.animationDuration = (Math.random() * 2 + 2.8) + 's';
                 container.appendChild(particle);
                 
-                setTimeout(() => { particle.remove(); }, 3500);
-            }, 250);
+                setTimeout(() => { particle.remove(); }, 4800);
+            }, 350);
         }
 
         function stopMusicParticles() {
