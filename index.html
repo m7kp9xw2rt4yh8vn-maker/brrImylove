@@ -173,49 +173,54 @@
 
         .music-card-modal {
             border-color: #a855f7;
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
+            position: relative;
+            overflow: hidden; /* لاحتواء شعارات الموسيقى المتساقطة داخل البطاقة بشكل أنيق ومحترف */
         }
         .music-card-modal h3 {
             color: #d8b4fe;
             text-shadow: 0 0 15px rgba(216, 180, 254, 0.6);
         }
 
-        .vinyl-wrapper {
+        /* حاوية ثابتة وثابتة المعالم (Base) للصورة بدون دوران */
+        .base-img-wrapper {
             position: relative;
-            width: 140px; height: 140px;
+            width: 150px; height: 150px;
             margin: 0 auto 20px auto;
-        }
-
-        .album-art-disk {
-            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
-            border: 3px solid #a855f7;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
-            animation: spinDisk 10s linear infinite paused;
-            position: relative;
-            z-index: 2;
-        }
-        .album-art-disk.playing {
-            animation-play-state: running;
-        }
-        @keyframes spinDisk {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .sound-wave-ring {
-            position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
             border-radius: 50%;
-            border: 2px dashed rgba(168, 85, 247, 0.4);
-            animation: pulseWave 3s infinite linear;
+            padding: 4px;
+            background: linear-gradient(135deg, #a855f7, #ff4d94);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .base-album-art {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            display: block;
+            border: 3px solid #1a0b2e;
+        }
+
+        /* حاوية شعارات الموسيقى المتساقطة داخل نافذة الأغنية */
+        #music-falling-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            opacity: 0;
+            overflow: hidden;
+            z-index: 10;
         }
-        .music-card-modal.playing-active .sound-wave-ring {
-            opacity: 1;
+
+        .music-note-particle {
+            position: absolute;
+            top: -30px;
+            font-size: 20px;
+            animation: musicFall linear infinite;
+            opacity: 0.85;
         }
-        @keyframes pulseWave {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.18); opacity: 0; }
+
+        @keyframes musicFall {
+            0% { transform: translateY(-20px) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(380px) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
         footer { padding: 30px; color: #666; font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 1px; }
@@ -228,7 +233,6 @@
         <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
     </div>
 
-    <!-- ملف الأغنية المحلي -->
     <audio id="bg-music" loop>
         <source src="aya-song.mp3" type="audio/mp3">
     </audio>
@@ -254,19 +258,21 @@
         </div>
     </div>
 
-    <!-- نافذة الأغنية الفاخرة مع صورتك الجديدة my-love.jpg -->
+    <!-- نافذة الأغنية الفاخرة: صورة ثابتة (Base) مع شعارات موسيقى تتساقط فوقها -->
     <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
         <div class="modal-card music-card-modal" id="musicModalCard" onclick="event.stopPropagation()">
+            <!-- حاوية شعارات الموسيقى المتساقطة -->
+            <div id="music-falling-container"></div>
+
             <h3>Aya's Melody</h3>
             
-            <div class="vinyl-wrapper">
-                <div class="sound-wave-ring"></div>
-                <img src="my-love.jpg" alt="Aya" class="album-art-disk" id="albumDisk">
+            <div class="base-img-wrapper">
+                <img src="my-love.jpg" alt="Aya" class="base-album-art">
             </div>
             
-            <p style="font-size: 1.05rem; color: #e9d5ff; margin-bottom: 25px; font-family: 'Playfair Display', serif; font-style: italic;">Our Special Song Playing...</p>
+            <p style="font-size: 1.05rem; color: #e9d5ff; margin-bottom: 25px; font-family: 'Playfair Display', serif; font-style: italic; position: relative; z-index: 11;">Our Special Song Playing...</p>
             
-            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,0.6);" onclick="closeMusicModal()">Close</button>
+            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,0.6); position: relative; z-index: 11;" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -286,7 +292,6 @@
     <section class="glass-section">
         <h2>My Beautiful Princess</h2>
         <div class="media-grid">
-            <!-- استخدام صورتك الجديدة my-love.jpg هنا أيضاً -->
             <div class="polaroid"><img src="my-love.jpg"><p>Your lovely smile</p></div>
             <div class="polaroid"><img src="girl2.jpg"><p>The light of my days</p></div>
             <div class="video-box">
@@ -326,6 +331,7 @@
         }
 
         const bgMusic = document.getElementById('bg-music');
+        let musicParticlesInterval = null;
 
         function startExperience() {
             const intro = document.getElementById('intro-screen');
@@ -355,19 +361,45 @@
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
+        // تشغيل الأغنية فوراً وبدء تساقط شعارات الموسيقى فوق البطاقة بشكل مبهر
         function openMusicModal() {
             document.getElementById('musicModalOverlay').classList.add('active');
             bgMusic.play().then(() => {
-                document.getElementById('albumDisk').classList.add('playing');
-                document.getElementById('musicModalCard').classList.add('playing-active');
+                startMusicParticles();
             }).catch(error => console.log(error));
         }
 
+        // إغلاق الأغنية وإيقاف التساقط
         function closeMusicModal(e) {
             document.getElementById('musicModalOverlay').classList.remove('active');
             bgMusic.pause();
-            document.getElementById('albumDisk').classList.remove('playing');
-            document.getElementById('musicModalCard').classList.remove('playing-active');
+            stopMusicParticles();
+        }
+
+        function startMusicParticles() {
+            const container = document.getElementById('music-falling-container');
+            container.innerHTML = '';
+            if (musicParticlesInterval) clearInterval(musicParticlesInterval);
+            
+            musicParticlesInterval = setInterval(() => {
+                const notes = ['🎵', '🎶', '🎧', '✨', '💜'];
+                const particle = document.createElement('div');
+                particle.className = 'music-note-particle';
+                particle.innerHTML = notes[Math.floor(Math.random() * notes.length)];
+                particle.style.left = Math.random() * 85 + 'px'; // توزيع داخل عرض البطاقة
+                particle.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+                container.appendChild(particle);
+                
+                setTimeout(() => { particle.remove(); }, 3500);
+            }, 300);
+        }
+
+        function stopMusicParticles() {
+            if (musicParticlesInterval) {
+                clearInterval(musicParticlesInterval);
+                musicParticlesInterval = null;
+            }
+            document.getElementById('music-falling-container').innerHTML = '';
         }
 
         function createFallingElement() {
