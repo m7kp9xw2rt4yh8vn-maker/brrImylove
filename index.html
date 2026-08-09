@@ -213,7 +213,8 @@
         .modal-card h3 { 
             font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 2.8rem; margin-bottom: 18px; 
             text-shadow: 0 0 15px rgba(255,77,148,0.5); 
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+            line-height: 1.2;
         }
         .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.15rem; line-height: 1.7; margin-bottom: 28px; }
         
@@ -238,6 +239,7 @@
             text-shadow: 0 0 20px rgba(216, 180, 254, 0.7);
             font-size: 3.2rem;
             margin-bottom: 10px;
+            display: block;
         }
 
         .ui-music-display {
@@ -338,13 +340,12 @@
         }
 
         footer { 
-            padding: 30px 25px; 
+            padding: 25px 0 25px 5px; 
             color: #777; 
             font-family: 'Playfair Display', serif; 
-            font-size: 0.75rem; 
-            letter-spacing: 0.5px; 
+            font-size: 0.65rem; 
+            letter-spacing: 0.3px; 
             text-align: left; 
-            padding-left: 20px;
         }
 
         .inline-svg-heart {
@@ -392,8 +393,8 @@
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
             <h3>
-                <span>For My Love, Aya</span>
-                <svg class="inline-svg-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span>For My Love,</span>
+                <span>Aya</span>
             </h3>
             <p id="modal-text-content">Aya, you make my heart skip a beat every single day. <svg class="inline-svg-heart" style="width:18px;height:18px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
             <button class="close-modal-btn" onclick="closeFloatingModal()">Close</button>
@@ -478,7 +479,7 @@
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya <svg class="inline-svg-heart" style="width:11px;height:11px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
+        <p style="margin-left: 2px;">Made with all my heart for Aya <svg class="inline-svg-heart" style="width:9px;height:9px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
     </footer>
 
     <script>
