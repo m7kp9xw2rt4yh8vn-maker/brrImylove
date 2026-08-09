@@ -10,72 +10,58 @@
         body { background-color: #030303; background-image: radial-gradient(circle at 20% 20%, rgba(255, 77, 148, 0.08) 0%, transparent 40%), radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 40%), linear-gradient(135deg, #090005 0%, #030303 100%); font-family: 'Poppins', sans-serif; color: #fff; overflow-x: hidden; text-align: center; }
 
         #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: radial-gradient(circle, #1a0011 0%, #050003 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.2s ease; }
-        #intro-screen h1 { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; margin-bottom: 25px; text-shadow: 0 0 25px rgba(255,77,148,0.7); padding: 0 20px; }
+        #intro-screen h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff4d94; margin-bottom: 25px; text-shadow: 0 0 25px rgba(255,77,148,0.7); padding: 0 20px; }
 
-        .enter-btn { background: rgba(255, 77, 148, 0.15); color: #fff; border: 2px solid #ff4d94; padding: 16px 45px; font-size: 1.25rem; font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; backdrop-filter: blur(5px); transition: 0.4s; }
+        .enter-btn { background: rgba(255, 77, 148, 0.15); color: #fff; border: 2px solid #ff4d94; padding: 14px 40px; font-size: 1.2rem; font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; backdrop-filter: blur(5px); transition: 0.4s; }
         .enter-btn:hover { transform: scale(1.08); background: #ff4d94; box-shadow: 0 0 40px #ff4d94; }
 
-        /* تأثير سقوط الورود والقلوب */
-        .falling-element { position: fixed; top: -50px; font-size: 22px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
+        .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        /* حاوية القلب المتحرك بالكلمات */
-        .heart-path-container { position: relative; width: 300px; height: 280px; margin: 40px auto 10px; z-index: 2; display: flex; justify-content: center; align-items: center; }
+        .heart-path-container { position: relative; width: 280px; height: 260px; margin: 30px auto 0px; z-index: 2; }
         
         .moving-text {
             position: absolute;
             font-family: 'Great Vibes', cursive;
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             color: #ff4d94;
-            text-shadow: 0 0 10px rgba(255,77,148,0.8);
+            text-shadow: 0 0 8px rgba(255,77,148,0.8);
             white-space: nowrap;
             animation: pulseHeart 2s infinite ease-in-out;
+            transform: translate(-50%, -50%);
         }
 
         @keyframes pulseHeart {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px #ff4d94); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px #ff4d94); }
+            0%, 100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 4px #ff4d94); }
+            50% { transform: translate(-50%, -50%) scale(1.06); filter: drop-shadow(0 0 15px #ff4d94); }
         }
 
-        /* اسم Aya تحت القلب مباشرة */
-        .aya-title { font-family: 'Great Vibes', cursive; font-size: 5rem; color: #ff4d94; text-shadow: 0 0 30px rgba(255,77,148,0.7); margin-bottom: 30px; z-index: 2; position: relative; }
+        .aya-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; text-shadow: 0 0 25px rgba(255,77,148,0.7); margin-bottom: 20px; z-index: 2; position: relative; }
 
-        /* الظهور التدريجي للعناصر */
-        .glass-section { background: rgba(20, 10, 15, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 77, 148, 0.2); max-width: 800px; margin: 50px auto; padding: 40px; border-radius: 25px; z-index: 2; box-shadow: 0 0 25px rgba(0,0,0,0.5); opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s ease; }
+        .glass-section { background: rgba(20, 10, 15, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 77, 148, 0.2); width: 90%; max-width: 700px; margin: 40px auto; padding: 30px 20px; border-radius: 20px; z-index: 2; box-shadow: 0 10px 30px rgba(0,0,0,0.4); opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .glass-section.visible { opacity: 1; transform: translateY(0); }
         
-        .glass-section h2 { font-family: 'Great Vibes', cursive; color: #ff758c; font-size: 3.5rem; margin-bottom: 25px; }
+        .glass-section h2 { font-family: 'Great Vibes', cursive; color: #ff758c; font-size: 3rem; margin-bottom: 20px; }
 
-        .media-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+        .media-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center; }
         
-        .polaroid { background: #fff; color: #333; padding: 12px 12px 35px 12px; border-radius: 4px; width: 220px; transition: 0.4s; box-shadow: 0 0 20px rgba(255, 77, 148, 0.2); }
-        .polaroid:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 35px rgba(255, 77, 148, 0.6); }
-        .polaroid img { width: 100%; height: 200px; object-fit: cover; }
-        .polaroid p { margin-top: 10px; font-family: 'Playfair Display', serif; color: #555; }
+        .polaroid { background: #fff; color: #333; padding: 10px 10px 30px 10px; border-radius: 4px; width: 200px; box-shadow: 0 5px 15px rgba(255, 77, 148, 0.2); }
+        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 2px; }
+        .polaroid p { margin-top: 8px; font-family: 'Playfair Display', serif; color: #555; font-size: 0.95rem; }
 
-        /* قوالب الفيديوهات بملء كامل وتوهج نيون */
-        .video-box { width: 240px; height: 320px; border-radius: 20px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.6); background: #000; transition: 0.4s; box-shadow: 0 0 25px rgba(255, 77, 148, 0.3); position: relative; }
-        .video-box:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 0 40px rgba(255, 77, 148, 0.8); }
+        .video-box { width: 200px; height: 280px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.6); background: #000; box-shadow: 0 5px 20px rgba(255, 77, 148, 0.3); }
         .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .chat-video-box { width: 280px; height: 520px; border-radius: 30px; overflow: hidden; border: 3px solid rgba(255, 77, 148, 0.8); box-shadow: 0 0 35px rgba(255, 77, 148, 0.4); background: #000; margin: 0 auto; transition: 0.4s; position: relative; }
-        .chat-video-box:hover { transform: scale(1.02); box-shadow: 0 0 50px rgba(255, 77, 148, 0.9); }
+        .chat-video-box { width: 240px; height: 440px; border-radius: 25px; overflow: hidden; border: 3px solid rgba(255, 77, 148, 0.8); box-shadow: 0 5px 25px rgba(255, 77, 148, 0.4); background: #000; margin: 0 auto; }
         .chat-video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid #ff4d94; padding: 10px 25px; margin: 5px; border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; transition: 0.3s; }
-        .msg-btn:hover { background: #ff4d94; box-shadow: 0 0 15px #ff4d94; }
-        #msg-display { margin-top: 20px; font-size: 1.4rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; }
+        .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid #ff4d94; padding: 8px 20px; margin: 5px; border-radius: 25px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 0.95rem; transition: 0.3s; }
+        .msg-btn:active { background: #ff4d94; }
+        #msg-display { margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; }
 
-        /* فقاعة الرسالة العائمة */
-        .floating-bubble { position: fixed; bottom: 25px; right: 25px; background: rgba(20, 10, 15, 0.85); backdrop-filter: blur(10px); border: 2px solid #ff4d94; color: #fff; padding: 15px 25px; border-radius: 30px; z-index: 998; cursor: pointer; box-shadow: 0 0 20px rgba(255,77,148,0.5); font-family: 'Playfair Display', serif; font-size: 1rem; animation: floatBubble 3s ease-in-out infinite; transition: 0.3s; }
-        .floating-bubble:hover { transform: scale(1.1); background: #ff4d94; }
-        @keyframes floatBubble { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .floating-bubble { position: fixed; bottom: 20px; right: 20px; background: rgba(20, 10, 15, 0.9); border: 2px solid #ff4d94; color: #fff; padding: 10px 18px; border-radius: 25px; z-index: 998; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.5); font-family: 'Playfair Display', serif; font-size: 0.9rem; }
 
-        /* قلوب باللمس للهواتف */
-        .touch-heart { position: fixed; font-size: 18px; pointer-events: none; animation: floatUpHeart 1s linear forwards; z-index: 9999; }
-        @keyframes floatUpHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-60px) scale(1.5); opacity: 0; } }
-
-        footer { padding: 30px; color: #777; font-family: 'Playfair Display', serif; }
+        footer { padding: 25px; color: #777; font-family: 'Playfair Display', serif; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -91,11 +77,10 @@
 
     <div id="elements-container"></div>
 
-    <div class="floating-bubble" onclick="randomFloatingMsg()">💌 Tap for a secret, Aya</div>
+    <div class="floating-bubble" onclick="randomFloatingMsg()">💌 Tap for Aya</div>
 
-    <!-- شكل القلب المرسوم بكلمات I love you متتابعة وواضحة -->
     <div class="heart-path-container" id="heart-path"></div>
-    <h1 class="aya-title">Aya</h1>
+    <h1 class="aya-title">Aya ❤️</h1>
 
     <section class="glass-section">
         <h2>Secret Notes</h2>
@@ -104,21 +89,25 @@
         <div id="msg-display"></div>
     </section>
 
-    <!-- قسمها الخاص -->
     <section class="glass-section">
         <h2>My Beautiful Princess</h2>
         <div class="media-grid">
             <div class="polaroid"><img src="girl1.jpg"><p>Your lovely smile</p></div>
             <div class="polaroid"><img src="girl2.jpg"><p>The light of my days</p></div>
-            <div class="video-box"><video autoplay muted loop playsinline><source src="girl-video.mp4" type="video/mp4"></video></div>
+            <div class="video-box">
+                <!-- خاصية loop تضمن إعادة تشغيل الفيديو فور نهايته تلقائياً -->
+                <video autoplay muted loop playsinline>
+                    <source src="girl-video.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
     </section>
 
-    <!-- قسم فيديو الشات -->
     <section class="glass-section">
         <h2>Our Conversations</h2>
-        <p style="font-family: 'Playfair Display', serif; margin-bottom: 20px; color: #ddd;">The sweet chats that started it all...</p>
+        <p style="font-family: 'Playfair Display', serif; margin-bottom: 15px; color: #ddd; font-size: 0.95rem;">The sweet chats that started it all...</p>
         <div class="chat-video-box">
+            <!-- خاصية loop تضمن إعادة تشغيل فيديو الشات فور نهايته تلقائياً -->
             <video autoplay muted loop playsinline>
                 <source src="chat-video.mp4" type="video/mp4">
             </video>
@@ -130,19 +119,17 @@
     </footer>
 
     <script>
-        // رسم هندسة القلب بدقة لترتيب الكلمات ورا بعضها بشكل واضح وراقي
         const heartContainer = document.getElementById('heart-path');
-        const totalWords = 28;
+        const totalWords = 22;
         
         for (let i = 0; i < totalWords; i++) {
             const span = document.createElement('span');
             span.className = 'moving-text';
             span.innerText = "I love you";
             
-            // معادلة رسم القلب الكلاسيكية (Parametric Heart Equation)
             const t = (i / totalWords) * Math.PI * 2;
-            const x = 15 * (16 * Math.pow(Math.sin(t), 3));
-            const y = -15 * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            const x = 10 * (16 * Math.pow(Math.sin(t), 3));
+            const y = -10 * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
             
             span.style.left = `calc(50% + ${x}px)`;
             span.style.top = `calc(50% + ${y}px)`;
@@ -154,9 +141,9 @@
             const intro = document.getElementById('intro-screen');
             const music = document.getElementById('bg-music');
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 1200);
+            setTimeout(() => { intro.style.display = 'none'; }, 1000);
             music.play().catch(error => console.log(error));
-            setInterval(createFallingElement, 350);
+            setInterval(createFallingElement, 600);
         }
 
         function showMsg(txt) { 
@@ -170,31 +157,18 @@
             "My love for you grows stronger with every second. ❤️"
         ];
         function randomFloatingMsg() {
-            const randomMsg = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
-            alert(randomMsg);
+            alert(floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)]);
         }
 
-        window.addEventListener('click', (e) => {
-            const heart = document.createElement('div');
-            heart.className = 'touch-heart';
-            heart.innerHTML = '💖';
-            heart.style.left = e.clientX + 'px';
-            heart.style.top = e.clientY + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 1000);
-        });
-
         function createFallingElement() {
-            const symbols = ['❤️', '🌹', '🌸', '💖', '🌷', '✨'];
+            const symbols = ['❤️', '🌹', '🌸', '💖'];
             const el = document.createElement('div');
             el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            el.style.opacity = Math.random() * 0.7 + 0.3;
+            el.style.animationDuration = (Math.random() * 3 + 5) + 's';
             document.getElementById('elements-container').appendChild(el);
-            
-            setTimeout(() => { el.remove(); }, 7000);
+            setTimeout(() => { el.remove(); }, 8000);
         }
 
         const observer = new IntersectionObserver((entries) => {
@@ -203,7 +177,7 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.glass-section').forEach(section => {
             observer.observe(section);
