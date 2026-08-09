@@ -18,9 +18,9 @@
         .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        .heart-svg-container { width: 280px; height: 240px; margin: 30px auto 10px; position: relative; z-index: 2; }
-        .heart-svg-container svg { width: 100%; height: 100%; overflow: visible; }
-        .heart-text-path { font-family: 'Great Vibes', cursive; font-size: 18px; fill: #ff4d94; filter: drop-shadow(0 0 6px rgba(255,77,148,0.8)); }
+        .heart-wrapper-3d { position: relative; width: 280px; height: 280px; margin: 40px auto 10px; z-index: 2; display: flex; justify-content: center; align-items: center; }
+        .heart-path-text { position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.4rem; color: #ff4d94; text-shadow: 0 0 12px #ff4d94; white-space: nowrap; animation: spinText 25s linear infinite; }
+        @keyframes spinText { from { transform: rotate(0deg) translateX(115px) rotate(0deg); } to { transform: rotate(360deg) translateX(115px) rotate(-360deg); } }
 
         .name-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; z-index: 2; position: relative; }
         .aya-title { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ff4d94; text-shadow: 0 0 25px rgba(255,77,148,0.7); }
@@ -34,25 +34,10 @@
 
         .media-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center; }
         
-        /* -- تعديل سحري هنا: استبدال الخلفية البيضاء بـ Blur Glass -- */
-        .polaroid { 
-            /* إزالة الخلفية البيضاء والظل القديم */
-            background: rgba(255, 255, 255, 0.05); 
-            /* إضافة تأثير الزجاج الضبابي */
-            backdrop-filter: blur(15px); 
-            /* حدود خفيفة جداً */
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            /* الظل الجديد ليتناسب مع الظلام */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
-            padding: 10px 10px 30px 10px; 
-            border-radius: 15px; 
-            width: 200px; 
-            transition: 0.4s; 
-        }
+        .polaroid { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px rgba(0,0,0,0.5); padding: 10px 10px 30px 10px; border-radius: 15px; width: 200px; transition: 0.4s; }
         .polaroid:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 15px 40px rgba(255, 77, 148, 0.4); }
-        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; /* إزالة الإطار الأبيض الداخلي */ }
+        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
         .polaroid p { margin-top: 12px; font-family: 'Playfair Display', serif; color: #eee; font-size: 1rem; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
-        /* -- نهاية التعديل -- */
 
         .video-box { width: 200px; height: 280px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255, 77, 148, 0.6); background: #000; box-shadow: 0 5px 20px rgba(255, 77, 148, 0.3); }
         .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -64,7 +49,21 @@
         .msg-btn:active { background: #ff4d94; }
         #msg-display { margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; }
 
-        .floating-bubble { position: fixed; bottom: 20px; right: 20px; background: rgba(20, 10, 15, 0.9); border: 2px solid #ff4d94; color: #fff; padding: 10px 18px; border-radius: 25px; z-index: 998; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.5); font-family: 'Playfair Display', serif; font-size: 0.9rem; }
+        .floating-bubble { position: fixed; bottom: 20px; right: 20px; background: rgba(20, 10, 15, 0.9); border: 2px solid #ff4d94; color: #fff; padding: 10px 18px; border-radius: 25px; z-index: 998; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.5); font-family: 'Playfair Display', serif; font-size: 0.9rem; transition: 0.3s; }
+        .floating-bubble:hover { transform: scale(1.05); background: rgba(255, 77, 148, 0.3); }
+
+        /* -- تصميم البطاقة العائمة الفخمة (Modal) -- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-card { background: rgba(20, 10, 15, 0.85); border: 2px solid #ff4d94; padding: 35px 25px; border-radius: 25px; width: 85%; max-width: 400px; box-shadow: 0 0 40px rgba(255, 77, 148, 0.5); text-align: center; transform: scale(0.8); transition: transform 0.4s ease; }
+        .modal-overlay.active .modal-card { transform: scale(1); }
+        
+        .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 2.5rem; margin-bottom: 15px; }
+        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; }
+        
+        .close-modal-btn { background: #ff4d94; color: #fff; border: none; padding: 10px 30px; font-family: 'Playfair Display', serif; font-size: 1rem; border-radius: 25px; cursor: pointer; box-shadow: 0 0 15px rgba(255,77,148,0.6); transition: 0.3s; }
+        .close-modal-btn:hover { background: #ff3385; transform: scale(1.05); }
 
         footer { padding: 25px; color: #777; font-family: 'Playfair Display', serif; font-size: 0.9rem; }
     </style>
@@ -82,18 +81,19 @@
 
     <div id="elements-container"></div>
 
-    <div class="floating-bubble" onclick="randomFloatingMsg()">💌 Tap for Aya</div>
+    <!-- زر الفقاعة العائمة -->
+    <div class="floating-bubble" onclick="openFloatingModal()">💌 Tap for Aya</div>
 
-    <div class="heart-svg-container">
-        <svg viewBox="0 0 300 280">
-            <path id="heartPath" fill="none" d="M 150,50 C 150,20 100,0 60,30 C 20,60 10,110 50,150 L 150,240 L 250,150 C 290,110 280,60 240,30 C 200,20 150,50 150,50 Z" />
-            <text>
-                <textPath href="#heartPath" startOffset="0%" class="heart-text-path">
-                    I love you   •   I love you   •   I love you   •   I love you   •   I love you   •   I love you   •   I love you
-                </textPath>
-            </text>
-        </svg>
+    <!-- نافذة البطاقة العائمة الفخمة -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <h3>For My Love, Aya ✨</h3>
+            <p id="modal-text-content">Aya, you make my heart skip a beat every single day. 💖</p>
+            <button class="close-modal-btn" onclick="closeFloatingModal()">Close ❤️</button>
+        </div>
     </div>
+
+    <div class="heart-wrapper-3d" id="heart-path-container"></div>
 
     <div class="name-wrapper">
         <h1 class="aya-title">Aya</h1>
@@ -110,7 +110,6 @@
     <section class="glass-section">
         <h2>My Beautiful Princess</h2>
         <div class="media-grid">
-            <!-- الصور الآن بخلفية زجاجية ضبابية -->
             <div class="polaroid"><img src="girl1.jpg"><p>Your lovely smile</p></div>
             <div class="polaroid"><img src="girl2.jpg"><p>The light of my days</p></div>
             <div class="video-box">
@@ -136,11 +135,21 @@
     </footer>
 
     <script>
+        const heartContainer = document.getElementById('heart-path-container');
+        const totalWords = 36;
+        for (let i = 0; i < totalWords; i++) {
+            const span = document.createElement('span');
+            span.className = 'heart-path-text';
+            span.innerText = "I love you";
+            span.style.animationDelay = `-${i * (25 / totalWords)}s`;
+            heartContainer.appendChild(span);
+        }
+
         function startExperience() {
             const intro = document.getElementById('intro-screen');
             const music = document.getElementById('bg-music');
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 1000);
+            setTimeout(() => { intro.style.display = 'none'; }, 1200);
             music.play().catch(error => console.log(error));
             setInterval(createFallingElement, 600);
         }
@@ -149,14 +158,23 @@
             document.getElementById('msg-display').innerText = txt; 
         }
 
+        /* دوال تحكم البطاقة العائمة الفخمة */
         const floatingMsgs = [
             "Aya, you make my heart skip a beat every single day. 💖",
             "No matter where I go, my thoughts always lead back to you, Aya. ✨",
             "You are the best thing that has ever happened to me. 🌹",
             "My love for you grows stronger with every second. ❤️"
         ];
-        function randomFloatingMsg() {
-            alert(floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)]);
+
+        function openFloatingModal() {
+            const randomMsg = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
+            document.getElementById('modal-text-content').innerText = randomMsg;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeFloatingModal(e) {
+            // إغلاق البطاقة عند الضغط على الزر أو على الخلفية المعتمة
+            document.getElementById('modalOverlay').classList.remove('active');
         }
 
         function createFallingElement() {
