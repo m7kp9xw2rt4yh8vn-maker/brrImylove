@@ -177,29 +177,55 @@
             position: relative;
             overflow: hidden;
             max-width: 460px;
+            padding: 35px 25px;
         }
         .music-card-modal h3 {
             color: #d8b4fe;
             text-shadow: 0 0 15px rgba(216, 180, 254, 0.6);
+            font-size: 3rem;
+            margin-bottom: 15px;
         }
 
-        /* صورة ثابتة Base نقية تماماً بدون أي غلاف خارجي أو ألوان متحركة */
+        /* حاوية الصورة بتصميم مبهر ومكبر بحجم 240px مع هالة ضوئية متوهجة وسحرية */
         .base-img-wrapper {
             position: relative;
-            width: 190px; height: 190px;
+            width: 240px; height: 240px;
             margin: 0 auto 20px auto;
             border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            border: 2px solid rgba(168, 85, 247, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .base-img-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            background: linear-gradient(45deg, #a855f7, #ff4d94, #3b82f6, #a855f7);
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(16px);
+            opacity: 0.8;
+            animation: auraGlow 6s linear infinite;
+        }
+
+        @keyframes auraGlow {
+            0% { filter: blur(16px); opacity: 0.7; transform: rotate(0deg); }
+            50% { filter: blur(22px); opacity: 0.95; transform: rotate(180deg); }
+            100% { filter: blur(16px); opacity: 0.7; transform: rotate(360deg); }
         }
 
         .base-album-art {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%; 
+            border-radius: 50%; 
+            object-fit: cover;
             display: block;
+            border: 4px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* حاوية الإيموجي والنوتات بتوزيع متناسق وفاخر على كافة البطاقة */
+        /* حاوية النوتات والإيموجي المتساقطة داخل النافذة بشكل متوازن ومبهر */
         #music-falling-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -211,16 +237,17 @@
         .music-note-particle {
             position: absolute;
             top: -30px;
-            font-size: 20px;
+            font-size: 24px;
             animation: musicFall linear infinite;
-            opacity: 0.8;
+            opacity: 0.9;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
         }
 
         @keyframes musicFall {
-            0% { transform: translateY(-20px) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateY(450px) translateX(15px) rotate(360deg) scale(1.15); opacity: 0; }
+            0% { transform: translateY(-20px) translateX(0) rotate(0deg) scale(0.7); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(480px) translateX(20px) rotate(360deg) scale(1.25); opacity: 0; }
         }
 
         footer { padding: 30px; color: #666; font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 1px; }
@@ -258,7 +285,7 @@
         </div>
     </div>
 
-    <!-- نافذة الأغنية بصورة Base نقية والإيموجي المتناسق -->
+    <!-- نافذة الأغنية بتصميم UI مكبر ومبهر -->
     <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
         <div class="modal-card music-card-modal" onclick="event.stopPropagation()">
             <div id="music-falling-container"></div>
@@ -269,9 +296,9 @@
                 <img src="my-love.jpg" alt="Aya" class="base-album-art">
             </div>
             
-            <p style="font-size: 1.1rem; color: #e9d5ff; margin-bottom: 25px; font-family: 'Playfair Display', serif; font-style: italic; position: relative; z-index: 11;">Our Special Song Playing...</p>
+            <p style="font-size: 1.15rem; color: #e9d5ff; margin-bottom: 25px; font-family: 'Playfair Display', serif; font-style: italic; position: relative; z-index: 11;">Our Special Song Playing...</p>
             
-            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,0.6); position: relative; z-index: 11;" onclick="closeMusicModal()">Close</button>
+            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 0 25px rgba(168,85,247,0.7); position: relative; z-index: 11;" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -379,17 +406,16 @@
             if (musicParticlesInterval) clearInterval(musicParticlesInterval);
             
             musicParticlesInterval = setInterval(() => {
-                const notes = ['🎵', '🎶', '🎧', '✨', '💜', '💖', '⭐'];
+                const notes = ['🎵', '🎶', '🎧', '✨', '💜', '💖', '⭐', '🌸'];
                 const particle = document.createElement('div');
                 particle.className = 'music-note-particle';
                 particle.innerHTML = notes[Math.floor(Math.random() * notes.length)];
-                // توزيع متوازن ومنتظم للإيموجي على كامل مساحة البطاقة
-                particle.style.left = (Math.random() * 88 + 6) + '%';
-                particle.style.animationDuration = (Math.random() * 2 + 2.8) + 's';
+                particle.style.left = (Math.random() * 85 + 8) + '%';
+                particle.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
                 container.appendChild(particle);
                 
-                setTimeout(() => { particle.remove(); }, 4800);
-            }, 350);
+                setTimeout(() => { particle.remove(); }, 4500);
+            }, 280);
         }
 
         function stopMusicParticles() {
