@@ -18,12 +18,13 @@
         .falling-element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-5vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        .rose-path-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 25px auto 10px;
-            z-index: 2;
+        /* حاوية حرف A المتحركة */
+        .letter-a-container { 
+            position: relative; 
+            width: 300px; 
+            height: 320px; 
+            margin: 25px auto 10px; 
+            z-index: 2; 
             animation: containerSpin 35s linear infinite;
         }
 
@@ -32,13 +33,13 @@
             100% { transform: rotate(360deg); }
         }
 
-        .rose-path-text {
-            position: absolute;
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.25rem;
-            color: #ff4d94;
-            text-shadow: 0 0 10px rgba(255, 77, 148, 0.8);
-            white-space: nowrap;
+        .letter-a-text { 
+            position: absolute; 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 1.15rem; 
+            color: #ff4d94; 
+            text-shadow: 0 0 10px rgba(255, 77, 148, 0.8); 
+            white-space: nowrap; 
             animation: counterSpin 35s linear infinite;
         }
 
@@ -115,7 +116,8 @@
         </div>
     </div>
 
-    <div class="rose-path-container" id="rosePathContainer"></div>
+    <!-- حاوية حرف A المتحركة -->
+    <div class="letter-a-container" id="letterAContainer"></div>
 
     <div class="name-wrapper">
         <h1 class="aya-title">Aya</h1>
@@ -157,29 +159,29 @@
     </footer>
 
     <script>
-        const container = document.getElementById('rosePathContainer');
-        const totalWords = 36;
-        const k = 4;
+        const container = document.getElementById('letterAContainer');
+        const points = [];
+        const steps = 12;
 
-        for (let i = 0; i < totalWords; i++) {
-            const span = document.createElement('span');
-            span.className = 'rose-path-text';
-            span.innerText = "I love you";
-
-            const theta = (i / totalWords) * 2 * Math.PI;
-            const r = 90 * Math.cos(k * theta) + 35;
-
-            const x = r * Math.cos(theta);
-            const y = r * Math.sin(theta);
-
-            const posX = 150 + x - 30;
-            const posY = 150 + y - 10;
-
-            span.style.left = `${posX}px`;
-            span.style.top = `${posY}px`;
-
-            container.appendChild(span);
+        // رسم حرف A بالنقاط (الساق اليسرى، الساق اليمنى، والشرطة العرضية)
+        for (let i = 0; i <= steps; i++) {
+            points.push({ x: 150 - (i * 8), y: 280 - (i * 22) });
         }
+        for (let i = 0; i <= steps; i++) {
+            points.push({ x: 150 + (i * 8), y: 16 + (i * 22) });
+        }
+        for (let i = 0; i <= 6; i++) {
+            points.push({ x: 102 + (i * 13), y: 165 });
+        }
+
+        points.forEach((pt) => {
+            const span = document.createElement('span');
+            span.className = 'letter-a-text';
+            span.innerText = "I love you";
+            span.style.left = `${pt.x}px`;
+            span.style.top = `${pt.y}px`;
+            container.appendChild(span);
+        });
 
         function startExperience() {
             const intro = document.getElementById('intro-screen');
