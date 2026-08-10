@@ -1,15 +1,16 @@
 {
-  "name": "Aya",
+  "name": "For My Aya",
   "short_name": "Aya",
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c0307",
+  "background_color": "hsv(347, 87%, 88%)",
   "theme_color": "#e11d48",
   "icons": [
     {
       "src": "icon.svg",
-      "sizes": "any",
+      "sizes": "512x512",
       "type": "image/svg+xml"
     }
-  ]
+  ],
+  "description": "My love Aya app"
 }
