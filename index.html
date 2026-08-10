@@ -46,7 +46,7 @@
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.25), rgba(147, 51, 234, 0.25)); 
             color: #fff; border: 2px solid #ff4d94; padding: 16px 50px; font-size: 1.3rem; 
             font-family: 'Playfair Display', serif; border-radius: 50px; cursor: pointer; 
-            backdrop-filter: blur(15px); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             box-shadow: 0 0 30px rgba(255, 77, 148, 0.4), inset 0 0 15px rgba(255, 77, 148, 0.2); 
         }
         .enter-btn:hover { 
@@ -110,7 +110,6 @@
 
         .glass-section { 
             background: linear-gradient(135deg, rgba(30, 12, 25, 0.7), rgba(12, 5, 15, 0.8)); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             border: 1px solid rgba(255, 77, 148, 0.35); width: 90%; max-width: 740px; 
             margin: 50px auto; padding: 40px 30px; border-radius: 30px; z-index: 2; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 30px rgba(255, 77, 148, 0.08); 
@@ -127,7 +126,6 @@
             text-shadow: 0 0 20px rgba(255,143,163,0.5);
         }
 
-        /* تعديلات الخريطة الأرضية الاحترافية */
         .map-container-box {
             position: relative;
             width: 100%;
@@ -220,7 +218,7 @@
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.1), rgba(147, 51, 234, 0.1));
             border: 1px solid rgba(255, 77, 148, 0.4);
             border-radius: 20px; padding: 20px 30px; min-width: 130px;
-            backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,77,148,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,77,148,0.1);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .counter-item:hover {
@@ -247,7 +245,7 @@
         .media-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 25px; align-items: center; }
         
         .polaroid { 
-            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(25px); 
+            background: rgba(255, 255, 255, 0.04); 
             border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 15px 35px rgba(0,0,0,0.7); 
             padding: 14px 14px 35px 14px; border-radius: 22px; width: 225px; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
@@ -294,7 +292,7 @@
             background: linear-gradient(135deg, rgba(30, 12, 25, 0.9), rgba(50, 15, 35, 0.9)); 
             border: 2px solid rgba(255, 77, 148, 0.6); color: #fff; padding: 14px 26px; border-radius: 40px; 
             cursor: pointer; box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
-            font-family: 'Playfair Display', serif; font-size: 1rem; backdrop-filter: blur(15px); 
+            font-family: 'Playfair Display', serif; font-size: 1rem; 
             display: flex; align-items: center; gap: 12px; letter-spacing: 0.8px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
@@ -317,7 +315,7 @@
 
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(18px); 
+            background: rgba(0, 0, 0, 0.85); 
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
             opacity: 0; pointer-events: none; transition: opacity 0.5s ease; 
         }
@@ -376,24 +374,6 @@
             justify-content: center;
             box-shadow: 0 0 45px rgba(168, 85, 247, 0.5), inset 0 0 25px rgba(168, 85, 247, 0.4);
             z-index: 2;
-        }
-
-        .ui-music-display::before {
-            content: '';
-            position: absolute;
-            top: -8px; left: -8px; right: -8px; bottom: -8px;
-            background: linear-gradient(45deg, #a855f7, #ff4d94, #3b82f6, #a855f7);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(15px);
-            opacity: 0.7;
-            animation: auraGlow 6s linear infinite;
-        }
-
-        @keyframes auraGlow {
-            0% { filter: blur(15px); opacity: 0.6; transform: rotate(0deg); }
-            50% { filter: blur(22px); opacity: 0.9; transform: rotate(180deg); }
-            100% { filter: blur(15px); opacity: 0.6; transform: rotate(360deg); }
         }
 
         .vinyl-grooves {
@@ -557,7 +537,6 @@
         <h1 class="aya-title">Aya</h1>
     </div>
 
-    <!-- قسم الخريطة الأرضية الحقيقية -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">
@@ -579,20 +558,14 @@
                     </filter>
                 </defs>
 
-                <!-- رسم تفصيلي مبسط ومتقن للقارات (أوروبا وإفريقيا وجزء من آسيا لربط السويد ومصر بدقة) -->
                 <g class="continents-group" fill="rgba(255, 77, 148, 0.08)" stroke="rgba(255, 77, 148, 0.3)" stroke-width="1.2">
-                    <!-- قارة أوروبا -->
                     <path d="M 310,60 Q 340,30 380,50 Q 400,70 380,100 Q 350,110 320,90 Z" />
-                    <!-- شبه الجزيرة العربية / آسيا الوسطى -->
                     <path d="M 410,100 Q 450,90 470,120 Q 460,160 420,150 Z" />
-                    <!-- قارة إفريقيا -->
                     <path d="M 330,120 Q 380,110 405,140 Q 425,220 395,290 Q 360,320 330,260 Q 315,180 330,120 Z" />
                 </g>
 
-                <!-- خط الربط المنحني بين السويد ومصر -->
                 <path d="M 345,75 Q 370,105 385,130" class="romantic-arc-line" filter="url(#mapGlow)" />
 
-                <!-- نقطة السويد (Aya's Home) -->
                 <g transform="translate(345, 75)">
                     <circle cx="0" cy="0" r="12" fill="rgba(168, 85, 247, 0.35)" class="pulse-ring" />
                     <circle cx="0" cy="0" r="5.5" fill="#a855f7" filter="url(#mapGlow)" />
@@ -600,7 +573,6 @@
                     <text x="0" y="22" class="map-sub-label" text-anchor="middle">Aya's Home</text>
                 </g>
 
-                <!-- نقطة مصر (My Heart) -->
                 <g transform="translate(385, 130)">
                     <circle cx="0" cy="0" r="14" fill="rgba(255, 77, 148, 0.4)" class="pulse-ring" />
                     <circle cx="0" cy="0" r="6.5" fill="#ff4d94" filter="url(#mapGlow)" />
@@ -608,7 +580,6 @@
                     <text x="0" y="24" class="map-sub-label" text-anchor="middle">My Heart</text>
                 </g>
 
-                <!-- أيقونة القلب المتحرك على الخط -->
                 <g class="moving-heart-icon">
                     <path fill="#ff4d94" d="M0,0 Q3,-5 7,0 Q12,6 0,14 Q-12,6 -7,0 Q-3,-5 0,0 Z" filter="url(#mapGlow)" />
                 </g>
@@ -632,7 +603,7 @@
                 <div class="counter-label">Days</div>
             </div>
         </div>
-        <p style="font-family: 'Playfair Display', serif; color: #ffd1dc; margin-top: 18px; font-size: 1.05rem;">Since June 29, 2026, and forever to go...</p>
+        <p style="font-family: 'Playfair Display', serif; color: #ffd1dc; margin-top: 18px; font-size: 1.05rem;">Since June 24, 2026, and forever to go...</p>
     </section>
 
     <section class="glass-section">
@@ -661,7 +632,8 @@
 
     <script>
         function updateLoveCounter() {
-            const startDate = new Date(2026, 5, 29);
+            // تم التعديل إلى 24 يونيو 2026 (الشهر يبدأ من 0 في جافاسكريبت، إذن 5 يعني يونيو)
+            const startDate = new Date(2026, 5, 24);
             const today = new Date();
             const diffTime = today - startDate;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -785,7 +757,6 @@
                 dew.style.top = Math.random() * 100 + 'vh';
                 dew.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 dew.style.animationDelay = (Math.random() * 3) + 's';
-                dewContainer.zIndex = 1;
                 dewContainer.appendChild(dew);
             }
         }
