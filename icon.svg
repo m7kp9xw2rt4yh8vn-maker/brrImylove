@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- خلفية الموقع الداكنة والعميقة -->
+    <radialGradient id="modernBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#2a0820" />
+      <stop offset="60%" stop-color="#0c0307" />
+      <stop offset="100%" stop-color="#020202" />
+    </radialGradient>
+
+    <!-- تدرج نيون حاد ومودرن للخطوط -->
+    <linearGradient id="neonPinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d94" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- فلتر توهج قوي وواضح -->
+    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur1" />
+      <feGaussianBlur stdDeviation="20" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- الخلفية المربعة -->
+  <rect width="512" height="512" rx="115" fill="url(#modernBg)" />
+
+  <!-- شبكة هندسية خلفية دقيقة تعطي طابعاً تقنياً وفخماً -->
+  <g stroke="rgba(255, 77, 148, 0.15)" stroke-width="1">
+    <line x1="256" y1="60" x2="256" y2="452" />
+    <line x1="60" y1="256" x2="452" y2="256" />
+    <circle cx="256" cy="256" r="140" fill="none" />
+    <circle cx="256" cy="256" r="180" fill="none" stroke-dasharray="4 8" />
+  </g>
+
+  <!-- تداخل هندسي عصري لقلبين ناعمين (يعبر عن الارتباط) بخطوط بارزة وتوهج نيون -->
+  <g filter="url(#neonGlow)" fill="none" stroke="url(#neonPinkGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- القلب الأول متجة لليسار -->
+    <path d="M256,380 C256,380 150,280 150,190 C150,140 185,105 225,105 C248,105 268,118 276,138 C284,118 304,105 327,105 C367,105 402,140 402,190 C402,280 256,380 256,380 Z" 
+          opacity="0.85" 
+          transform="translate(-20, -10) scale(0.9)" />
+          
+    <!-- القلب الثاني المتداخل المضيء -->
+    <path d="M256,380 C256,380 150,280 150,190 C150,140 185,105 225,105 C248,105 268,118 276,138 C284,118 304,105 327,105 C367,105 402,140 402,190 C402,280 256,380 256,380 Z" 
+          stroke="#ffffff"
+          stroke-width="3.5"
+          transform="translate(20, 10) scale(0.75)" />
+  </g>
+
+  <!-- نقطة إضاءة مركزية صافية -->
+  <circle cx="256" cy="230" r="7" fill="#ffffff" filter="url(#neonGlow)" />
+</svg>
