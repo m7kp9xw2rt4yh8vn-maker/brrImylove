@@ -132,7 +132,7 @@
         .line-art-path {
             fill: none;
             stroke: url(#lineGradient);
-            stroke-width: 4;
+            stroke-width: 3.5;
             stroke-linecap: round;
             stroke-linejoin: round;
             filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.9));
@@ -170,13 +170,13 @@
         .map-container-box {
             position: relative;
             width: 100%;
-            max-width: 650px;
+            max-width: 680px;
             margin: 25px auto 15px auto;
-            background: radial-gradient(circle, rgba(255, 77, 148, 0.08) 0%, rgba(10, 3, 15, 0.8) 80%);
-            border: 1px solid rgba(255, 77, 148, 0.3);
+            background: radial-gradient(circle, rgba(255, 77, 148, 0.08) 0%, rgba(5, 2, 8, 0.95) 85%);
+            border: 1px solid rgba(255, 77, 148, 0.35);
             border-radius: 25px;
-            padding: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,77,148,0.05);
+            padding: 25px 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 25px rgba(255,77,148,0.06);
             overflow: hidden;
         }
 
@@ -189,13 +189,13 @@
         .romantic-arc-line {
             fill: none;
             stroke: url(#mapLineGrad);
-            stroke-width: 3.5;
-            stroke-dasharray: 6 6;
-            animation: dashMove 4s linear infinite;
+            stroke-width: 3;
+            stroke-dasharray: 5 5;
+            animation: dashMove 3.5s linear infinite;
         }
 
         @keyframes dashMove {
-            0% { stroke-dashoffset: 24; }
+            0% { stroke-dashoffset: 20; }
             100% { stroke-dashoffset: 0; }
         }
 
@@ -205,36 +205,36 @@
         }
 
         @keyframes pulseMapRing {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.8); opacity: 0; }
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(2.2); opacity: 0; }
             100% { transform: scale(1); opacity: 0; }
         }
 
         .map-label {
             font-family: 'Playfair Display', serif;
-            font-size: 14px;
+            font-size: 13px;
             fill: #ffffff;
             font-weight: 700;
-            filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.8));
+            filter: drop-shadow(0 0 6px rgba(255, 77, 148, 0.9));
             letter-spacing: 0.5px;
         }
 
         .map-sub-label {
             font-family: 'Poppins', sans-serif;
-            font-size: 10px;
+            font-size: 9.5px;
             fill: #ffd1dc;
-            opacity: 0.85;
+            opacity: 0.9;
             letter-spacing: 0.5px;
         }
 
         .moving-heart-icon {
-            offset-path: path("M 450,85 Q 510,105 475,145");
-            animation: moveAlongArc 3.5s ease-in-out infinite alternate;
+            offset-path: path("M 380,105 Q 430,75 410,155");
+            animation: moveAlongArc 4s ease-in-out infinite alternate;
         }
 
         @keyframes moveAlongArc {
-            0% { offset-distance: 0%; transform: scale(0.9); }
-            100% { offset-distance: 100%; transform: scale(1.2); }
+            0% { offset-distance: 0%; transform: scale(0.8); }
+            100% { offset-distance: 100%; transform: scale(1.25); }
         }
 
         .distance-badge-box {
@@ -608,6 +608,7 @@
         <h1 class="aya-title">Aya</h1>
     </div>
 
+    <!-- رسمة العريس والعروسة الواقعية الأنيقة (تصميم خطي فخم ومحترف) -->
     <div class="wedding-svg-wrapper">
         <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -622,29 +623,40 @@
                 </filter>
             </defs>
 
+            <!-- مدار الخواتم المضيء في الخلفية -->
             <g class="ring-orbit" transform="translate(150, 150)">
-                <circle cx="0" cy="0" r="125" fill="none" stroke="url(#lineGradient)" stroke-width="2.5" stroke-dasharray="8 12" opacity="0.6"/>
+                <circle cx="0" cy="0" r="125" fill="none" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="8 12" opacity="0.6"/>
             </g>
 
             <g filter="url(#glow)">
-                <circle cx="180" cy="80" r="14" class="line-art-path"/>
-                <path d="M170,72 C162,72 155,85 160,95" class="line-art-path"/>
-                <path d="M190,75 C205,90 215,130 210,170" class="line-art-path"/>
-                <path d="M165,135 C170,110 185,100 190,100 C195,100 205,115 210,135 C220,165 240,210 255,235 C230,235 150,235 125,235 C145,210 160,165 165,135 Z" class="line-art-path"/>
+                <!-- العريس (يمين) - بدلة رسمية أنيقة ووقفة واثقة -->
+                <circle cx="190" cy="78" r="13" class="line-art-path"/> <!-- الرأس -->
+                <path d="M182,70 C175,70 170,80 174,90" class="line-art-path"/> <!-- الشعر -->
+                <path d="M183,91 L197,91" class="line-art-path"/> <!-- الياقة -->
+                <path d="M190,91 L190,120" class="line-art-path"/> <!-- ربطة العنق / القميص -->
+                <path d="M172,105 L182,125 L168,175 C165,190 162,215 158,240" class="line-art-path"/> <!-- الكتف والبدلة جهة اليسار -->
+                <path d="M208,105 L198,125 L212,185 C216,210 220,230 225,245" class="line-art-path"/> <!-- الكتف والبدلة جهة اليمين -->
+                <path d="M158,240 L225,245" class="line-art-path"/> <!-- قاعدة البدلة -->
 
-                <circle cx="120" cy="80" r="14" class="line-art-path"/>
-                <path d="M90,235 C95,190 105,145 110,135 C112,110 100,100 95,95" class="line-art-path"/>
-                <path d="M150,235 C145,190 135,145 130,135 C128,110 140,100 145,95" class="line-art-path"/>
-                <path d="M115,120 L120,135 L125,120" class="line-art-path"/>
-                <circle cx="120" cy="117" r="3" fill="#ff4d94" />
+                <!-- العروسة (يسار) - فستان زفاف منسدل وبتفاصيل أنثوية رقيقة -->
+                <circle cx="110" cy="78" r="13" class="line-art-path"/> <!-- الرأس -->
+                <path d="M98,72 C102,62 120,62 124,75" class="line-art-path"/> <!-- تسريحة الشعر الطويلة الفخمة -->
+                <path d="M110,91 C102,98 95,115 90,140 C85,165 75,200 65,245" class="line-art-path"/> <!-- تفاصيل الفستان المنسدل يساراً -->
+                <path d="M110,91 C118,98 125,115 130,140 C135,165 145,200 155,245" class="line-art-path"/> <!-- تفاصيل الفستان منسدل يميناً -->
+                <path d="M65,245 Q110,258 155,245" class="line-art-path"/> <!-- ذيل الفستان الواسع الراقي -->
+                <path d="M100,78 Q110,72 120,78" class="line-art-path"/> <!-- طرحة الزفاف من الخلف -->
 
-                <path d="M130,150 Q145,135 160,150" class="line-art-path"/>
+                <!-- التشابك الرومانسي للأيدي والأذرع -->
+                <path d="M172,135 Q150,145 130,135" class="line-art-path"/>
+                <path d="M182,145 Q160,155 140,145" class="line-art-path"/>
 
+                <!-- قلب متألق يربط بينهما في الأعلى -->
                 <path fill="#ff4d94" d="M150,42 Q155,33 163,40 Q171,33 176,42 Q176,52 163,63 Q150,52 150,42 Z" filter="url(#glow)" opacity="0.95"/>
             </g>
         </svg>
     </div>
 
+    <!-- قسم خريطة العالم الواقعية والمحدثة بدقة -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">
@@ -653,40 +665,42 @@
         </p>
         
         <div class="map-container-box">
-            <svg class="world-map-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+            <svg class="world-map-svg" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="mapLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#ff4d94" />
                         <stop offset="50%" stop-color="#ffd1dc" />
                         <stop offset="100%" stop-color="#a855f7" />
                     </linearGradient>
-                    <filter id="mapGlow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
+                    <filter id="mapGlow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="5" result="blur" />
                         <feComposite in="SourceGraphic" in2="blur" operator="over" />
                     </filter>
                 </defs>
 
-                <g class="continents-group" fill="rgba(255, 77, 148, 0.08)" stroke="rgba(255, 77, 148, 0.2)" stroke-width="1.5">
-                    <path d="M 120,80 Q 150,60 180,90 T 130,170 Z" />
-                    <path d="M 220,200 Q 260,220 230,320 T 190,260 Z" />
-                    <path d="M 430,70 Q 470,60 490,90 Q 480,120 510,130 Q 490,170 460,150 Q 430,220 400,180 Q 420,120 400,90 Z" />
-                    <path d="M 550,60 Q 680,50 720,120 Q 660,180 580,140 Z" />
+                <g class="continents-group" fill="rgba(255, 77, 148, 0.07)" stroke="rgba(255, 77, 148, 0.25)" stroke-width="1.2">
+                    <path d="M 100,70 Q 130,50 160,80 Q 180,100 150,130 Q 120,150 90,120 Q 70,100 100,70 Z" />
+                    <path d="M 180,170 Q 210,160 225,190 Q 240,240 210,290 Q 180,310 165,260 Q 160,210 180,170 Z" />
+                    <path d="M 350,70 Q 380,55 420,70 Q 440,90 410,110 Q 370,115 350,95 Z" />
+                    <path d="M 370,115 Q 410,115 440,135 Q 465,170 450,220 Q 430,270 400,280 Q 370,250 360,190 Q 355,140 370,115 Z" />
+                    <path d="M 460,50 Q 560,35 620,80 Q 670,130 600,180 Q 520,170 480,130 Z" />
+                    <path d="M 640,240 Q 680,230 700,270 Q 680,310 635,290 Z" />
                 </g>
 
-                <path d="M 450,85 Q 510,105 475,145" class="romantic-arc-line" filter="url(#mapGlow)" />
+                <path d="M 380,105 Q 430,75 410,155" class="romantic-arc-line" filter="url(#mapGlow)" />
 
-                <g transform="translate(450, 85)">
-                    <circle cx="0" cy="0" r="10" fill="rgba(168, 85, 247, 0.3)" class="pulse-ring" />
-                    <circle cx="0" cy="0" r="5" fill="#a855f7" filter="url(#mapGlow)" />
-                    <text x="0" y="-15" class="map-label" text-anchor="middle">Sweden</text>
-                    <text x="0" y="20" class="map-sub-label" text-anchor="middle">Aya's Home</text>
+                <g transform="translate(380, 105)">
+                    <circle cx="0" cy="0" r="12" fill="rgba(168, 85, 247, 0.35)" class="pulse-ring" />
+                    <circle cx="0" cy="0" r="5.5" fill="#a855f7" filter="url(#mapGlow)" />
+                    <text x="0" y="-16" class="map-label" text-anchor="middle">Sweden</text>
+                    <text x="0" y="21" class="map-sub-label" text-anchor="middle">Aya's Home</text>
                 </g>
 
-                <g transform="translate(475, 145)">
-                    <circle cx="0" cy="0" r="12" fill="rgba(255, 77, 148, 0.35)" class="pulse-ring" />
-                    <circle cx="0" cy="0" r="6" fill="#ff4d94" filter="url(#mapGlow)" />
+                <g transform="translate(410, 155)">
+                    <circle cx="0" cy="0" r="14" fill="rgba(255, 77, 148, 0.4)" class="pulse-ring" />
+                    <circle cx="0" cy="0" r="6.5" fill="#ff4d94" filter="url(#mapGlow)" />
                     <text x="0" y="-18" class="map-label" text-anchor="middle">Egypt</text>
-                    <text x="0" y="22" class="map-sub-label" text-anchor="middle">My Heart</text>
+                    <text x="0" y="23" class="map-sub-label" text-anchor="middle">My Heart</text>
                 </g>
 
                 <g class="moving-heart-icon">
