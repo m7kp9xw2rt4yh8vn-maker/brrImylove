@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#020202">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="./manifest.json">
     <title>For My Aya - A Cinematic Universe</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -566,7 +568,6 @@
         <h1 class="aya-title">Aya</h1>
     </div>
 
-    <!-- قسم خريطة العالم الواقعية (مصر والسويد بدقة جغرافية حقيقية ومطابقة للواقع دون أرقام افتراضية) -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">
@@ -588,20 +589,14 @@
                     </filter>
                 </defs>
 
-                <!-- خريطة جغرافية دقيقة ومطابقة للحقيقة توضح مواقع الدول وقارات أوروبا وأفريقيا -->
                 <g class="continents-group" fill="rgba(255, 77, 148, 0.07)" stroke="rgba(255, 77, 148, 0.25)" stroke-width="1.2">
-                    <!-- أوروبا / إسكندنافيا -->
                     <path d="M 330,40 Q 360,20 385,50 Q 400,80 375,100 Q 340,110 320,80 Z" />
-                    <!-- أفريقيا / مصر -->
                     <path d="M 320,130 Q 360,120 385,150 Q 395,220 370,280 Q 340,310 310,250 Q 300,180 320,130 Z" />
-                    <!-- شبه الجزيرة العربية وجزء من آسيا -->
                     <path d="M 400,150 Q 430,130 460,160 Q 470,210 430,240 Q 400,220 400,150 Z" />
                 </g>
 
-                <!-- خط المسافة الواقعي والمقوس بين السويد (الأعلى) ومصر (الأسفل) -->
                 <path d="M 352,118 Q 365,155 380,185" class="romantic-arc-line" filter="url(#mapGlow)" />
 
-                <!-- موقع السويد (الشمال الأوروبي) -->
                 <g transform="translate(352, 118)">
                     <circle cx="0" cy="0" r="12" fill="rgba(168, 85, 247, 0.35)" class="pulse-ring" />
                     <circle cx="0" cy="0" r="5.5" fill="#a855f7" filter="url(#mapGlow)" />
@@ -609,7 +604,6 @@
                     <text x="0" y="21" class="map-sub-label" text-anchor="middle">Aya's Home</text>
                 </g>
 
-                <!-- موقع مصر (شمال أفريقيا) -->
                 <g transform="translate(380, 185)">
                     <circle cx="0" cy="0" r="14" fill="rgba(255, 77, 148, 0.4)" class="pulse-ring" />
                     <circle cx="0" cy="0" r="6.5" fill="#ff4d94" filter="url(#mapGlow)" />
@@ -617,7 +611,6 @@
                     <text x="0" y="23" class="map-sub-label" text-anchor="middle">My Heart</text>
                 </g>
 
-                <!-- أيقونة القلب المتحركة بين البلدين -->
                 <g class="moving-heart-icon">
                     <path fill="#ff4d94" d="M0,0 Q3,-5 7,0 Q12,6 0,14 Q-12,6 -7,0 Q-3,-5 0,0 Z" filter="url(#mapGlow)" />
                 </g>
@@ -781,7 +774,7 @@
                 clearInterval(musicParticlesInterval);
                 musicParticlesInterval = null;
             }
-            document.getElementById('music-falling-container').innerHTML, '';
+            document.getElementById('music-falling-container').innerHTML = '';
         }
 
         function createFallingElement() {
