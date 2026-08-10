@@ -127,6 +127,7 @@
             text-shadow: 0 0 20px rgba(255,143,163,0.5);
         }
 
+        /* تعديلات الخريطة الأرضية الاحترافية */
         .map-container-box {
             position: relative;
             width: 100%;
@@ -135,7 +136,7 @@
             background: radial-gradient(circle, rgba(255, 77, 148, 0.08) 0%, rgba(5, 2, 8, 0.95) 85%);
             border: 1px solid rgba(255, 77, 148, 0.35);
             border-radius: 25px;
-            padding: 25px 15px;
+            padding: 20px 10px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 25px rgba(255,77,148,0.06);
             overflow: hidden;
         }
@@ -172,7 +173,7 @@
 
         .map-label {
             font-family: 'Playfair Display', serif;
-            font-size: 12px;
+            font-size: 13px;
             fill: #ffffff;
             font-weight: 700;
             filter: drop-shadow(0 0 6px rgba(255, 77, 148, 0.9));
@@ -181,14 +182,14 @@
 
         .map-sub-label {
             font-family: 'Poppins', sans-serif;
-            font-size: 9px;
+            font-size: 10px;
             fill: #ffd1dc;
             opacity: 0.9;
             letter-spacing: 0.5px;
         }
 
         .moving-heart-icon {
-            offset-path: path("M 380,185 Q 365,155 352,118");
+            offset-path: path("M 385,130 Q 370,105 345,75");
             animation: moveAlongArc 4s ease-in-out infinite alternate;
         }
 
@@ -270,18 +271,6 @@
             box-shadow: 0 20px 45px rgba(255, 77, 148, 0.6); 
         }
         .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .chat-video-box { 
-            width: 265px; height: 480px; border-radius: 32px; overflow: hidden; 
-            border: 3px solid rgba(255, 77, 148, 0.8); box-shadow: 0 15px 40px rgba(255, 77, 148, 0.4); 
-            background: #000; margin: 0 auto; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .chat-video-box:hover { 
-            transform: scale(1.04); 
-            box-shadow: 0 25px 60px rgba(255, 77, 148, 0.7); 
-            border-color: #ff3385;
-        }
-        .chat-video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .msg-btn { 
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.12), rgba(255, 77, 148, 0.25)); 
@@ -568,6 +557,7 @@
         <h1 class="aya-title">Aya</h1>
     </div>
 
+    <!-- قسم الخريطة الأرضية الحقيقية -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">
@@ -589,28 +579,36 @@
                     </filter>
                 </defs>
 
-                <g class="continents-group" fill="rgba(255, 77, 148, 0.07)" stroke="rgba(255, 77, 148, 0.25)" stroke-width="1.2">
-                    <path d="M 330,40 Q 360,20 385,50 Q 400,80 375,100 Q 340,110 320,80 Z" />
-                    <path d="M 320,130 Q 360,120 385,150 Q 395,220 370,280 Q 340,310 310,250 Q 300,180 320,130 Z" />
-                    <path d="M 400,150 Q 430,130 460,160 Q 470,210 430,240 Q 400,220 400,150 Z" />
+                <!-- رسم تفصيلي مبسط ومتقن للقارات (أوروبا وإفريقيا وجزء من آسيا لربط السويد ومصر بدقة) -->
+                <g class="continents-group" fill="rgba(255, 77, 148, 0.08)" stroke="rgba(255, 77, 148, 0.3)" stroke-width="1.2">
+                    <!-- قارة أوروبا -->
+                    <path d="M 310,60 Q 340,30 380,50 Q 400,70 380,100 Q 350,110 320,90 Z" />
+                    <!-- شبه الجزيرة العربية / آسيا الوسطى -->
+                    <path d="M 410,100 Q 450,90 470,120 Q 460,160 420,150 Z" />
+                    <!-- قارة إفريقيا -->
+                    <path d="M 330,120 Q 380,110 405,140 Q 425,220 395,290 Q 360,320 330,260 Q 315,180 330,120 Z" />
                 </g>
 
-                <path d="M 352,118 Q 365,155 380,185" class="romantic-arc-line" filter="url(#mapGlow)" />
+                <!-- خط الربط المنحني بين السويد ومصر -->
+                <path d="M 345,75 Q 370,105 385,130" class="romantic-arc-line" filter="url(#mapGlow)" />
 
-                <g transform="translate(352, 118)">
+                <!-- نقطة السويد (Aya's Home) -->
+                <g transform="translate(345, 75)">
                     <circle cx="0" cy="0" r="12" fill="rgba(168, 85, 247, 0.35)" class="pulse-ring" />
                     <circle cx="0" cy="0" r="5.5" fill="#a855f7" filter="url(#mapGlow)" />
-                    <text x="0" y="-16" class="map-label" text-anchor="middle">Sweden</text>
-                    <text x="0" y="21" class="map-sub-label" text-anchor="middle">Aya's Home</text>
+                    <text x="0" y="-15" class="map-label" text-anchor="middle">Sweden</text>
+                    <text x="0" y="22" class="map-sub-label" text-anchor="middle">Aya's Home</text>
                 </g>
 
-                <g transform="translate(380, 185)">
+                <!-- نقطة مصر (My Heart) -->
+                <g transform="translate(385, 130)">
                     <circle cx="0" cy="0" r="14" fill="rgba(255, 77, 148, 0.4)" class="pulse-ring" />
                     <circle cx="0" cy="0" r="6.5" fill="#ff4d94" filter="url(#mapGlow)" />
-                    <text x="0" y="-18" class="map-label" text-anchor="middle">Egypt</text>
-                    <text x="0" y="23" class="map-sub-label" text-anchor="middle">My Heart</text>
+                    <text x="0" y="-16" class="map-label" text-anchor="middle">Egypt</text>
+                    <text x="0" y="24" class="map-sub-label" text-anchor="middle">My Heart</text>
                 </g>
 
+                <!-- أيقونة القلب المتحرك على الخط -->
                 <g class="moving-heart-icon">
                     <path fill="#ff4d94" d="M0,0 Q3,-5 7,0 Q12,6 0,14 Q-12,6 -7,0 Q-3,-5 0,0 Z" filter="url(#mapGlow)" />
                 </g>
@@ -654,16 +652,6 @@
                     <source src="girl-video.mp4" type="video/mp4">
                 </video>
             </div>
-        </div>
-    </section>
-
-    <section class="glass-section">
-        <h2>Our Conversations</h2>
-        <p style="font-family: 'Playfair Display', serif; margin-bottom: 18px; color: #ddd; font-size: 1.05rem;">The sweet chats that started it all...</p>
-        <div class="chat-video-box">
-            <video autoplay muted loop playsinline>
-                <source src="chat-video.mp4" type="video/mp4">
-            </video>
         </div>
     </section>
 
