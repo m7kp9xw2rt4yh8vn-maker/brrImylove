@@ -144,21 +144,32 @@
             100% { transform: scale(0.2); opacity: 0; }
         }
 
+        /* --- تحسين انيميشن I love you المطور --- */
         .cascade-container {
-            position: relative; width: 100%; height: 120px; overflow: hidden; margin: 30px auto 0; z-index: 2;
+            position: relative; width: 100%; height: 130px; overflow: hidden; margin: 30px auto 0; z-index: 2;
         }
 
         .cascade-text {
-            position: absolute; font-family: 'Great Vibes', cursive; font-size: 1.9rem; color: #ff4d94;
-            text-shadow: 0 0 25px rgba(255, 77, 148, 0.9); white-space: nowrap; animation: cascadeDown 4.5s linear infinite; opacity: 0;
+            position: absolute; 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 2.3rem; 
+            background: linear-gradient(135deg, #ff4d94, #ffb6c1, #da70d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 77, 148, 0.8); 
+            white-space: nowrap; 
+            animation: enhancedCascade 4.2s cubic-bezier(0.37, 0, 0.63, 1) infinite; 
+            opacity: 0;
         }
 
-        @keyframes cascadeDown {
-            0% { transform: translateY(-30px) scale(0.9); opacity: 0; }
-            20% { opacity: 0.95; }
-            80% { opacity: 0.95; }
-            100% { transform: translateY(110px) scale(1.15); opacity: 0; }
+        @keyframes enhancedCascade {
+            0% { transform: translateY(-40px) scale(0.8) rotate(-5deg); opacity: 0; filter: blur(4px); }
+            15% { opacity: 1; filter: blur(0px); transform: translateY(15px) scale(1.05) rotate(2deg); }
+            50% { transform: translateY(50px) scale(1.2) rotate(0deg); opacity: 0.95; filter: drop-shadow(0 0 18px rgba(255, 77, 148, 0.9)); }
+            85% { opacity: 0.9; filter: blur(0px); }
+            100% { transform: translateY(120px) scale(1.35) rotate(5deg); opacity: 0; filter: blur(6px); }
         }
+        /* -------------------------------------- */
 
         .name-wrapper { margin-bottom: 25px; z-index: 2; position: relative; }
         .aya-title { 
@@ -708,15 +719,15 @@
         updateLoveCounter();
 
         const cascadeContainer = document.getElementById('cascadeContainer');
-        const wordCount = 5;
+        const wordCount = 6;
 
         for (let i = 0; i < wordCount; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${15 + (i * 17)}%`;
-            span.style.animationDelay = `${i * 0.8}s`;
-            span.style.animationDuration = '3.5s';
+            span.style.left = `${10 + (i * 15)}%`;
+            span.style.animationDelay = `${i * 0.7}s`;
+            span.style.animationDuration = '4.2s';
             cascadeContainer.appendChild(span);
         }
 
