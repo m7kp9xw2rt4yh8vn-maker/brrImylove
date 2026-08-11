@@ -107,7 +107,32 @@
             border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0.5;
         }
 
-        .name-wrapper { margin: 40px 0 25px 0; z-index: 2; position: relative; }
+        .cascade-container {
+            position: relative; width: 100%; height: 110px; overflow: hidden; margin: 30px auto 0; z-index: 2;
+        }
+
+        .cascade-text {
+            position: absolute; 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 2.3rem; 
+            background: linear-gradient(135deg, #ff4d94, #ffb6c1, #da70d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 77, 148, 0.6); 
+            white-space: nowrap; 
+            animation: enhancedCascade 4.2s cubic-bezier(0.37, 0, 0.63, 1) infinite; 
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes enhancedCascade {
+            0% { transform: translateY(-30px) scale(0.9); opacity: 0; }
+            20% { opacity: 1; transform: translateY(15px) scale(1); }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(100px) scale(1.1); opacity: 0; }
+        }
+
+        .name-wrapper { margin-bottom: 25px; z-index: 2; position: relative; }
         .aya-title { 
             font-family: 'Great Vibes', cursive; font-size: 7rem; color: #ff4d94; 
             text-shadow: 0 0 35px rgba(255,77,148,0.7); 
@@ -508,6 +533,8 @@
         </div>
     </div>
 
+    <div class="cascade-container" id="cascadeContainer"></div>
+
     <div class="name-wrapper">
         <h1 class="aya-title">Aya</h1>
     </div>
@@ -592,6 +619,19 @@
         }
 
         updateLoveCounter();
+
+        const cascadeContainer = document.getElementById('cascadeContainer');
+        const wordCount = 5;
+
+        for (let i = 0; i < wordCount; i++) {
+            const span = document.createElement('span');
+            span.className = 'cascade-text';
+            span.innerText = "I love you";
+            span.style.left = `${10 + (i * 18)}%`;
+            span.style.animationDelay = `${i * 0.8}s`;
+            span.style.animationDuration = '4.2s';
+            cascadeContainer.appendChild(span);
+        }
 
         const bgMusic = document.getElementById('bg-music');
         let musicParticlesInterval = null;
