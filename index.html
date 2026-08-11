@@ -134,66 +134,82 @@
             background: radial-gradient(circle, rgba(255, 77, 148, 0.08) 0%, rgba(5, 2, 8, 0.95) 85%);
             border: 1px solid rgba(255, 77, 148, 0.35);
             border-radius: 25px;
-            padding: 20px 10px;
+            padding: 35px 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 25px rgba(255,77,148,0.06);
             overflow: hidden;
         }
 
-        .world-map-svg {
-            width: 100%;
-            height: auto;
-            display: block;
+        .connection-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 15px 0 25px 0;
         }
 
-        .romantic-arc-line {
-            fill: none;
-            stroke: url(#mapLineGrad);
-            stroke-width: 2.5;
-            stroke-dasharray: 4 4;
-            animation: dashMove 3.5s linear infinite;
+        .country-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
         }
 
-        @keyframes dashMove {
-            0% { stroke-dashoffset: 16; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        .pulse-ring {
-            animation: pulseMapRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            transform-origin: center;
-        }
-
-        @keyframes pulseMapRing {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(2.2); opacity: 0; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-        .map-label {
+        .country-name {
             font-family: 'Playfair Display', serif;
-            font-size: 13px;
-            fill: #ffffff;
-            font-weight: 700;
-            filter: drop-shadow(0 0 6px rgba(255, 77, 148, 0.9));
-            letter-spacing: 0.5px;
+            font-size: 2rem;
+            color: #ff4d94;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(255, 77, 148, 0.8);
+            letter-spacing: 1px;
         }
 
-        .map-sub-label {
+        .country-desc {
             font-family: 'Poppins', sans-serif;
-            font-size: 10px;
-            fill: #ffd1dc;
+            font-size: 0.9rem;
+            color: #ffd1dc;
             opacity: 0.9;
-            letter-spacing: 0.5px;
         }
 
-        .moving-heart-icon {
-            offset-path: path("M 385,130 Q 370,105 345,75");
-            animation: moveAlongArc 4s ease-in-out infinite alternate;
+        .heart-bridge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 140px;
         }
 
-        @keyframes moveAlongArc {
-            0% { offset-distance: 0%; transform: scale(0.8); }
-            100% { offset-distance: 100%; transform: scale(1.25); }
+        .bridge-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4d94, #ffd1dc, #ff4d94);
+            background-size: 200% 100%;
+            animation: lineFlow 3s linear infinite;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes lineFlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .beating-bridge-heart {
+            width: 38px;
+            height: 38px;
+            fill: #ff4d94;
+            filter: drop-shadow(0 0 15px rgba(255, 77, 148, 0.95));
+            z-index: 2;
+            animation: bridgeHeartBeat 1.2s ease-in-out infinite;
+        }
+
+        @keyframes bridgeHeartBeat {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.7)); }
+            15% { transform: scale(1.35); filter: drop-shadow(0 0 25px rgba(255, 77, 148, 1)); }
+            30% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.7)); }
+            45% { transform: scale(1.2); filter: drop-shadow(0 0 20px rgba(255, 77, 148, 0.9)); }
+            60% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.7)); }
         }
 
         .distance-badge-box {
@@ -545,45 +561,22 @@
         </p>
         
         <div class="map-container-box">
-            <svg class="world-map-svg" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="mapLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#ff4d94" />
-                        <stop offset="50%" stop-color="#ffd1dc" />
-                        <stop offset="100%" stop-color="#a855f7" />
-                    </linearGradient>
-                    <filter id="mapGlow" x="-30%" y="-30%" width="160%" height="160%">
-                        <feGaussianBlur stdDeviation="5" result="blur" />
-                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                </defs>
-
-                <g class="continents-group" fill="rgba(255, 77, 148, 0.08)" stroke="rgba(255, 77, 148, 0.3)" stroke-width="1.2">
-                    <path d="M 310,60 Q 340,30 380,50 Q 400,70 380,100 Q 350,110 320,90 Z" />
-                    <path d="M 410,100 Q 450,90 470,120 Q 460,160 420,150 Z" />
-                    <path d="M 330,120 Q 380,110 405,140 Q 425,220 395,290 Q 360,320 330,260 Q 315,180 330,120 Z" />
-                </g>
-
-                <path d="M 345,75 Q 370,105 385,130" class="romantic-arc-line" filter="url(#mapGlow)" />
-
-                <g transform="translate(345, 75)">
-                    <circle cx="0" cy="0" r="12" fill="rgba(168, 85, 247, 0.35)" class="pulse-ring" />
-                    <circle cx="0" cy="0" r="5.5" fill="#a855f7" filter="url(#mapGlow)" />
-                    <text x="0" y="-15" class="map-label" text-anchor="middle">Sweden</text>
-                    <text x="0" y="22" class="map-sub-label" text-anchor="middle">Aya's Home</text>
-                </g>
-
-                <g transform="translate(385, 130)">
-                    <circle cx="0" cy="0" r="14" fill="rgba(255, 77, 148, 0.4)" class="pulse-ring" />
-                    <circle cx="0" cy="0" r="6.5" fill="#ff4d94" filter="url(#mapGlow)" />
-                    <text x="0" y="-16" class="map-label" text-anchor="middle">Egypt</text>
-                    <text x="0" y="24" class="map-sub-label" text-anchor="middle">My Heart</text>
-                </g>
-
-                <g class="moving-heart-icon">
-                    <path fill="#ff4d94" d="M0,0 Q3,-5 7,0 Q12,6 0,14 Q-12,6 -7,0 Q-3,-5 0,0 Z" filter="url(#mapGlow)" />
-                </g>
-            </svg>
+            <div class="connection-visual">
+                <div class="country-node">
+                    <span class="country-name" style="color: #ff4d94;">Egypt</span>
+                    <span class="country-desc">My Heart</span>
+                </div>
+                <div class="heart-bridge">
+                    <div class="bridge-line"></div>
+                    <svg class="beating-bridge-heart" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+                <div class="country-node">
+                    <span class="country-name" style="color: #ff4d94;">Sweden</span>
+                    <span class="country-desc">Aya's Home</span>
+                </div>
+            </div>
         </div>
         
         <div class="distance-badge-box">
@@ -632,7 +625,6 @@
 
     <script>
         function updateLoveCounter() {
-            // تم التعديل إلى 24 يونيو 2026 (الشهر يبدأ من 0 في جافاسكريبت، إذن 5 يعني يونيو)
             const startDate = new Date(2026, 5, 24);
             const today = new Date();
             const diffTime = today - startDate;
