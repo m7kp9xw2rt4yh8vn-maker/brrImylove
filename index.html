@@ -172,7 +172,6 @@
             box-shadow: inset 0 0 15px rgba(255,77,148,0.08);
         }
 
-        /* تعديل تصميم البلدان والقلب ليكون مرتباً عمودياً (مصر فوق، القلب في المنتصف، السويد تحت) */
         .connection-visual {
             display: flex;
             flex-direction: column;
@@ -395,48 +394,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
+            gap: 35px;
             flex-wrap: wrap;
             margin-bottom: 30px;
+            padding: 10px;
         }
 
-        .polaroid { 
-            background: #1f0a1b; 
-            border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 18px 18px 25px 18px; 
-            border-radius: 25px; 
-            width: 280px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
+        /* تنسيق الصور الجديد (بديل البلارويد) */
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 360px; /* حجم عرض كبير */
+            transition: transform 0.3s ease;
             will-change: transform;
         }
-        .polaroid:hover { transform: translateY(-4px); }
-        .polaroid img { width: 100%; height: 290px; object-fit: cover; border-radius: 16px; }
-        .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.1rem; }
 
-        .video-polaroid { 
-            background: #1f0a1b; 
-            border: 1.5px solid rgba(255, 77, 148, 0.6); 
-            padding: 18px 18px 25px 18px; 
-            border-radius: 25px; 
-            width: 280px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
-            will-change: transform;
+        .gallery-item:hover {
+            transform: translateY(-8px);
         }
-        .video-polaroid:hover { transform: translateY(-4px); }
-        .video-polaroid video { 
-            width: 100%; 
-            height: 290px; 
-            object-fit: cover; 
-            border-radius: 16px; 
-            display: block; 
+
+        .modal-media {
+            width: 100%;
+            aspect-ratio: 3/4; /* نسبة أبعاد متناسقة للصور العمودية */
+            object-fit: cover;
+            border-radius: 22px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 77, 148, 0.3);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .video-polaroid p { 
-            margin-top: 14px; 
-            font-family: 'Playfair Display', serif; 
-            color: #ffd1dc; 
-            font-size: 1.1rem; 
+
+        .gallery-item:hover .modal-media {
+            border-color: rgba(255, 77, 148, 0.8);
+            box-shadow: 0 15px 45px rgba(255, 77, 148, 0.3);
+        }
+
+        .gallery-item p {
+            font-family: 'Playfair Display', serif;
+            color: #ffd1dc;
+            font-size: 1.25rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255,209,220,0.3);
         }
 
         .msg-btn { 
@@ -594,7 +594,6 @@
 </head>
 <body>
 
-    <!-- خلفية الكون والنجوم المترابطة -->
     <canvas id="constellation-canvas"></canvas>
 
     <div id="intro-screen">
@@ -622,24 +621,43 @@
         </div>
     </div>
 
+    <!-- Boy's Album Modal -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
             <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-photo3.jpg" alt="Mohie's Custom Photo" loading="lazy"><p>My special moments</p></div>
+                <div class="gallery-item">
+                    <img src="my-photo1.jpg" class="modal-media" alt="Mohie 1" loading="lazy">
+                    <p>The beginning of everything</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="my-photo2.jpg" class="modal-media" alt="Mohie 2" loading="lazy">
+                    <p>Unforgettable days</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
+                    <p>My special moments</p>
+                </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
         </div>
     </div>
 
+    <!-- Girl's Album Modal -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
             <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy"><p>Your lovely smile</p></div>
-                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy"><p>The light of my days</p></div>
-                <div class="video-polaroid">
-                    <video id="ayaVideoElement" autoplay muted loop playsinline preload="auto">
+                <div class="gallery-item">
+                    <img src="my-love.jpg" class="modal-media" alt="Aya" loading="lazy">
+                    <p>Your lovely smile</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
+                    <p>The light of my days</p>
+                </div>
+                <div class="gallery-item">
+                    <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
                     </video>
                     <p>Precious moments</p>
@@ -738,7 +756,8 @@
         <div class="albums-grid">
             <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
-                    <img src="my-photo3.jpg" alt="Mohie's Album Cover" loading="lazy">
+                    <!-- تم تعيين صورة my-photo1 لتكون غلاف ألبوم الولد -->
+                    <img src="my-photo1.jpg" alt="Mohie's Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
                 </div>
                 <h3 class="album-title">Mohie's Album</h3>
@@ -759,7 +778,6 @@
     </footer>
 
     <script>
-        /* نظام الكون والنجوم المترابطة الفائق الخفة (Constellation Stars) */
         const canvas = document.getElementById('constellation-canvas');
         const ctx = canvas.getContext('2d');
 
