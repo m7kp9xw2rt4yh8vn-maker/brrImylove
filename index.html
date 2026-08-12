@@ -156,7 +156,7 @@
             -webkit-text-fill-color: #ffd1dc;
         }
 
-        /* تحسين الأداء بتقليل البلور جداً إلى 3px لسرعة وسلاسة أعلى */
+        /* تحسين الأداء وترتيب المحتوى الرأسي */
         .glass-section { 
             background: rgba(22, 7, 18, 0.88); 
             backdrop-filter: blur(3px);
@@ -164,11 +164,14 @@
             border: 1px solid rgba(255, 77, 148, 0.25); 
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             width: 90%; max-width: 850px; 
-            margin: 35px auto; padding: 35px 22px; border-radius: 28px; z-index: 3; 
+            margin: 40px auto; padding: 35px 22px; border-radius: 28px; z-index: 3; 
             opacity: 0; transform: translate3d(0, 20px, 0); 
             transition: opacity 0.4s ease, transform 0.4s ease; 
             position: relative;
             will-change: opacity, transform;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .glass-section:hover { border-color: rgba(255, 77, 148, 0.45); }
@@ -227,7 +230,7 @@
             font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1dc; font-size: 0.98rem;
         }
 
-        .counter-box { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0 10px 0; }
+        .counter-box { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0 10px 0; width: 100%; }
 
         .counter-item {
             background: rgba(255,77,148,0.08); border: 1px solid rgba(255, 77, 148, 0.35);
@@ -242,9 +245,9 @@
         }
 
         .counter-label { font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; }
-        .counter-desc { font-family: 'Playfair Display', serif; font-style: italic; color: #e9d5ff; font-size: 1.15rem; margin-top: 10px; line-height: 1.4; }
+        .counter-desc { font-family: 'Playfair Display', serif; font-style: italic; color: #e9d5ff; font-size: 1.15rem; margin-top: 6px; line-height: 1.4; text-align: center; }
 
-        .albums-grid { display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap; margin-top: 25px; }
+        .albums-grid { display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap; margin-top: 25px; width: 100%; }
 
         .album-card {
             background: rgba(20, 7, 17, 0.9); border: 1px solid rgba(255, 77, 148, 0.3);
@@ -265,19 +268,28 @@
 
         .album-title { margin-top: 12px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; }
 
+        .msg-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 15px;
+        }
+
         .msg-btn { 
             background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid rgba(255, 77, 148, 0.45); 
-            padding: 12px 26px; margin: 8px; border-radius: 25px; cursor: pointer; 
+            padding: 12px 26px; border-radius: 25px; cursor: pointer; 
             font-family: 'Playfair Display', serif; font-size: 1.05rem; transition: all 0.25s ease; 
+            width: 100%;
         }
         .msg-btn:hover { background: linear-gradient(135deg, #ff4d94, #da70d6); transform: translateY(-2px); border-color: #fff; }
 
         #msg-display { 
-            margin-top: 20px; font-size: 1.25rem; color: #fff; font-style: italic; 
+            margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; 
             font-family: 'Playfair Display', serif; padding: 0 10px; min-height: 35px;
         }
 
-        /* تخفيف الـ Blur بالشاشات العائمة وتقليص حجم الرسالة العائمة بشكل ممتاز */
         .album-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: rgba(4, 1, 3, 0.85); 
@@ -289,14 +301,13 @@
         }
         .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* 💥 تصغير شاشة الرسالة العائمة بشكل ملحوظ كما طُلب 💥 */
         .modal-card {
             background: rgba(20, 5, 18, 0.97);
             border: 1px solid rgba(255, 77, 148, 0.6);
             padding: 22px 18px; 
             border-radius: 24px; 
             width: 92%;
-            max-width: 360px; /* تم تصغيرها من 480px إلى 360px */
+            max-width: 360px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(255, 77, 148, 0.2);
             text-align: center; 
             transform: scale(0.92); 
@@ -338,7 +349,6 @@
         }
         .floating-bubble:hover { transform: translateY(-3px); background: rgba(255, 77, 148, 0.25); border-color: #ff4d94; }
 
-        /* صندوق التعليقات المصغر داخل الشاشة العائمة */
         .comment-box-wrapper {
             margin-top: 12px;
             background: rgba(14, 4, 12, 0.7);
@@ -387,16 +397,15 @@
             word-break: break-word;
         }
 
-        /* تنسيق نص الرسالة المصغر والمريح في الشاشة العائمة */
         #modal-text-content {
             font-family: 'Amiri', 'Cairo', serif;
             color: #ffe4e6;
-            font-size: 1.1rem; /* تصغير الخط قليلاً يناسب الحجم المصغر */
+            font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 12px;
             text-align: right;
             direction: rtl;
-            max-height: 40vh; /* ضبط أقصى ارتفاع للبطاقة المصغرة */
+            max-height: 40vh;
             overflow-y: auto;
             padding: 10px 12px;
             background: rgba(255, 255, 255, 0.02);
@@ -469,7 +478,6 @@
         </div>
     </div>
 
-    <!-- نافذة طلب كلمة المرور المصغرة -->
     <div class="modal-overlay" id="passwordModalOverlay" onclick="closePasswordModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
             <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:6px;">Secret Space</h3>
@@ -482,7 +490,6 @@
         </div>
     </div>
 
-    <!-- الشاشة العائمة المصغرة جداً والأنيقة للرسالة والتعليق -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
             <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.6rem; margin-bottom:10px;">Forever Together</h3>
@@ -524,6 +531,7 @@
         </h1>
     </div>
 
+    <!-- الترتيب الرأسي المنتظم لكل الأقسام -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">No matter the miles between us, our hearts beat as one</p>
@@ -562,9 +570,11 @@
 
     <section class="glass-section">
         <h2>Secret Notes</h2>
-        <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place, Aya.')">About Us</button>
-        <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
-        <button class="msg-btn" onclick="promptSecretNote()">Whispers of My Heart</button>
+        <div class="msg-btn-group">
+            <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place, Aya.')">About Us</button>
+            <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
+            <button class="msg-btn" onclick="promptSecretNote()">Whispers of My Heart</button>
+        </div>
         <div id="msg-display"></div>
     </section>
 
@@ -694,7 +704,6 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 400);
             
-            // تكثيف تساقط القلوب والقبلات بفاصل زمني أقصر لجرعة إضافية من الرومانسية
             if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 220); }
         }
 
@@ -824,24 +833,18 @@
             bgMusic.pause();
         }
 
-        /* ------------------ أشكال الـ SVG المضافة للمؤثرات الرومانسية ------------------ */
-        // 1. قلب وردي نيون
         const svgHeart1 = document.createElement('div');
         svgHeart1.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff4d94"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
         
-        // 2. قلب بنفسجي بلمعة
         const svgHeart2 = document.createElement('div');
         svgHeart2.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#c084fc"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
         
-        // 3. أيقونة الشفاه / القُبلة (Kisses) 💋
         const svgKiss = document.createElement('div');
-        svgKiss.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff3366"><path d="M21.8 10.2c-.8-1.5-2.8-2.2-4.8-1.7-1.4.3-2.7 1.2-4.5 1.2-1.8 0-3.1-.9-4.5-1.2-2-.5-4 .2-4.8 1.7-.8 1.4-.3 3.2 1.2 4.4 1.8 1.4 4.5 1.9 8.1 1.9s6.3-.5 8.1-1.9c1.5-1.2 2-3 1.2-4.4zm-9.8.8c1.3 0 2.4-.7 3.6-1 .9-.2 1.8 0 2.4.5-.4.6-1.1 1.1-2 1.3-1.3.3-2.6-.2-4-.2s-2.7.5-4 .2c-.9-.2-1.6-.7-2-1.3.6-.5 1.5-.7 2.4-.5 1.2.3 2.3 1 3.6 1z"/></svg>';
+        svgKiss.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff3366"><path d="M21.8 10.2c-.8-1.5-2.8-2.2-4.8-1.7-1.4.3-2.7 1.2-4.5 1.2-1.8 0-3.1-.9-4.5-1.2-2-.5-4 .2-4.8 1.7-.8 1.4-.3 3.2 1.2 4.4 1.8 1.4 4.5 1.9 8.1 1.9s6.3-.5 8.1-1.9c1.5-1.2 2-3 1.2-4.4zm-9.8.8c1.3 0 2.4-.7 3.6-1 .9-.2 1.8 0 2.4.5-.4.6-1.1 1.1-2 1.3-1.3.3-2.6-.2-4-.2s-2.7.5-4 .2c-.9-.2-1.6-.7-2-1.3.6-.5 1.5-.7 2.4-.5 1.2.3 2.3 1 3.6 1 z"/></svg>';
 
-        // 4. القلوب المزدوجة المتداخلة 💕
         const svgDoubleHeart = document.createElement('div');
         svgDoubleHeart.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff8fa3"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M19 14l-.8-.7c-2.9-2.6-4.8-4.3-4.8-6.4 0-1.7 1.3-3 3-3 .9 0 1.8.4 2.4 1.1.6-.7 1.5-1.1 2.4-1.1 1.7 0 3 1.3 3 3 0 2.1-1.9 3.8-4.8 6.4l-.9.7z" fill="#ffd1dc"/></svg>';
 
-        // 5. نجمة لامعة Sparkle Star ✨
         const svgSparkle = document.createElement('div');
         svgSparkle.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ffd1dc"><path d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z"/></svg>';
 
