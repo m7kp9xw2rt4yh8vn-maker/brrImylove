@@ -36,7 +36,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: radial-gradient(circle at center, #2a0823 0%, #0c030a 60%, #020102 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 9999; transition: opacity 0.5s ease; 
+            z-index: 9999; transition: opacity 0.4s ease; 
             will-change: opacity;
         }
 
@@ -52,13 +52,13 @@
 
         #intro-screen h1 { 
             font-family: 'Great Vibes', cursive; 
-            font-size: 5rem; 
+            font-size: 4.2rem; 
             background: linear-gradient(to right, #ff4d94, #ffd1dc, #ff4d94);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 12px; 
+            margin-bottom: 10px; 
             line-height: 1.2;
-            filter: drop-shadow(0 0 15px rgba(255, 77, 148, 0.4));
+            filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.3));
             transform: translateZ(0);
         }
 
@@ -66,9 +66,9 @@
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: #ffd1dc;
-            font-size: 1.35rem;
-            margin-bottom: 40px;
-            letter-spacing: 1.5px;
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
             opacity: 0.9;
         }
 
@@ -77,22 +77,21 @@
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.35), rgba(147, 51, 234, 0.35)); 
             color: #fff; 
             border: 1px solid rgba(255, 77, 148, 0.7); 
-            padding: 16px 52px; 
-            font-size: 1.3rem; 
+            padding: 14px 45px; 
+            font-size: 1.2rem; 
             font-family: 'Playfair Display', serif; 
             border-radius: 50px; 
             cursor: pointer; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 0 25px rgba(255, 77, 148, 0.25); 
+            transition: transform 0.2s ease, background 0.2s ease; 
+            box-shadow: 0 0 20px rgba(255, 77, 148, 0.2); 
             letter-spacing: 1px;
             transform: translateZ(0);
         }
 
         .enter-btn:hover { 
-            transform: scale(1.04) translateZ(0); 
+            transform: scale(1.03) translateZ(0); 
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.85), rgba(147, 51, 234, 0.85));
             border-color: #fff;
-            box-shadow: 0 0 35px rgba(255, 77, 148, 0.5);
         }
 
         .falling-element { 
@@ -100,24 +99,23 @@
             animation: fall linear infinite; z-index: 2; pointer-events: none; 
             will-change: transform, opacity;
             transform: translateZ(0);
-            filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.6));
         }
 
         @keyframes fall { 
             0% { transform: translateY(-5vh) rotate(0deg) scale(0.8) translateZ(0); opacity: 0; } 
-            15% { opacity: 0.9; }
-            85% { opacity: 0.9; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
             100% { transform: translateY(110vh) rotate(360deg) scale(1.1) translateZ(0); opacity: 0; } 
         }
 
         .cascade-container {
-            position: relative; width: 100%; height: 200px; overflow: hidden; margin: 25px auto 0; z-index: 3;
+            position: relative; width: 100%; height: 180px; overflow: hidden; margin: 20px auto 0; z-index: 3;
         }
 
         .cascade-text {
             position: absolute; 
             font-family: 'Great Vibes', cursive; 
-            font-size: 2.5rem; 
+            font-size: 2.2rem; 
             background: linear-gradient(135deg, #ff4d94, #ffb6c1, #da70d6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -131,50 +129,46 @@
         @keyframes lightCascade {
             0% { transform: translateY(-20px) scale(0.9) translateZ(0); opacity: 0; }
             20% { opacity: 1; transform: translateY(20px) scale(1) translateZ(0); }
-            80% { opacity: 1; transform: translateY(140px) scale(1) translateZ(0); }
-            100% { transform: translateY(180px) scale(0.9) translateZ(0); opacity: 0; }
+            80% { opacity: 1; transform: translateY(130px) scale(1) translateZ(0); }
+            100% { transform: translateY(170px) scale(0.9) translateZ(0); opacity: 0; }
         }
 
-        .name-wrapper { margin-top: 15px; margin-bottom: 25px; z-index: 3; position: relative; }
+        .name-wrapper { margin-top: 10px; margin-bottom: 20px; z-index: 3; position: relative; }
         
         .aya-title { 
             font-family: 'Great Vibes', cursive; 
-            font-size: 5.5rem; 
+            font-size: 5rem; 
             line-height: 1.1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 4px;
             background: linear-gradient(to right, #ff4d94, #d8b4fe, #ff4d94);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(255, 77, 148, 0.3));
             transform: translateZ(0);
         }
         
         .aya-title .me-text {
-            font-size: 4.4rem;
+            font-size: 4rem;
             color: #ffd1dc;
             -webkit-text-fill-color: #ffd1dc;
         }
 
+        /* تحسين وتخفيف البلور في الكروت لرندرة أسرع */
         .glass-section { 
-            background: linear-gradient(135deg, rgba(38, 12, 30, 0.65), rgba(14, 4, 18, 0.88)); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(32, 10, 25, 0.75), rgba(12, 3, 15, 0.92)); 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 77, 148, 0.25); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 15px rgba(255, 77, 148, 0.05);
-            width: 90%; max-width: 900px; 
-            margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 3; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 90%; max-width: 850px; 
+            margin: 35px auto; padding: 35px 22px; border-radius: 28px; z-index: 3; 
             opacity: 0; transform: translateY(20px) translateZ(0); 
-            transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease; 
+            transition: opacity 0.4s ease, transform 0.4s ease; 
             position: relative;
             will-change: opacity, transform;
-        }
-
-        .glass-section:hover {
-            border-color: rgba(255, 77, 148, 0.45);
         }
         
         .glass-section.visible { 
@@ -183,49 +177,59 @@
         }
         
         .glass-section h2 { 
-            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.6rem; margin-bottom: 20px; 
-            text-shadow: 0 0 15px rgba(255, 143, 163, 0.3);
+            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.2rem; margin-bottom: 15px; 
         }
 
         .map-container-box {
             position: relative;
             width: 100%;
-            max-width: 650px;
-            margin: 20px auto 10px auto;
+            max-width: 600px;
+            margin: 15px auto 10px auto;
             background: rgba(18, 6, 15, 0.6);
             border: 1px solid rgba(255, 77, 148, 0.25);
-            border-radius: 28px;
-            padding: 35px 20px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            border-radius: 24px;
+            padding: 28px 15px;
         }
 
         .connection-visual {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            margin: 10px 0;
+            gap: 15px;
+            flex-wrap: nowrap;
+            margin: 5px 0;
         }
 
-        .country-node { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .country-node { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 80px; }
 
         .country-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 1.9rem;
             color: #ff4d94;
             font-weight: 600;
         }
 
-        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.95rem; color: #ffd1dc; opacity: 0.9; }
+        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: #ffd1dc; opacity: 0.9; }
 
-        .heart-bridge { display: flex; flex-direction: column; align-items: center; position: relative; width: 140px; }
+        /* تمركز واستقرار القلب النابض بالمنتصف تماماً */
+        .heart-bridge { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            width: 120px; 
+            height: 45px;
+        }
 
         .bridge-line {
             width: 100%; height: 2px;
             background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.6), transparent);
-            position: absolute; top: 50%; transform: translateY(-50%);
+            position: absolute; 
+            top: 50%; left: 0;
+            transform: translateY(-50%);
             overflow: hidden;
+            z-index: 1;
         }
 
         .traveling-light {
@@ -244,156 +248,145 @@
         }
 
         .beating-bridge-heart {
-            width: 42px; height: 42px; fill: #ff4d94;
+            width: 34px; height: 34px; fill: #ff4d94;
             z-index: 2;
-            filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.8));
+            position: relative;
+            filter: drop-shadow(0 0 6px rgba(255, 77, 148, 0.8));
             animation: heartBeat 1.2s ease-in-out infinite;
             transform: translateZ(0);
         }
 
         @keyframes heartBeat {
             0%, 100% { transform: scale(1) translateZ(0); }
-            50% { transform: scale(1.22) translateZ(0); }
+            50% { transform: scale(1.2) translateZ(0); }
         }
 
         .distance-badge-box {
-            margin-top: 25px; display: inline-block;
+            margin-top: 20px; display: inline-block;
             background: rgba(255,77,148,0.12);
             border: 1px solid rgba(255, 77, 148, 0.35);
-            padding: 12px 28px; border-radius: 30px;
+            padding: 10px 22px; border-radius: 25px;
             font-family: 'Playfair Display', serif; font-style: italic;
-            color: #ffd1dc; font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: #ffd1dc; font-size: 1rem;
         }
 
-        .counter-box { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0 10px 0; }
+        .counter-box { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0 10px 0; }
 
         .counter-item {
             background: rgba(255,77,148,0.09);
             border: 1px solid rgba(255, 77, 148, 0.35);
-            border-radius: 24px; padding: 25px 45px; min-width: 160px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        
-        .counter-item:hover {
-            transform: translateY(-5px);
-            border-color: #ff4d94;
+            border-radius: 20px; padding: 20px 35px; min-width: 140px;
         }
 
         .counter-number {
-            font-family: 'Playfair Display', serif; font-size: 3.4rem;
+            font-family: 'Playfair Display', serif; font-size: 3rem;
             color: #ff4d94; font-weight: 600;
-            text-shadow: 0 0 12px rgba(255, 77, 148, 0.4);
         }
 
         .counter-label {
-            font-family: 'Poppins', sans-serif; font-size: 1rem;
-            color: #ffd1dc; text-transform: uppercase; letter-spacing: 3px; margin-top: 5px;
+            font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+            color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px;
         }
 
         .counter-desc {
             font-family: 'Playfair Display', serif; font-style: italic;
-            color: #e9d5ff; font-size: 1.3rem; margin-top: 12px; line-height: 1.5; text-align: center;
+            color: #e9d5ff; font-size: 1.15rem; margin-top: 10px; line-height: 1.4; text-align: center;
         }
 
         .albums-grid {
-            display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-top: 35px;
+            display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap; margin-top: 25px;
         }
 
         .album-card {
             background: rgba(25, 10, 20, 0.88);
             border: 1px solid rgba(255, 77, 148, 0.3);
-            padding: 18px; border-radius: 28px; width: 280px; cursor: pointer;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 15px; border-radius: 22px; width: 250px; cursor: pointer;
+            transition: transform 0.25s ease, border-color 0.25s ease;
             transform: translateZ(0);
         }
 
         .album-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             border-color: rgba(255, 77, 148, 0.8);
-            box-shadow: 0 12px 30px rgba(255, 77, 148, 0.25);
         }
 
         .album-cover-container {
-            width: 100%; height: 220px; border-radius: 20px; overflow: hidden; position: relative;
+            width: 100%; height: 190px; border-radius: 16px; overflow: hidden; position: relative;
             transform: translateZ(0);
         }
 
         .album-cover-container img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;
+            width: 100%; height: 100%; object-fit: cover;
         }
 
-        .album-card:hover .album-cover-container img { transform: scale(1.06); }
-
         .album-overlay-badge {
-            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7); padding: 8px 20px; border-radius: 25px; 
-            border: 1px solid rgba(255, 77, 148, 0.6); font-size: 0.9rem; font-family: 'Playfair Display', serif; color: #fff; white-space: nowrap;
-            backdrop-filter: blur(4px);
+            position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75); padding: 6px 16px; border-radius: 20px; 
+            border: 1px solid rgba(255, 77, 148, 0.5); font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #fff; white-space: nowrap;
         }
 
         .album-title {
-            margin-top: 18px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.5rem;
+            margin-top: 14px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem;
         }
 
         .msg-btn { 
             position: relative;
             background: rgba(255, 77, 148, 0.12); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.5); padding: 14px 32px; margin: 10px; 
-            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.15rem; 
-            transition: all 0.3s ease; 
+            color: #fff; border: 1px solid rgba(255, 77, 148, 0.5); padding: 12px 26px; margin: 8px; 
+            border-radius: 25px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.05rem; 
+            transition: transform 0.2s ease, background 0.2s ease; 
             transform: translateZ(0);
         }
         
         .msg-btn:hover { 
             background: linear-gradient(135deg, #ff4d94, #da70d6); 
-            transform: translateY(-3px); 
+            transform: translateY(-2px); 
             border-color: #fff;
-            box-shadow: 0 6px 20px rgba(255, 77, 148, 0.4);
         }
 
         #msg-display { 
-            margin-top: 25px; font-size: 1.4rem; color: #fff; font-style: italic; 
-            font-family: 'Playfair Display', serif; padding: 0 15px; 
-            min-height: 40px;
+            margin-top: 20px; font-size: 1.25rem; color: #fff; font-style: italic; 
+            font-family: 'Playfair Display', serif; padding: 0 10px; 
+            min-height: 35px;
             transform: translateZ(0);
         }
 
+        /* تخفيف البلور بجميع شاشات العرض المودال */
         .album-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(5, 1, 4, 0.88); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(4, 1, 3, 0.82); 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; 
+            opacity: 0; pointer-events: none; transition: opacity 0.25s ease; 
             padding: 15px;
             transform: translateZ(0);
         }
         .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
+        /* تصغير حجم نافذة الرسالة العائمة (Floating Modal) بشكل ملحوظ */
         .modal-card {
-            background: rgba(22, 6, 20, 0.96);
-            border: 1px solid rgba(255, 77, 148, 0.6);
-            padding: 32px 24px; 
-            border-radius: 30px; 
-            width: 100%;
-            max-width: 480px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255, 77, 148, 0.25);
+            background: rgba(20, 5, 18, 0.96);
+            border: 1px solid rgba(255, 77, 148, 0.5);
+            padding: 22px 18px; 
+            border-radius: 24px; 
+            width: 90%;
+            max-width: 360px; /* تم تصغير العرض لتصبح مدمجة وأنيقة */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             text-align: center; 
             transform: scale(0.92); 
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.25s ease;
             transform: translateZ(0);
         }
 
         .album-modal-card {
-            background: rgba(24, 6, 21, 0.96);
+            background: rgba(22, 5, 19, 0.96);
             border: 1px solid #ff4d94;
-            padding: 40px 25px; border-radius: 35px; width: 100%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            text-align: center; transform: scale(0.95); transition: transform 0.3s ease;
+            padding: 30px 20px; border-radius: 28px; width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            text-align: center; transform: scale(0.95); transition: transform 0.25s ease;
             transform: translateZ(0);
-            max-width: 950px; max-height: 92vh; overflow-y: auto;
+            max-width: 850px; max-height: 90vh; overflow-y: auto;
         }
         
         .album-modal-overlay.active .album-modal-card, .modal-overlay.active .modal-card { 
@@ -401,118 +394,112 @@
         }
 
         .close-modal-btn { 
-            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none; padding: 12px 42px; 
-            font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 40px; 
-            cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; 
-            margin-top: 15px;
+            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none; padding: 10px 32px; 
+            font-family: 'Playfair Display', serif; font-size: 1rem; border-radius: 35px; 
+            cursor: pointer; transition: transform 0.2s ease; 
+            margin-top: 12px;
             transform: translateZ(0);
         }
-        .close-modal-btn:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(255,77,148,0.5); }
+        .close-modal-btn:hover { transform: scale(1.03); }
 
         .polaroid, .video-polaroid { 
             background: rgba(255,255,255,0.03); 
             border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 15px 15px 25px 15px; border-radius: 14px; width: 280px; 
+            padding: 12px 12px 20px 12px; border-radius: 12px; width: 250px; 
         }
         
-        .floating-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 998; }
+        .floating-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 998; }
 
         .floating-bubble { 
-            background: rgba(24, 8, 20, 0.9); 
-            border: 1px solid rgba(255, 77, 148, 0.6); color: #fff; padding: 14px 24px; border-radius: 35px; 
-            cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.5); 
-            font-family: 'Playfair Display', serif; font-size: 1.1rem; 
-            display: flex; align-items: center; gap: 12px; transition: all 0.3s ease;
+            background: rgba(22, 7, 18, 0.92); 
+            border: 1px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 12px 20px; border-radius: 30px; 
+            cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.4); 
+            font-family: 'Playfair Display', serif; font-size: 1rem; 
+            display: flex; align-items: center; gap: 10px; transition: transform 0.2s ease;
             transform: translateZ(0);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
         }
-        .floating-bubble:hover { transform: translateY(-4px); background: rgba(255, 77, 148, 0.25); border-color: #ff4d94; box-shadow: 0 10px 30px rgba(255,77,148,0.4); }
+        .floating-bubble:hover { transform: translateY(-3px); background: rgba(255, 77, 148, 0.2); border-color: #ff4d94; }
 
-        /* تنسيق صندوق التعليقات المطور */
+        /* تصغير صندوق التعليق */
         .comment-box-wrapper {
-            margin-top: 20px;
-            background: rgba(18, 6, 15, 0.7);
-            border: 1px solid rgba(255, 77, 148, 0.35);
-            border-radius: 20px;
-            padding: 18px;
+            margin-top: 14px;
+            background: rgba(16, 5, 14, 0.7);
+            border: 1px solid rgba(255, 77, 148, 0.3);
+            border-radius: 16px;
+            padding: 12px;
             text-align: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
 
         .comment-input, .password-input {
             width: 100%;
             background: rgba(10, 3, 12, 0.95);
-            border: 1px solid rgba(255, 77, 148, 0.45);
-            border-radius: 14px;
-            padding: 14px 16px;
+            border: 1px solid rgba(255, 77, 148, 0.4);
+            border-radius: 12px;
+            padding: 10px 12px;
             color: #fff;
             font-family: 'Playfair Display', serif;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             resize: none;
             outline: none;
             text-align: center;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .comment-input:focus, .password-input:focus {
             border-color: #ff4d94;
-            box-shadow: 0 0 15px rgba(255, 77, 148, 0.4);
         }
 
         .comment-submit-btn, .password-submit-btn {
             background: linear-gradient(135deg, #ff4d94, #da70d6);
             color: #fff;
             border: none;
-            padding: 10px 30px;
-            border-radius: 22px;
+            padding: 8px 24px;
+            border-radius: 20px;
             font-family: 'Playfair Display', serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            margin-top: 12px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 8px;
         }
-        .password-submit-btn:hover, .comment-submit-btn:hover { transform: scale(1.04); box-shadow: 0 4px 15px rgba(255,77,148,0.4); }
 
         .saved-comment-display {
-            margin-top: 12px;
-            padding: 14px 18px;
+            margin-top: 8px;
+            padding: 10px 14px;
             background: rgba(255, 77, 148, 0.1);
-            border: 1px solid rgba(255, 77, 148, 0.4);
-            border-radius: 14px;
+            border: 1px solid rgba(255, 77, 148, 0.35);
+            border-radius: 12px;
             font-family: 'Playfair Display', serif;
             color: #ffd1dc;
-            font-size: 1.1rem;
+            font-size: 0.98rem;
             text-align: center;
             word-break: break-word;
         }
 
-        /* تنسيق الخط العربي المميز للرسالة بجمالية فائقة */
+        /* تصغير حجم نص الرسالة العربية ليناسب النافذة المدمجة */
         #modal-text-content {
             font-family: 'Amiri', 'Cairo', serif;
             color: #ffe4e6;
-            font-size: 1.3rem;
-            line-height: 2.0;
-            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 12px;
             text-align: right;
             direction: rtl;
-            max-height: 52vh;
+            max-height: 35vh; /* تم تصغير الارتفاع الأقصى للرسالة */
             overflow-y: auto;
-            padding: 12px 18px;
+            padding: 10px 14px;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
+            border-radius: 14px;
             border: 1px solid rgba(255, 77, 148, 0.15);
-            text-shadow: 0 0 10px rgba(255, 77, 148, 0.2);
         }
 
         #modal-text-content::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
         #modal-text-content::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #ff4d94, #da70d6);
             border-radius: 10px;
         }
 
-        footer { padding: 35px; color: #a8a8a8; font-family: 'Playfair Display', serif; font-size: 0.95rem; text-align: center; position: relative; z-index: 3; }
+        footer { padding: 30px; color: #a8a8a8; font-family: 'Playfair Display', serif; font-size: 0.9rem; text-align: center; position: relative; z-index: 3; }
     </style>
 </head>
 <body>
@@ -535,24 +522,24 @@
 
     <div class="floating-container">
         <div class="floating-bubble music-bubble" onclick="openMusicModal()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
             Our Song
         </div>
         <div class="floating-bubble" onclick="openFloatingModal()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             Tap for Us
         </div>
     </div>
 
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.4rem; margin-bottom:25px;">My Album</h3>
-            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap;">
-                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">My moments</p></div>
-                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Always thinking of you</p></div>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:20px;">My Album</h3>
+            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'; font-size:0.9rem;">My moments</p></div>
+                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'; font-size:0.9rem;">Always thinking of you</p></div>
                 <div class="video-polaroid">
                     <video id="boyVideoElement" muted loop playsinline preload="metadata" style="width:100%; border-radius:8px;"><source src="my-video.mp4" type="video/mp4"></video>
-                    <p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Our memories</p>
+                    <p style="color:#fff; margin-top:8px; font-family:'Playfair Display'; font-size:0.9rem;">Our memories</p>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
@@ -561,61 +548,61 @@
 
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.4rem; margin-bottom:25px;">Aya's Album</h3>
-            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap;">
-                <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Your lovely smile</p></div>
-                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">The light of my days</p></div>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:20px;">Aya's Album</h3>
+            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+                <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'; font-size:0.9rem;">Your lovely smile</p></div>
+                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy" decoding="async" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'; font-size:0.9rem;">The light of my days</p></div>
                 <div class="video-polaroid">
                     <video id="ayaVideoElement" muted loop playsinline preload="metadata" style="width:100%; border-radius:8px;"><source src="aya-video.mp4" type="video/mp4"></video>
-                    <p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Precious moments</p>
+                    <p style="color:#fff; margin-top:8px; font-family:'Playfair Display'; font-size:0.9rem;">Precious moments</p>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
         </div>
     </div>
 
-    <!-- نافذة طلب كلمة المرور -->
+    <!-- نافذة طلب كلمة المرور المدمجة -->
     <div class="modal-overlay" id="passwordModalOverlay" onclick="closePasswordModal(event)">
-        <div class="modal-card" style="border-color: rgba(255, 77, 148, 0.7);" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.4rem; margin-bottom:8px;">Secret Space</h3>
-            <p style="font-family:'Playfair Display', serif; color:#ffd1dc; font-size:1.05rem; margin-bottom:18px;">Please enter the secret password to unlock:</p>
-            <input type="password" id="secretPasswordInput" class="password-input" placeholder="Enter password..." style="text-align: center; margin-bottom: 10px;">
-            <p id="passwordErrorMsg" style="font-family: 'Playfair Display', serif; color: #ff4d94; font-size: 1rem; min-height: 22px; margin-bottom: 10px; font-style: italic;"></p>
-            <button class="password-submit-btn" onclick="verifySecretPassword()">Unlock Secret</button>
+        <div class="modal-card" style="border-color: rgba(255, 77, 148, 0.6);" onclick="event.stopPropagation()">
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.5rem; margin-bottom:6px;">Secret Space</h3>
+            <p style="font-family:'Playfair Display', serif; color:#ffd1dc; font-size:0.95rem; margin-bottom:14px;">Enter secret password to unlock:</p>
+            <input type="password" id="secretPasswordInput" class="password-input" placeholder="Password..." style="text-align: center; margin-bottom: 8px;">
+            <p id="passwordErrorMsg" style="font-family: 'Playfair Display', serif; color: #ff4d94; font-size: 0.9rem; min-height: 18px; margin-bottom: 8px; font-style: italic;"></p>
+            <button class="password-submit-btn" onclick="verifySecretPassword()">Unlock</button>
             <br>
-            <button class="close-modal-btn" style="margin-top: 12px; padding: 8px 25px; font-size: 0.95rem;" onclick="closePasswordModal()">Cancel</button>
+            <button class="close-modal-btn" style="margin-top: 10px; padding: 6px 20px; font-size: 0.88rem;" onclick="closePasswordModal()">Cancel</button>
         </div>
     </div>
 
-    <!-- الشاشة العائمة المصغرة والأنيقة للرسالة والتعليق -->
+    <!-- الشاشة العائمة المصغرة والأنيقة جداً للرسالة والتعليق -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.2rem; margin-bottom:14px;">Forever Together</h3>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.4rem; margin-bottom:10px;">Forever Together</h3>
             <p id="modal-text-content"></p>
             
             <div class="comment-box-wrapper" id="commentSectionContainer">
                 <div id="commentInputArea">
-                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.98rem; margin-bottom:8px;">Leave a special message (once only):</p>
+                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.88rem; margin-bottom:6px;">Leave a note (once only):</p>
                     <textarea id="userCommentInput" class="comment-input" rows="2" placeholder="Write a sweet note..."></textarea>
                     <button class="comment-submit-btn" onclick="saveUserComment()">Save Message</button>
                 </div>
                 <div id="commentDisplayArea" style="display:none;">
-                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.92rem; margin-bottom:5px;">Your saved note:</p>
+                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.85rem; margin-bottom:4px;">Your saved note:</p>
                     <div id="savedCommentText" class="saved-comment-display"></div>
                 </div>
             </div>
 
-            <button class="close-modal-btn" style="margin-top: 20px;" onclick="closeFloatingModal()">Close</button>
+            <button class="close-modal-btn" style="margin-top: 14px;" onclick="closeFloatingModal()">Close</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
         <div class="modal-card" style="border-color:#a855f7;" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#d8b4fe; font-size:3.2rem;">Our Melody</h3>
-            <div style="width:130px; height:130px; margin:20px auto; border-radius:50%; border:2px solid rgba(168,85,247,0.5); display:flex; justify-content:center; align-items:center; background:radial-gradient(circle, rgba(168,85,247,0.2), transparent);">
-                <svg width="50" height="50" viewBox="0 0 24 24" fill="#d8b4fe"><path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+            <h3 style="font-family: 'Great Vibes'; color:#d8b4fe; font-size:2.5rem;">Our Melody</h3>
+            <div style="width:100px; height:100px; margin:15px auto; border-radius:50%; border:2px solid rgba(168,85,247,0.5); display:flex; justify-content:center; align-items:center; background:radial-gradient(circle, rgba(168,85,247,0.2), transparent);">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#d8b4fe"><path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/></svg>
             </div>
-            <p style="font-size: 1.1rem; color: #e9d5ff; font-family: 'Playfair Display', serif; font-style: italic;">Playing our song...</p>
+            <p style="font-size: 1rem; color: #e9d5ff; font-family: 'Playfair Display', serif; font-style: italic;">Playing our song...</p>
             <button class="close-modal-btn" style="background:linear-gradient(135deg, #a855f7, #c084fc);" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
@@ -662,7 +649,7 @@
                 <div class="counter-label">Days</div>
             </div>
         </div>
-        <p style="font-family: 'Playfair Display'; color: #ffd1dc; margin-top: 15px; font-size: 1.1rem; opacity:0.9;">Since June 24, 2026, and forever to go...</p>
+        <p style="font-family: 'Playfair Display'; color: #ffd1dc; margin-top: 12px; font-size: 1rem; opacity:0.9;">Since June 24, 2026, and forever to go...</p>
     </section>
 
     <section class="glass-section">
@@ -711,29 +698,15 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = window.innerWidth > 768 ? 25 : 12;
-
-        let mouse = { x: null, y: null, radiusSq: 100 * 100, radius: 100 };
-
-        window.addEventListener('mousemove', function(event) {
-            mouse.x = event.clientX; mouse.y = event.clientY;
-        }, { passive: true });
-
-        window.addEventListener('touchmove', function(event) {
-            if(event.touches.length > 0) {
-                mouse.x = event.touches[0].clientX; mouse.y = event.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        window.addEventListener('mouseout', function() { mouse.x = null; mouse.y = null; });
+        const numberOfParticles = window.innerWidth > 768 ? 20 : 10;
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
+                this.vx = (Math.random() - 0.5) * 0.25;
+                this.vy = (Math.random() - 0.5) * 0.25;
                 this.color = Math.random() > 0.5 ? '255, 77, 148' : '192, 132, 252';
             }
             update() {
@@ -768,9 +741,9 @@
                     let dy = particlesArray[i].y - particlesArray[j].y;
                     let distSq = dx * dx + dy * dy;
 
-                    if (distSq < 9000) {
+                    if (distSq < 8000) {
                         let distance = Math.sqrt(distSq);
-                        ctx.strokeStyle = `rgba(255, 77, 148, ${0.1 * (1 - distance / 95)})`;
+                        ctx.strokeStyle = `rgba(255, 77, 148, ${0.08 * (1 - distance / 90)})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
@@ -794,13 +767,13 @@
 
         const cascadeContainer = document.getElementById('cascadeContainer');
         const fragment = document.createDocumentFragment();
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${10 + (i * 15)}%`;
-            span.style.animationDelay = `${(i * 0.8)}s`;
-            span.style.animationDuration = `${4 + (i % 3)}s`;
+            span.style.left = `${12 + (i * 18)}%`;
+            span.style.animationDelay = `${(i * 0.9)}s`;
+            span.style.animationDuration = `${4 + (i % 2)}s`;
             fragment.appendChild(span);
         }
         cascadeContainer.appendChild(fragment);
@@ -811,9 +784,9 @@
         function startExperience() {
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 500);
+            setTimeout(() => { intro.style.display = 'none'; }, 400);
             
-            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 350); }
+            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 400); }
         }
 
         function openAlbumModal(modalId, videoId) {
@@ -870,7 +843,6 @@
         }
 
         function openSecretContent() {
-            // النص العربي الخاس بك محمي بالكامل دون تعديل
             const customMsg = "آية حبيبتي وزوجتي ونور عيني الموقع ده لينا احنا ذكرة حلوة بينا انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة زيك ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂";
             
             const contentEl = document.getElementById('modal-text-content');
@@ -948,15 +920,8 @@
         
         const svgTemplate2 = document.createElement('div');
         svgTemplate2.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="url(#purpleGrad)"><defs><linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
-        
-        const svgTemplate3 = document.createElement('div');
-        svgTemplate3.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff4d94"><path d="M19 10.5C19 12.5 17.5 14 15.5 14C14.12 14 12.95 13.25 12.4 12.15C11.85 13.25 10.68 14 9.3 14C7.3 14 5.8 12.5 5.8 10.5C5.8 9.3 6.4 8.2 7.3 7.5C6.4 6.8 5.8 5.7 5.8 4.5C5.8 2.5 7.3 1 9.3 1C10.5 1 11.6 1.6 12.2 2.5C12.8 1.6 13.9 1 15.1 1C17.1 1 18.6 2.5 18.6 4.5C18.6 5.7 18 6.8 17.1 7.5C18 8.2 19 9.3 19 10.5ZM12.2 4.2C11.8 3.5 11 3 10.1 3C8.9 3 8 3.9 8 5.1C8 6.3 8.9 7.2 10.1 7.2C11 7.2 11.8 6.7 12.2 6C12.6 6.7 13.4 7.2 14.3 7.2C15.5 7.2 16.4 6.3 16.4 5.1C16.4 3.9 15.5 3 14.3 3C13.4 3 12.6 3.5 12.2 4.2ZM12.4 9.1C11.3 9.1 10.4 10 10.4 11.1C10.4 12.2 11.3 13.1 12.4 13.1C13.5 13.1 14.4 12.2 14.4 11.1C14.4 10 13.5 9.1 12.4 9.1Z"/></svg>';
 
-        const svgTemplate4 = document.createElement('div');
-        svgTemplate4.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ffd1dc"><path d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z"/></svg>';
-
-        const fallingTemplates = [svgTemplate1, svgTemplate2, svgTemplate3, svgTemplate4];
-
+        const fallingTemplates = [svgTemplate1, svgTemplate2];
         const elementsContainer = document.getElementById('elements-container');
 
         function createFallingElement() {
@@ -964,7 +929,7 @@
             const el = template.cloneNode(true);
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
-            const size = Math.floor(Math.random() * 12) + 16;
+            const size = Math.floor(Math.random() * 10) + 14;
             el.style.width = size + 'px'; el.style.height = size + 'px';
             const duration = Math.random() * 2 + 3.5;
             el.style.animationDuration = duration + 's';
