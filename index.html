@@ -20,7 +20,6 @@
             text-align: center; 
         }
 
-        /* خلفية الكون والنجوم المضيئة */
         #constellation-canvas {
             position: fixed;
             top: 0;
@@ -35,7 +34,8 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: radial-gradient(circle at center, #1f0518 0%, #080206 60%, #020102 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 9999; transition: opacity 0.6s ease, transform 0.6s ease; 
+            z-index: 9999; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            will-change: opacity;
         }
 
         .intro-content-box {
@@ -45,14 +45,19 @@
             flex-direction: column;
             align-items: center;
             padding: 0 20px;
+            animation: float 6s ease-in-out infinite;
         }
 
         #intro-screen h1 { 
             font-family: 'Great Vibes', cursive; 
             font-size: 4.8rem; 
-            color: #ff4d94; 
+            background: linear-gradient(to right, #ff4d94, #ffd1dc, #ff4d94);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 12px; 
-            text-shadow: 0 0 30px rgba(255,77,148,0.7); 
+            filter: drop-shadow(0 0 20px rgba(255,77,148,0.5));
+            animation: textShine 4s linear infinite;
             line-height: 1.2;
         }
 
@@ -63,26 +68,40 @@
             font-size: 1.35rem;
             margin-bottom: 40px;
             letter-spacing: 1.5px;
+            opacity: 0.9;
         }
 
         .enter-btn { 
-            background: linear-gradient(135deg, rgba(255, 77, 148, 0.25), rgba(147, 51, 234, 0.25)); 
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.2), rgba(147, 51, 234, 0.2)); 
             color: #fff; 
-            border: 2px solid rgba(255, 77, 148, 0.8); 
+            border: 1px solid rgba(255, 77, 148, 0.6); 
             padding: 16px 50px; 
             font-size: 1.3rem; 
             font-family: 'Playfair Display', serif; 
             border-radius: 50px; 
             cursor: pointer; 
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: 0 0 25px rgba(255, 77, 148, 0.3); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 0 25px rgba(255, 77, 148, 0.2), inset 0 0 15px rgba(255, 77, 148, 0.1); 
             letter-spacing: 1px;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .enter-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: skewX(-20deg);
+            animation: btnSweep 3s infinite;
         }
 
         .enter-btn:hover { 
             transform: translateY(-3px) scale(1.05); 
-            background: linear-gradient(135deg, #ff4d94, #9333ea);
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.8), rgba(147, 51, 234, 0.8));
             box-shadow: 0 0 40px rgba(255, 77, 148, 0.6); 
             border-color: #fff;
         }
@@ -90,12 +109,30 @@
         .falling-element { 
             position: fixed; top: -50px; 
             animation: fall linear infinite; z-index: 2; pointer-events: none; 
-            opacity: 0.7;
-            will-change: transform;
+            opacity: 0.8;
+            will-change: transform, opacity;
+            filter: drop-shadow(0 0 8px rgba(255,77,148,0.6));
         }
+
         @keyframes fall { 
-            0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.7; } 
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
+            0% { transform: translateY(-5vh) rotate(0deg) scale(0.8); opacity: 0; } 
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; } 
+        }
+
+        @keyframes textShine {
+            to { background-position: 200% center; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes btnSweep {
+            0% { left: -100%; }
+            50%, 100% { left: 200%; }
         }
 
         .cascade-container {
@@ -113,51 +150,71 @@
             animation: lightCascade 6s ease-in-out infinite; 
             opacity: 0;
             will-change: transform, opacity;
-            filter: drop-shadow(0 0 10px rgba(255,77,148,0.4));
+            filter: drop-shadow(0 0 15px rgba(255,77,148,0.5));
         }
 
         @keyframes lightCascade {
-            0% { transform: translateY(-20px); opacity: 0; }
-            20% { opacity: 0.9; transform: translateY(20px); }
-            80% { opacity: 0.9; transform: translateY(140px); }
-            100% { transform: translateY(180px); opacity: 0; }
+            0% { transform: translateY(-20px) scale(0.9); opacity: 0; }
+            20% { opacity: 1; transform: translateY(20px) scale(1); }
+            80% { opacity: 1; transform: translateY(140px) scale(1); }
+            100% { transform: translateY(180px) scale(0.9); opacity: 0; }
         }
 
         .name-wrapper { margin-top: 15px; margin-bottom: 25px; z-index: 3; position: relative; }
+        
         .aya-title { 
             font-family: 'Great Vibes', cursive; 
             font-size: 5.2rem; 
-            color: #ff4d94; 
-            text-shadow: 0 0 35px rgba(255,77,148,0.6); 
             line-height: 1.1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 5px;
+            background: linear-gradient(to right, #ff4d94, #d8b4fe, #ff4d94);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 5s linear infinite;
+            filter: drop-shadow(0 0 25px rgba(255,77,148,0.4));
         }
+        
         .aya-title .me-text {
             font-size: 4.2rem;
             color: #ffd1dc;
+            -webkit-text-fill-color: #ffd1dc;
             text-shadow: 0 0 25px rgba(255,209,220,0.6);
         }
 
+        /* تحسين الزجاج ليصبح فاخراً جداً */
         .glass-section { 
-            background: linear-gradient(135deg, rgba(35, 12, 28, 0.75), rgba(12, 4, 15, 0.85)); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 77, 148, 0.3); 
+            background: linear-gradient(135deg, rgba(35, 12, 28, 0.4), rgba(12, 4, 15, 0.7)); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 77, 148, 0.4); 
+            border-left: 1px solid rgba(255, 77, 148, 0.2);
+            border-right: 1px solid rgba(255, 77, 148, 0.1);
+            border-bottom: 1px solid rgba(255, 77, 148, 0.1);
             width: 90%; max-width: 900px; 
             margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 3; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,77,148,0.05); 
-            opacity: 0; transform: translateY(25px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,77,148,0.05); 
+            opacity: 0; transform: translateY(30px) scale(0.98); 
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
             position: relative;
+            will-change: opacity, transform;
         }
-        .glass-section.visible { opacity: 1; transform: translateY(0); }
+        
+        .glass-section.visible { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+            animation: float 8s ease-in-out infinite; 
+        }
+        /* تقليل حركة الطفو للأقسام الزوجية لعدم التطابق */
+        .glass-section:nth-child(even).visible { animation-delay: -4s; }
         
         .glass-section h2 { 
-            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.3rem; margin-bottom: 20px; 
-            text-shadow: 0 0 20px rgba(255,143,163,0.5);
+            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.5rem; margin-bottom: 20px; 
+            text-shadow: 0 0 25px rgba(255,143,163,0.6);
         }
 
         .map-container-box {
@@ -165,11 +222,11 @@
             width: 100%;
             max-width: 650px;
             margin: 20px auto 10px auto;
-            background: rgba(18, 6, 15, 0.85);
-            border: 1px solid rgba(255, 77, 148, 0.3);
+            background: rgba(18, 6, 15, 0.5);
+            border: 1px solid rgba(255, 77, 148, 0.2);
             border-radius: 28px;
             padding: 35px 20px;
-            box-shadow: inset 0 0 15px rgba(255,77,148,0.08);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
         .connection-visual {
@@ -181,419 +238,240 @@
             margin: 10px 0;
         }
 
-        .country-node {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
+        .country-node { display: flex; flex-direction: column; align-items: center; gap: 5px; }
 
         .country-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: #ff4d94;
             font-weight: 600;
-            text-shadow: 0 0 10px rgba(255,77,148,0.4);
-        }
-
-        .country-desc {
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            color: #ffd1dc;
-            opacity: 0.85;
-        }
-
-        .heart-bridge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            width: 140px;
-        }
-
-        .bridge-line {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.8), transparent);
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .beating-bridge-heart {
-            width: 36px;
-            height: 36px;
-            fill: #ff4d94;
-            filter: drop-shadow(0 0 10px rgba(255,77,148,0.8));
-            z-index: 2;
-            animation: simplePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes simplePulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,77,148,0.6)); }
-            50% { transform: scale(1.2); filter: drop-shadow(0 0 18px rgba(255,77,148,1)); }
-        }
-
-        .distance-badge-box {
-            margin-top: 18px;
-            display: inline-block;
-            background: rgba(255, 77, 148, 0.1);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: #ffd1dc;
-            font-size: 1.05rem;
-            box-shadow: 0 0 15px rgba(255,77,148,0.1);
-        }
-
-        .counter-box {
-            display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0 10px 0;
-        }
-
-        .counter-item {
-            background: rgba(255, 77, 148, 0.08);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 24px; padding: 20px 35px; min-width: 140px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: transform 0.25s ease;
-        }
-        .counter-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,77,148,0.6);
-        }
-
-        .counter-number {
-            font-family: 'Playfair Display', serif; font-size: 2.8rem;
-            color: #ff4d94; font-weight: 600;
             text-shadow: 0 0 15px rgba(255,77,148,0.5);
         }
 
+        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.95rem; color: #ffd1dc; opacity: 0.9; }
+
+        .heart-bridge { display: flex; flex-direction: column; align-items: center; position: relative; width: 140px; }
+
+        .bridge-line {
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.4), transparent);
+            position: absolute; top: 50%; transform: translateY(-50%);
+            overflow: hidden;
+        }
+
+        /* نقطة الضوء المسافرة عبر المسافات */
+        .traveling-light {
+            width: 30px; height: 100%;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            position: absolute;
+            top: 0; left: 0;
+            filter: drop-shadow(0 0 8px #ff4d94);
+            animation: travelLine 3s ease-in-out infinite;
+        }
+
+        @keyframes travelLine {
+            0% { left: -30%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        .beating-bridge-heart {
+            width: 40px; height: 40px; fill: #ff4d94;
+            filter: drop-shadow(0 0 15px rgba(255,77,148,0.9));
+            z-index: 2;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,77,148,0.6)); }
+            15% { transform: scale(1.25); filter: drop-shadow(0 0 25px rgba(255,77,148,1)); }
+            30% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,77,148,0.6)); }
+            45% { transform: scale(1.25); filter: drop-shadow(0 0 25px rgba(255,77,148,1)); }
+        }
+
+        .distance-badge-box {
+            margin-top: 25px; display: inline-block;
+            background: linear-gradient(90deg, rgba(255,77,148,0.05), rgba(255,77,148,0.15), rgba(255,77,148,0.05));
+            border: 1px solid rgba(255, 77, 148, 0.3);
+            padding: 12px 28px; border-radius: 30px;
+            font-family: 'Playfair Display', serif; font-style: italic;
+            color: #ffd1dc; font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .counter-box { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0 10px 0; }
+
+        .counter-item {
+            background: linear-gradient(135deg, rgba(255,77,148,0.1), rgba(0,0,0,0.5));
+            border: 1px solid rgba(255, 77, 148, 0.4);
+            border-radius: 24px; padding: 25px 40px; min-width: 150px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 10px rgba(255,77,148,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .counter-item:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,77,148,0.8);
+            box-shadow: 0 15px 40px rgba(255,77,148,0.2), inset 0 0 15px rgba(255,77,148,0.2);
+        }
+
+        .counter-number {
+            font-family: 'Playfair Display', serif; font-size: 3.2rem;
+            color: #ff4d94; font-weight: 600;
+            text-shadow: 0 0 20px rgba(255,77,148,0.7);
+        }
+
         .counter-label {
-            font-family: 'Poppins', sans-serif; font-size: 0.9rem;
-            color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;
+            font-family: 'Poppins', sans-serif; font-size: 1rem;
+            color: #ffd1dc; text-transform: uppercase; letter-spacing: 3px; margin-top: 5px;
         }
 
         .counter-desc {
             font-family: 'Playfair Display', serif; font-style: italic;
-            color: #e9d5ff; font-size: 1.25rem; margin-top: 12px; line-height: 1.5; text-align: center;
+            color: #e9d5ff; font-size: 1.3rem; margin-top: 12px; line-height: 1.5; text-align: center;
         }
 
         .albums-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 30px;
+            display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-top: 35px;
         }
 
         .album-card {
-            background: linear-gradient(135deg, rgba(25, 10, 20, 0.9), rgba(12, 4, 15, 0.95));
-            border: 1px solid rgba(255, 77, 148, 0.35);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            padding: 18px;
-            border-radius: 28px;
-            width: 265px;
-            cursor: pointer;
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+            background: linear-gradient(135deg, rgba(25, 10, 20, 0.8), rgba(12, 4, 15, 0.9));
+            border-top: 1px solid rgba(255, 77, 148, 0.5);
+            border-left: 1px solid rgba(255, 77, 148, 0.3);
+            border-bottom: 1px solid transparent; border-right: 1px solid transparent;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            padding: 18px; border-radius: 28px; width: 280px; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
 
         .album-card:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-10px) scale(1.03);
             border-color: rgba(255, 77, 148, 0.9);
-            box-shadow: 0 15px 35px rgba(255,77,148,0.25);
+            box-shadow: 0 25px 45px rgba(255,77,148,0.3), inset 0 0 20px rgba(255,77,148,0.1);
         }
 
         .album-cover-container {
-            width: 100%;
-            height: 210px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
+            width: 100%; height: 220px; border-radius: 20px; overflow: hidden; position: relative;
         }
 
         .album-cover-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
 
-        .album-card:hover .album-cover-container img {
-            transform: scale(1.06);
-        }
+        .album-card:hover .album-cover-container img { transform: scale(1.1); filter: brightness(1.1); }
 
         .album-overlay-badge {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 77, 148, 0.5);
-            font-size: 0.85rem;
-            font-family: 'Playfair Display', serif;
-            color: #ffd1dc;
-            white-space: nowrap;
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            padding: 8px 20px; border-radius: 25px; border: 1px solid rgba(255, 77, 148, 0.6);
+            font-size: 0.9rem; font-family: 'Playfair Display', serif; color: #fff; white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .album-title {
-            margin-top: 15px;
-            font-family: 'Great Vibes', cursive;
-            color: #ff8fa3;
-            font-size: 2.2rem;
-            text-shadow: 0 0 10px rgba(255,143,163,0.3);
-        }
-
-        .album-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            display: flex; justify-content: center; align-items: center; z-index: 10001;
-            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-            padding: 15px;
-            will-change: opacity;
-        }
-        .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .album-modal-card {
-            background: linear-gradient(135deg, #180615, #0d0210);
-            border: 1.5px solid #ff4d94;
-            padding: 35px 20px;
-            border-radius: 35px;
-            width: 100%;
-            max-width: 950px;
-            max-height: 92vh;
-            overflow-y: auto;
-            box-shadow: 0 0 45px rgba(255, 77, 148, 0.4);
-            text-align: center;
-            transform: scale(0.92);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-            -webkit-overflow-scrolling: touch;
-        }
-        .album-modal-overlay.active .album-modal-card { transform: scale(1); }
-
-        .album-modal-card h3 {
-            font-family: 'Great Vibes', cursive;
-            color: #ff4d94;
-            font-size: 3.4rem;
-            margin-bottom: 25px;
-            text-shadow: 0 0 20px rgba(255,77,148,0.5);
-        }
-
-        .modal-media-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .polaroid { 
-            background: #1f0a1b; 
-            border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 18px 18px 25px 18px; 
-            border-radius: 25px; 
-            width: 280px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
-            will-change: transform;
-        }
-        .polaroid:hover { transform: translateY(-4px); }
-        .polaroid img { width: 100%; height: 290px; object-fit: cover; border-radius: 16px; }
-        .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.1rem; }
-
-        .video-polaroid { 
-            background: #1f0a1b; 
-            border: 1.5px solid rgba(255, 77, 148, 0.6); 
-            padding: 18px 18px 25px 18px; 
-            border-radius: 25px; 
-            width: 280px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
-            will-change: transform;
-        }
-        .video-polaroid:hover { transform: translateY(-4px); }
-        .video-polaroid video { 
-            width: 100%; 
-            height: 290px; 
-            object-fit: cover; 
-            border-radius: 16px; 
-            display: block; 
-        }
-        .video-polaroid p { 
-            margin-top: 14px; 
-            font-family: 'Playfair Display', serif; 
-            color: #ffd1dc; 
-            font-size: 1.1rem; 
+            margin-top: 18px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.4rem;
+            text-shadow: 0 0 15px rgba(255,143,163,0.4);
         }
 
         .msg-btn { 
-            background: rgba(255, 77, 148, 0.12); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; 
-            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; 
-            transition: all 0.2s ease; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            background: rgba(255, 77, 148, 0.1); 
+            color: #fff; border: 1px solid rgba(255, 77, 148, 0.5); padding: 14px 30px; margin: 10px; 
+            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.15rem; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
+        
+        .msg-btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg); transition: 0.5s;
+        }
+        
+        .msg-btn:hover::after { left: 150%; }
+        
         .msg-btn:hover { 
-            background: #ff4d94; 
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 20px rgba(255,77,148,0.4);
+            background: linear-gradient(135deg, #ff4d94, #da70d6); 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 25px rgba(255,77,148,0.5);
+            border-color: #fff;
         }
-        #msg-display { margin-top: 20px; font-size: 1.35rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; text-shadow: 0 0 10px rgba(255,209,220,0.3); }
 
-        .floating-container {
-            position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end;
+        #msg-display { 
+            margin-top: 25px; font-size: 1.4rem; color: #fff; font-style: italic; 
+            font-family: 'Playfair Display', serif; padding: 0 15px; 
+            text-shadow: 0 0 15px rgba(255,209,220,0.6); 
+            min-height: 40px;
+            animation: fadeIn 0.5s ease-in;
         }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* تعديلات الـ Modals لتبدو أفخم */
+        .album-modal-overlay, .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: rgba(5, 1, 4, 0.9); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: flex; justify-content: center; align-items: center; z-index: 10000; 
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; 
+            padding: 15px;
+            will-change: opacity;
+        }
+        .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .album-modal-card, .modal-card {
+            background: linear-gradient(135deg, rgba(24, 6, 21, 0.95), rgba(13, 2, 16, 0.98));
+            border-top: 1px solid #ff4d94; border-left: 1px solid rgba(255,77,148,0.5);
+            padding: 40px 25px; border-radius: 35px; width: 100%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 0 25px rgba(255,77,148,0.1);
+            text-align: center; transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+        
+        .album-modal-card { max-width: 950px; max-height: 92vh; overflow-y: auto; }
+        .modal-card { max-width: 440px; }
+        
+        .album-modal-overlay.active .album-modal-card, .modal-overlay.active .modal-card { 
+            transform: scale(1) translateY(0); 
+        }
+
+        .close-modal-btn { 
+            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none; padding: 14px 45px; 
+            font-family: 'Playfair Display', serif; font-size: 1.2rem; border-radius: 40px; 
+            cursor: pointer; transition: all 0.3s ease; 
+            box-shadow: 0 8px 25px rgba(255,77,148,0.5);
+            margin-top: 15px;
+        }
+        .close-modal-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 35px rgba(255,77,148,0.7); }
+
+        .polaroid, .video-polaroid { 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid rgba(255, 77, 148, 0.3); 
+            padding: 15px 15px 25px 15px; border-radius: 12px; width: 280px; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6); transition: all 0.3s ease;
+        }
+        .polaroid:hover, .video-polaroid:hover { transform: translateY(-8px) rotate(2deg); border-color: #ff4d94; }
+        
+        .floating-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 998; }
 
         .floating-bubble { 
-            background: rgba(24, 8, 20, 0.85); 
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; 
-            cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
-            font-family: 'Playfair Display', serif; font-size: 1.05rem; 
-            display: flex; align-items: center; gap: 10px; 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            background: rgba(24, 8, 20, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; 
+            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; 
+            display: flex; align-items: center; gap: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
         }
-        .floating-bubble:hover { 
-            transform: translateY(-3px) scale(1.03); 
-            border-color: #ff4d94; 
-            box-shadow: 0 10px 30px rgba(255,77,148,0.3);
-        }
+        .floating-bubble:hover { transform: translateY(-5px) scale(1.05); background: rgba(255, 77, 148, 0.2); border-color: #ff4d94; }
 
-        .music-bubble {
-            border-color: rgba(168, 85, 247, 0.6);
-            background: rgba(24, 12, 34, 0.85);
-        }
-        .music-bubble:hover {
-            border-color: #a855f7;
-            box-shadow: 0 10px 30px rgba(168,85,247,0.3);
-        }
-
-        .modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0, 0, 0, 0.8); 
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.25s ease; 
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .modal-card { 
-            background: linear-gradient(135deg, #180615, #0d0210); 
-            border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; 
-            box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); 
-            text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .modal-overlay.active .modal-card { transform: scale(1); }
-        
-        .modal-card h3 { 
-            font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.2rem; margin-bottom: 18px; 
-            line-height: 1.2;
-            text-shadow: 0 0 15px rgba(255,77,148,0.4);
-        }
-        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.25rem; line-height: 1.7; margin-bottom: 25px; }
-        
-        .close-modal-btn { 
-            background: #ff4d94; color: #fff; border: none; padding: 12px 38px; 
-            font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 30px; 
-            cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; 
-            box-shadow: 0 4px 15px rgba(255,77,148,0.4);
-        }
-        .close-modal-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255,77,148,0.6); }
-
-        .music-card-modal {
-            border-color: rgba(168, 85, 247, 0.8);
-            background: linear-gradient(135deg, #160822, #090212);
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.3);
-        }
-        .music-card-modal h3 {
-            color: #d8b4fe;
-            font-size: 3.4rem;
-            text-shadow: 0 0 15px rgba(168,85,247,0.5);
-        }
-
-        .ui-music-display {
-            position: relative;
-            width: 180px; height: 180px;
-            margin: 15px auto 20px auto;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, #0d0214 80%);
-            border: 2px solid rgba(168, 85, 247, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            box-shadow: 0 0 25px rgba(168,85,247,0.2);
-        }
-
-        .vinyl-grooves {
-            position: absolute;
-            width: 145px; height: 145px;
-            border-radius: 50%;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            animation: spinVinyl 10s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes spinVinyl {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .cinematic-headphone {
-            width: 50px; height: 50px; fill: #d8b4fe;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 8px rgba(216,180,254,0.6));
-        }
-
-        .sound-waves {
-            display: flex; gap: 3.5px; align-items: flex-end; height: 16px;
-        }
-
-        .wave-bar {
-            width: 3.5px; background: linear-gradient(to top, #ff4d94, #a855f7);
-            border-radius: 3px; animation: soundWaveAnim 0.8s ease-in-out infinite alternate;
-        }
-
-        .wave-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
-        .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
-        .wave-bar:nth-child(3) { height: 10px; animation-delay: 0.5s; }
-        .wave-bar:nth-child(4) { height: 15px; animation-delay: 0.2s; }
-        .wave-bar:nth-child(5) { height: 8px; animation-delay: 0.4s; }
-
-        @keyframes soundWaveAnim {
-            0% { transform: scaleY(0.4); }
-            100% { transform: scaleY(1.2); }
-        }
-
-        footer { 
-            padding: 25px; 
-            color: #777; 
-            font-family: 'Playfair Display', serif; 
-            font-size: 0.8rem; 
-            text-align: left; 
-            position: relative;
-            z-index: 3;
-        }
+        footer { padding: 35px; color: #a8a8a8; font-family: 'Playfair Display', serif; font-size: 0.9rem; text-align: center; position: relative; z-index: 3; }
     </style>
 </head>
 <body>
 
-    <!-- خلفية الكون والنجوم المترابطة -->
     <canvas id="constellation-canvas"></canvas>
 
     <div id="intro-screen">
@@ -604,7 +482,7 @@
         </div>
     </div>
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="none">
         <source src="aya-song.mp3" type="audio/mp3">
     </audio>
 
@@ -612,26 +490,24 @@
 
     <div class="floating-container">
         <div class="floating-bubble music-bubble" onclick="openMusicModal()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
             Our Song
         </div>
         <div class="floating-bubble" onclick="openFloatingModal()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             Tap for Us
         </div>
     </div>
 
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3>My Album</h3>
-            <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy"><p>My moments</p></div>
-                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy"><p>Always thinking of you</p></div>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.4rem; margin-bottom:25px;">My Album</h3>
+            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap;">
+                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">My moments</p></div>
+                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Always thinking of you</p></div>
                 <div class="video-polaroid">
-                    <video id="boyVideoElement" autoplay muted loop playsinline preload="auto">
-                        <source src="my-video.mp4" type="video/mp4">
-                    </video>
-                    <p>Our memories</p>
+                    <video id="boyVideoElement" muted loop playsinline style="width:100%; border-radius:8px;"><source src="my-video.mp4" type="video/mp4"></video>
+                    <p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Our memories</p>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
@@ -640,15 +516,13 @@
 
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3>Aya's Album</h3>
-            <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy"><p>Your lovely smile</p></div>
-                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy"><p>The light of my days</p></div>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.4rem; margin-bottom:25px;">Aya's Album</h3>
+            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:25px; flex-wrap:wrap;">
+                <div class="polaroid"><img src="my-love.jpg" alt="Aya" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Your lovely smile</p></div>
+                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">The light of my days</p></div>
                 <div class="video-polaroid">
-                    <video id="ayaVideoElement" autoplay muted loop playsinline preload="auto">
-                        <source src="aya-video.mp4" type="video/mp4">
-                    </video>
-                    <p>Precious moments</p>
+                    <video id="ayaVideoElement" muted loop playsinline style="width:100%; border-radius:8px;"><source src="aya-video.mp4" type="video/mp4"></video>
+                    <p style="color:#fff; margin-top:10px; font-family:'Playfair Display'">Precious moments</p>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
@@ -657,30 +531,20 @@
 
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3>Forever Together, You & Aya</h3>
-            <p id="modal-text-content">My love for you grows stronger with every second.</p>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.2rem; margin-bottom:15px;">Forever Together</h3>
+            <p id="modal-text-content" style="font-family:'Playfair Display'; color:#ffd1dc; font-size:1.3rem; line-height:1.6; margin-bottom:25px;">My love for you grows stronger with every second.</p>
             <button class="close-modal-btn" onclick="closeFloatingModal()">Close</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
-        <div class="modal-card music-card-modal" onclick="event.stopPropagation()">
-            <h3>Our Melody</h3>
-            <div class="ui-music-display">
-                <div class="vinyl-grooves"></div>
-                <svg class="cinematic-headphone" viewBox="0 0 24 24">
-                    <path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/>
-                </svg>
-                <div class="sound-waves">
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                </div>
+        <div class="modal-card" style="border-top-color:#a855f7; border-left-color:rgba(168,85,247,0.5);" onclick="event.stopPropagation()">
+            <h3 style="font-family: 'Great Vibes'; color:#d8b4fe; font-size:3.5rem;">Our Melody</h3>
+            <div style="width:160px; height:160px; margin:25px auto; border-radius:50%; border:2px solid rgba(168,85,247,0.5); display:flex; justify-content:center; align-items:center; box-shadow:0 0 30px rgba(168,85,247,0.2); background:radial-gradient(circle, rgba(168,85,247,0.2), transparent);">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="#d8b4fe" style="filter:drop-shadow(0 0 10px rgba(216,180,254,0.8));"><path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/></svg>
             </div>
-            <p style="font-size: 1.15rem; color: #e9d5ff; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-style: italic;">Our Special Song Playing...</p>
-            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 4px 15px rgba(168,85,247,0.4);" onclick="closeMusicModal()">Close</button>
+            <p style="font-size: 1.2rem; color: #e9d5ff; font-family: 'Playfair Display', serif; font-style: italic;">Playing our song...</p>
+            <button class="close-modal-btn" style="background:linear-gradient(135deg, #a855f7, #c084fc); box-shadow: 0 8px 25px rgba(168,85,247,0.4);" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -703,7 +567,7 @@
                     <span class="country-desc">My Heart</span>
                 </div>
                 <div class="heart-bridge">
-                    <div class="bridge-line"></div>
+                    <div class="bridge-line"><div class="traveling-light"></div></div>
                     <svg class="beating-bridge-heart" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
@@ -714,9 +578,7 @@
                 </div>
             </div>
         </div>
-        <div class="distance-badge-box">
-            <span>Distance means so little when someone means everything</span>
-        </div>
+        <div class="distance-badge-box">Distance means so little when someone means everything</div>
     </section>
 
     <section class="glass-section">
@@ -728,7 +590,7 @@
                 <div class="counter-label">Days</div>
             </div>
         </div>
-        <p style="font-family: 'Playfair Display', serif; color: #ffd1dc; margin-top: 15px; font-size: 1.05rem;">Since June 24, 2026, and forever to go...</p>
+        <p style="font-family: 'Playfair Display'; color: #ffd1dc; margin-top: 15px; font-size: 1.1rem; opacity:0.9;">Since June 24, 2026, and forever to go...</p>
     </section>
 
     <section class="glass-section">
@@ -761,13 +623,12 @@
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya & Me</p>
+        <p>Made with all my heart for Aya & Me 💖</p>
     </footer>
 
     <script>
-        /* نظام الكون والنجوم المترابطة الفائق الخفة (Constellation Stars) */
         const canvas = document.getElementById('constellation-canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: false }); // alpha false لأداء أقوى مع ذيول النجوم
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -777,121 +638,80 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = Math.min(window.innerWidth > 768 ? 50 : 25, 60);
+        const numberOfParticles = window.innerWidth > 768 ? 40 : 20;
 
-        let mouse = {
-            x: null,
-            y: null,
-            radius: 130
-        };
+        let mouse = { x: null, y: null, radius: 130 };
 
         window.addEventListener('mousemove', function(event) {
-            mouse.x = event.clientX;
-            mouse.y = event.clientY;
-        });
+            mouse.x = event.clientX; mouse.y = event.clientY;
+        }, { passive: true });
 
         window.addEventListener('touchmove', function(event) {
             if(event.touches.length > 0) {
-                mouse.x = event.touches[0].clientX;
-                mouse.y = event.touches[0].clientY;
+                mouse.x = event.touches[0].clientX; mouse.y = event.touches[0].clientY;
             }
-        });
+        }, { passive: true });
 
-        window.addEventListener('mouseout', function() {
-            mouse.x = null;
-            mouse.y = null;
-        });
+        window.addEventListener('mouseout', function() { mouse.x = null; mouse.y = null; });
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.baseX = this.x;
-                this.baseY = this.y;
                 this.vx = (Math.random() - 0.5) * 0.4;
                 this.vy = (Math.random() - 0.5) * 0.4;
-                this.color = Math.random() > 0.4 ? 'rgba(255, 77, 148, ' : 'rgba(192, 132, 252, ';
-                this.alpha = Math.random() * 0.6 + 0.3;
+                this.color = Math.random() > 0.5 ? '255, 77, 148' : '192, 132, 252';
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
                 if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
 
-                // تفاعل خفيف مع مؤشر الماوس/اللمس
                 if (mouse.x !== null && mouse.y !== null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
+                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < mouse.radius) {
                         let force = (mouse.radius - distance) / mouse.radius;
-                        let directionX = dx / distance;
-                        let directionY = dy / distance;
-                        this.x -= directionX * force * 2;
-                        this.y -= directionY * force * 2;
+                        this.x -= (dx / distance) * force * 2;
+                        this.y -= (dy / distance) * force * 2;
                     }
                 }
             }
             draw() {
-                ctx.fillStyle = this.color + this.alpha + ')';
+                ctx.fillStyle = `rgba(${this.color}, 0.8)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
                 ctx.fill();
             }
         }
 
         function initConstellation() {
             particlesArray = [];
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
+            for (let i = 0; i < numberOfParticles; i++) { particlesArray.push(new Particle()); }
         }
         initConstellation();
 
         function animateConstellation() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // رسم خلفية تدرج كونية خفيفة جداً
-            let bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 50, canvas.width/2, canvas.height/2, canvas.width);
-            bgGrad.addColorStop(0, '#050103');
-            bgGrad.addColorStop(1, '#020202');
-            ctx.fillStyle = bgGrad;
+            // تأثير المسار (Trails) بدلاً من مسح الشاشة بالكامل يعطي شكلاً مبهراً جداً
+            ctx.fillStyle = 'rgba(2, 2, 2, 0.2)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
 
-                for (let j = i; j < particlesArray.length; j++) {
+                for (let j = i + 1; j < particlesArray.length; j++) {
                     let dx = particlesArray[i].x - particlesArray[j].x;
                     let dy = particlesArray[i].y - particlesArray[j].y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < 110) {
                         ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
-                        ctx.lineWidth = 0.8;
+                        ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
                         ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
-
-                // ربط النجوم بالماوس عند الاقتراب
-                if (mouse.x !== null && mouse.y !== null) {
-                    let mdx = particlesArray[i].x - mouse.x;
-                    let mdy = particlesArray[i].y - mouse.y;
-                    let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-                    if (mdist < 130) {
-                        ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
-                        ctx.lineWidth = 0.9;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(mouse.x, mouse.y);
                         ctx.stroke();
                     }
                 }
@@ -907,38 +727,34 @@
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             document.getElementById('days-count').innerText = diffDays >= 0 ? diffDays : 0;
         }
-
         updateLoveCounter();
 
         const cascadeContainer = document.getElementById('cascadeContainer');
-        const cascadeWordsCount = 4; 
-        for (let i = 0; i < cascadeWordsCount; i++) {
+        for (let i = 0; i < 2; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${10 + (i * 25)}%`;
-            span.style.animationDelay = `${i * 1.5}s`;
-            span.style.animationDuration = '6s';
+            span.style.left = `${25 + (i * 40)}%`;
+            span.style.animationDelay = `${i * 3}s`;
             cascadeContainer.appendChild(span);
         }
 
         const bgMusic = document.getElementById('bg-music');
+        let fallingInterval = null;
 
         function startExperience() {
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 600);
-            setInterval(createFallingElement, 700);
+            
+            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 1500); }
         }
 
         function openAlbumModal(modalId, videoId) {
             document.getElementById(modalId).classList.add('active');
             if (videoId) {
                 const vid = document.getElementById(videoId);
-                if (vid) {
-                    vid.currentTime = 0;
-                    vid.play().catch(e => console.log("Video autoplay prevented:", e));
-                }
+                if (vid) { vid.currentTime = 0; vid.play().catch(e => console.log(e)); }
             }
         }
 
@@ -952,7 +768,11 @@
         }
 
         function showMsg(txt) { 
-            document.getElementById('msg-display').innerText = txt; 
+            const display = document.getElementById('msg-display');
+            display.style.animation = 'none';
+            display.offsetHeight; // Trigger reflow
+            display.style.animation = 'fadeIn 0.5s ease-in';
+            display.innerText = txt; 
         }
 
         const floatingMsgs = [
@@ -963,18 +783,15 @@
         ];
 
         function openFloatingModal() {
-            const randomMsg = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
-            document.getElementById('modal-text-content').innerText = randomMsg;
+            document.getElementById('modal-text-content').innerText = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
             document.getElementById('modalOverlay').classList.add('active');
         }
 
-        function closeFloatingModal(e) {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
+        function closeFloatingModal(e) { document.getElementById('modalOverlay').classList.remove('active'); }
 
         function openMusicModal() {
             document.getElementById('musicModalOverlay').classList.add('active');
-            bgMusic.play().catch(error => console.log(error));
+            bgMusic.play().catch(e => console.log(e));
         }
 
         function closeMusicModal(e) {
@@ -983,25 +800,19 @@
         }
 
         const siteBackgroundIcons = [
-            '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
-            '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>',
-            '<svg viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+            '<svg viewBox="0 0 24 24" fill="#ff4d94"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+            '<svg viewBox="0 0 24 24" fill="#d8b4fe"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
         ];
 
         function createFallingElement() {
             const el = document.createElement('div');
-            const randomIcon = siteBackgroundIcons[Math.floor(Math.random() * siteBackgroundIcons.length)];
-            el.innerHTML = randomIcon;
+            el.innerHTML = siteBackgroundIcons[Math.floor(Math.random() * siteBackgroundIcons.length)];
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
-            
-            const size = Math.floor(Math.random() * 8) + 18;
-            el.style.width = size + 'px';
-            el.style.height = size + 'px';
-            
-            const duration = Math.random() * 3 + 5;
+            const size = Math.floor(Math.random() * 10) + 15;
+            el.style.width = size + 'px'; el.style.height = size + 'px';
+            const duration = Math.random() * 3 + 6;
             el.style.animationDuration = duration + 's';
-            
             document.getElementById('elements-container').appendChild(el);
             setTimeout(() => { el.remove(); }, duration * 1000);
         }
@@ -1010,13 +821,12 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
 
-        document.querySelectorAll('.glass-section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('.glass-section').forEach(section => { observer.observe(section); });
     </script>
 </body>
 </html>
