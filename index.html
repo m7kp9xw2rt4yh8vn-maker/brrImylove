@@ -172,25 +172,25 @@
             box-shadow: inset 0 0 15px rgba(255,77,148,0.08);
         }
 
+        /* تعديل تصميم البلدان والقلب ليكون مرتباً عمودياً (مصر فوق، القلب في المنتصف، السويد تحت) */
         .connection-visual {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            margin: 10px 0;
+            gap: 20px;
         }
 
         .country-node {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 2px;
         }
 
         .country-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: #ff4d94;
             font-weight: 600;
             text-shadow: 0 0 10px rgba(255,77,148,0.4);
@@ -208,21 +208,22 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 140px;
+            height: 40px;
+            justify-content: center;
         }
 
         .bridge-line {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.8), transparent);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(255, 77, 148, 0.8), transparent);
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .beating-bridge-heart {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             fill: #ff4d94;
             filter: drop-shadow(0 0 10px rgba(255,77,148,0.8));
             z-index: 2;
@@ -295,7 +296,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             padding: 18px;
             border-radius: 28px;
-            width: 265px;
+            width: 310px;
             cursor: pointer;
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
             will-change: transform;
@@ -309,7 +310,7 @@
 
         .album-cover-container {
             width: 100%;
-            height: 210px;
+            height: 250px;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
@@ -599,7 +600,7 @@
     <div id="intro-screen">
         <div class="intro-content-box">
             <h1>A Special Universe For Us...</h1>
-            <p class="intro-subtitle">Prepared with endless love, for Me & Aya</p>
+            <p class="intro-subtitle">Prepared with endless love, for Mohie & Aya</p>
             <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
         </div>
     </div>
@@ -623,16 +624,9 @@
 
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3>My Album</h3>
+            <h3>Mohie's Album</h3>
             <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy"><p>My moments</p></div>
-                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy"><p>Always thinking of you</p></div>
-                <div class="video-polaroid">
-                    <video id="boyVideoElement" autoplay muted loop playsinline preload="auto">
-                        <source src="my-video.mp4" type="video/mp4">
-                    </video>
-                    <p>Our memories</p>
-                </div>
+                <div class="polaroid"><img src="my-photo3.jpg" alt="Mohie's Custom Photo" loading="lazy"><p>My special moments</p></div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
         </div>
@@ -657,7 +651,7 @@
 
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3>Forever Together, You & Aya</h3>
+            <h3>Forever Together, Mohie & Aya</h3>
             <p id="modal-text-content">My love for you grows stronger with every second.</p>
             <button class="close-modal-btn" onclick="closeFloatingModal()">Close</button>
         </div>
@@ -688,7 +682,7 @@
 
     <div class="name-wrapper">
         <h1 class="aya-title">
-            <span class="me-text">Me</span>
+            <span class="me-text">Mohie</span>
             <span>& Aya</span>
         </h1>
     </div>
@@ -742,12 +736,12 @@
         <h2>Our Memories Albums</h2>
         <p class="counter-desc">Tap an album to explore our special moments together</p>
         <div class="albums-grid">
-            <div class="album-card" onclick="openAlbumModal('boyAlbumModal', 'boyVideoElement')">
+            <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
-                    <img src="my-photo1.jpg" alt="My Album Cover" loading="lazy">
+                    <img src="my-photo3.jpg" alt="Mohie's Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
                 </div>
-                <h3 class="album-title">My Album</h3>
+                <h3 class="album-title">Mohie's Album</h3>
             </div>
 
             <div class="album-card" onclick="openAlbumModal('girlAlbumModal', 'ayaVideoElement')">
@@ -761,7 +755,7 @@
     </section>
 
     <footer>
-        <p>Made with all my heart for Aya & Me</p>
+        <p>Made with all my heart for Aya & Mohie</p>
     </footer>
 
     <script>
@@ -821,7 +815,6 @@
                 if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
                 if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
 
-                // تفاعل خفيف مع مؤشر الماوس/اللمس
                 if (mouse.x !== null && mouse.y !== null) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
@@ -855,7 +848,6 @@
         function animateConstellation() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // رسم خلفية تدرج كونية خفيفة جداً
             let bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 50, canvas.width/2, canvas.height/2, canvas.width);
             bgGrad.addColorStop(0, '#050103');
             bgGrad.addColorStop(1, '#020202');
@@ -881,7 +873,6 @@
                     }
                 }
 
-                // ربط النجوم بالماوس عند الاقتراب
                 if (mouse.x !== null && mouse.y !== null) {
                     let mdx = particlesArray[i].x - mouse.x;
                     let mdy = particlesArray[i].y - mouse.y;
