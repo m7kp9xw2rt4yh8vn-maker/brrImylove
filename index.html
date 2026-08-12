@@ -312,58 +312,153 @@
             display: block; line-height: 1.6; text-align: center;
         }
 
-        /* --- شبكة الوسائط لتكون الصور والفيديوهات بجانب بعضها بشكل متناسق --- */
-        .media-grid { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 20px; 
-            flex-wrap: wrap; 
-            margin-top: 28px; 
+        /* --- تصميم بطاقات الألبومات (Albums Grid) --- */
+        .albums-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 28px;
         }
-        
+
+        .album-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 77, 148, 0.35);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 30px;
+            width: 260px;
+            cursor: pointer;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .album-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: rgba(255, 77, 148, 0.9);
+            box-shadow: 0 25px 50px rgba(255, 77, 148, 0.3);
+        }
+
+        .album-cover-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .album-cover-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .album-card:hover .album-cover-container img {
+            transform: scale(1.1);
+        }
+
+        .album-overlay-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 77, 148, 0.5);
+            font-size: 0.85rem;
+            font-family: 'Playfair Display', serif;
+            color: #ffd1dc;
+            white-space: nowrap;
+        }
+
+        .album-title {
+            margin-top: 15px;
+            font-family: 'Great Vibes', cursive;
+            color: #ff8fa3;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px rgba(255, 143, 163, 0.4);
+        }
+
+        /* --- تصميم نافذة الألبوم المنبثقة (Album Modal) --- */
+        .album-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center; z-index: 10001;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+        .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .album-modal-card {
+            background: linear-gradient(135deg, rgba(32, 12, 26, 0.98), rgba(12, 4, 12, 0.98));
+            border: 2px solid #ff4d94;
+            padding: 35px 25px;
+            border-radius: 35px;
+            width: 100%;
+            max-width: 750px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 0 70px rgba(255, 77, 148, 0.5);
+            text-align: center;
+            transform: scale(0.85);
+            transition: transform 0.4s ease;
+        }
+        .album-modal-overlay.active .album-modal-card { transform: scale(1); }
+
+        .album-modal-card h3 {
+            font-family: 'Great Vibes', cursive;
+            color: #ff4d94;
+            font-size: 3.2rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255, 77, 148, 0.7);
+        }
+
+        .modal-media-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
         .polaroid { 
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.12); 
-            box-shadow: 0 18px 40px rgba(0,0,0,0.6); 
-            padding: 15px 15px 25px 15px; 
-            border-radius: 25px; 
-            width: 200px; 
-            transition: transform 0.4s ease, border-color 0.4s ease; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+            padding: 12px 12px 20px 12px; 
+            border-radius: 20px; 
+            width: 180px; 
         }
-        .polaroid:hover { 
-            transform: translateY(-10px) scale(1.03); 
-            border-color: rgba(255, 77, 148, 0.65); 
-        }
-        .polaroid img { width: 100%; height: 175px; object-fit: cover; border-radius: 15px; }
-        .polaroid p { margin-top: 12px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 0.95rem; }
+        .polaroid img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; }
+        .polaroid p { margin-top: 10px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 0.9rem; }
 
         .video-box { 
-            width: 200px; 
-            height: 250px; 
-            border-radius: 25px; 
+            width: 180px; 
+            height: 215px; 
+            border-radius: 20px; 
             overflow: hidden; 
             border: 2px solid rgba(255, 77, 148, 0.5); 
             background: #000; 
-            box-shadow: 0 12px 35px rgba(255, 77, 148, 0.25); 
-            transition: transform 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255, 77, 148, 0.25); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
             position: relative;
-            padding: 10px;
-        }
-        .video-box:hover { 
-            transform: translateY(-10px) scale(1.03); 
-            border-color: #ff4d94; 
+            padding: 8px;
         }
         .video-box video { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            border-radius: 15px; 
+            border-radius: 12px; 
             display: block; 
         }
 
@@ -573,6 +668,42 @@
         </div>
     </div>
 
+    <!-- نافذة الألبوم المنبثقة الخاصة بك -->
+    <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
+        <div class="album-modal-card" onclick="event.stopPropagation()">
+            <h3>My Album</h3>
+            <div class="modal-media-grid">
+                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo"><p>My moments</p></div>
+                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2"><p>Always thinking of you</p></div>
+                <div class="video-box">
+                    <video id="boyVideoElement" autoplay muted loop playsinline preload="auto">
+                        <source src="my-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close Album</button>
+        </div>
+    </div>
+
+    <!-- نافذة الألبوم المنبثقة الخاصة بـ آية -->
+    <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
+        <div class="album-modal-card" onclick="event.stopPropagation()">
+            <h3>Aya's Album</h3>
+            <div class="modal-media-grid">
+                <div class="polaroid"><img src="my-love.jpg" alt="Aya"><p>Your lovely smile</p></div>
+                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2"><p>The light of my days</p></div>
+                <div class="video-box">
+                    <video id="ayaVideoElement" autoplay muted loop playsinline preload="auto">
+                        <source src="aya-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close Album</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
             <h3>
@@ -669,26 +800,27 @@
         <div id="msg-display"></div>
     </section>
 
+    <!-- قسم الألبومات الخاصة -->
     <section class="glass-section">
-        <h2>Our Memories & Gallery</h2>
-        <div class="media-grid">
-            <!-- فيديو الولد (my-video.mp4) في القسم الخاص بك -->
-            <div class="video-box">
-                <video id="boyVideoElement" autoplay muted loop playsinline preload="auto">
-                    <source src="my-video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        <h2>Our Memories Albums</h2>
+        <p class="counter-desc">Tap an album to explore our special moments together</p>
+        <div class="albums-grid">
+            <!-- ألبوم الولد (الغلاف my-photo1.jpg) -->
+            <div class="album-card" onclick="openAlbumModal('boyAlbumModal', 'boyVideoElement')">
+                <div class="album-cover-container">
+                    <img src="my-photo1.jpg" alt="My Album Cover">
+                    <div class="album-overlay-badge">View Album</div>
+                </div>
+                <h3 class="album-title">My Album</h3>
             </div>
-            <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo"><p>My moments</p></div>
-            <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2"><p>Always thinking of you</p></div>
-            <div class="polaroid"><img src="my-love.jpg" alt="Aya"><p>Your lovely smile</p></div>
-            <div class="polaroid"><img src="girl2.jpg" alt="Aya 2"><p>The light of my days</p></div>
-            <!-- فيديو آية (aya-video.mp4) -->
-            <div class="video-box">
-                <video id="ayaVideoElement" autoplay muted loop playsinline preload="auto">
-                    <source src="aya-video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+
+            <!-- ألبوم البنت (الغلاف my-love.jpg) -->
+            <div class="album-card" onclick="openAlbumModal('girlAlbumModal', 'ayaVideoElement')">
+                <div class="album-cover-container">
+                    <img src="my-love.jpg" alt="Aya's Album Cover">
+                    <div class="album-overlay-badge">View Album</div>
+                </div>
+                <h3 class="album-title">Aya's Album</h3>
             </div>
         </div>
     </section>
@@ -728,19 +860,29 @@
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 1200);
-            
-            const boyVid = document.getElementById('boyVideoElement');
-            if(boyVid) {
-                boyVid.play().catch(e => console.log("Boy video autoplay prevented:", e));
-            }
-
-            const ayaVid = document.getElementById('ayaVideoElement');
-            if(ayaVid) {
-                ayaVid.play().catch(e => console.log("Aya video autoplay prevented:", e));
-            }
 
             setInterval(createFallingElement, 1200);
             initDewDrops();
+        }
+
+        function openAlbumModal(modalId, videoId) {
+            document.getElementById(modalId).classList.add('active');
+            if (videoId) {
+                const vid = document.getElementById(videoId);
+                if (vid) {
+                    vid.play().catch(e => console.log("Video autoplay prevented:", e));
+                }
+            }
+        }
+
+        function closeAlbumModal(modalId, e) {
+            if (!e || e.target.id === modalId || e.target.classList.contains('close-modal-btn')) {
+                document.getElementById(modalId).classList.remove('active');
+                // إيقاف الفيديوهات عند إغلاق النافذة لتوفير الموارد
+                const modal = document.getElementById(modalId);
+                const videos = modal.querySelectorAll('video');
+                videos.forEach(v => v.pause());
+            }
         }
 
         function showMsg(txt) { 
