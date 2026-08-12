@@ -312,7 +312,7 @@
             display: block; line-height: 1.6; text-align: center;
         }
 
-        /* --- شبكة الوسائط لتكون الصور والفيديو بجانب بعضها بشكل متناسق --- */
+        /* --- شبكة الوسائط لتكون الصور والفيديوهات بجانب بعضها بشكل متناسق --- */
         .media-grid { 
             display: flex; 
             justify-content: center; 
@@ -672,13 +672,20 @@
     <section class="glass-section">
         <h2>Our Memories & Gallery</h2>
         <div class="media-grid">
+            <!-- فيديو الولد (my-video.mp4) في القسم الخاص بك -->
+            <div class="video-box">
+                <video id="boyVideoElement" autoplay muted loop playsinline preload="auto">
+                    <source src="my-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo"><p>My moments</p></div>
             <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2"><p>Always thinking of you</p></div>
             <div class="polaroid"><img src="my-love.jpg" alt="Aya"><p>Your lovely smile</p></div>
             <div class="polaroid"><img src="girl2.jpg" alt="Aya 2"><p>The light of my days</p></div>
-            <!-- فيديو آية المحدث بالاسم الجديد aya-video.mp4 وبجانب الصور بترتيب منسق -->
+            <!-- فيديو آية (aya-video.mp4) -->
             <div class="video-box">
-                <video id="myVideoElement" autoplay muted loop playsinline preload="auto">
+                <video id="ayaVideoElement" autoplay muted loop playsinline preload="auto">
                     <source src="aya-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -722,9 +729,14 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 1200);
             
-            const vid = document.getElementById('myVideoElement');
-            if(vid) {
-                vid.play().catch(e => console.log("Video autoplay prevented:", e));
+            const boyVid = document.getElementById('boyVideoElement');
+            if(boyVid) {
+                boyVid.play().catch(e => console.log("Boy video autoplay prevented:", e));
+            }
+
+            const ayaVid = document.getElementById('ayaVideoElement');
+            if(ayaVid) {
+                ayaVid.play().catch(e => console.log("Aya video autoplay prevented:", e));
             }
 
             setInterval(createFallingElement, 1200);
