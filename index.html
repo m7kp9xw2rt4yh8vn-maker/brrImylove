@@ -95,15 +95,15 @@
         .falling-element { 
             position: fixed; top: -50px; 
             animation: fall linear infinite; z-index: 2; pointer-events: none; 
-            opacity: 0.8;
             will-change: transform, opacity;
             transform: translateZ(0);
+            filter: drop-shadow(0 0 6px rgba(255, 77, 148, 0.5));
         }
 
         @keyframes fall { 
             0% { transform: translateY(-5vh) rotate(0deg) scale(0.8) translateZ(0); opacity: 0; } 
-            15% { opacity: 0.8; }
-            85% { opacity: 0.8; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
             100% { transform: translateY(110vh) rotate(360deg) scale(1.1) translateZ(0); opacity: 0; } 
         }
 
@@ -155,7 +155,6 @@
             -webkit-text-fill-color: #ffd1dc;
         }
 
-        /* تقليل البلور لتحسين الأداء بشكل كبير */
         .glass-section { 
             background: linear-gradient(135deg, rgba(35, 12, 28, 0.6), rgba(12, 4, 15, 0.85)); 
             backdrop-filter: blur(6px);
@@ -411,7 +410,7 @@
             direction: rtl;
         }
 
-        .comment-input {
+        .comment-input, .password-input {
             width: 100%;
             background: rgba(10, 3, 12, 0.9);
             border: 1px solid rgba(255, 77, 148, 0.4);
@@ -424,11 +423,11 @@
             outline: none;
         }
 
-        .comment-input:focus {
+        .comment-input:focus, .password-input:focus {
             border-color: #ff4d94;
         }
 
-        .comment-submit-btn {
+        .comment-submit-btn, .password-submit-btn {
             background: linear-gradient(135deg, #ff4d94, #da70d6);
             color: #fff;
             border: none;
@@ -438,7 +437,9 @@
             font-size: 1rem;
             cursor: pointer;
             margin-top: 10px;
+            transition: transform 0.2s ease;
         }
+        .password-submit-btn:hover { transform: scale(1.03); }
 
         .saved-comment-display {
             margin-top: 15px;
@@ -513,6 +514,19 @@
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
+        </div>
+    </div>
+
+    <!-- نافذة طلب كلمة المرور الفاخرة -->
+    <div class="modal-overlay" id="passwordModalOverlay" onclick="closePasswordModal(event)">
+        <div class="modal-card" style="border-color: rgba(255, 77, 148, 0.6);" onclick="event.stopPropagation()">
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.2rem; margin-bottom:10px;">Secret Space</h3>
+            <p style="font-family:'Playfair Display', serif; color:#ffd1dc; font-size:1.1rem; margin-bottom:20px;">Please enter the secret password to unlock:</p>
+            <input type="password" id="secretPasswordInput" class="password-input" placeholder="Enter password..." style="text-align: center; margin-bottom: 10px;">
+            <p id="passwordErrorMsg" style="font-family: 'Playfair Display', serif; color: #ff4d94; font-size: 1.1rem; min-height: 25px; margin-bottom: 10px; font-style: italic;"></p>
+            <button class="password-submit-btn" onclick="verifySecretPassword()">Unlock</button>
+            <br>
+            <button class="close-modal-btn" style="margin-top: 15px; padding: 10px 30px; font-size: 1rem;" onclick="closePasswordModal()">Cancel</button>
         </div>
     </div>
 
@@ -639,7 +653,7 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = window.innerWidth > 768 ? 25 : 12; // تقليل عدد الجسيمات لتحسين الأداء
+        const numberOfParticles = window.innerWidth > 768 ? 25 : 12;
 
         let mouse = { x: null, y: null, radiusSq: 100 * 100, radius: 100 };
 
@@ -767,28 +781,41 @@
         }
 
         function promptSecretNote() {
-            const customMsg = "آية حبيبتي وزوجتي ونور عيني الموقع ده لينا احنا ذكرة حلوة بينا انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة زيك ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂";
-            
             let isAuthorized = sessionStorage.getItem('aya_secret_auth') === 'true';
 
             if (!isAuthorized) {
-                let password = prompt("Please enter the secret password:");
-                if (password === "Aya05") {
-                    sessionStorage.setItem('aya_secret_auth', 'true');
-                    isAuthorized = true;
-                } else if (password !== null) {
-                    alert("كلمة المرور غير صحيحة، حاول مرة أخرى.");
-                    return;
-                } else {
-                    return;
-                }
+                document.getElementById('secretPasswordInput').value = '';
+                document.getElementById('passwordErrorMsg').innerText = '';
+                document.getElementById('passwordModalOverlay').classList.add('active');
+            } else {
+                openSecretContent();
             }
+        }
 
-            if (isAuthorized) {
-                document.getElementById('modal-text-content').innerText = customMsg;
-                checkSavedCommentState();
-                document.getElementById('modalOverlay').classList.add('active');
+        function verifySecretPassword() {
+            let password = document.getElementById('secretPasswordInput').value;
+            let errorMsg = document.getElementById('passwordErrorMsg');
+            
+            if (password === "Aya05") {
+                sessionStorage.setItem('aya_secret_auth', 'true');
+                document.getElementById('passwordModalOverlay').classList.remove('active');
+                openSecretContent();
+            } else {
+                errorMsg.innerText = "You are not Aya";
             }
+        }
+
+        function closePasswordModal(e) {
+            if (!e || e.target.id === 'passwordModalOverlay' || e.target.classList.contains('close-modal-btn')) {
+                document.getElementById('passwordModalOverlay').classList.remove('active');
+            }
+        }
+
+        function openSecretContent() {
+            const customMsg = "آية حبيبتي وزوجتي ونور عيني الموقع ده لينا احنا ذكرة حلوة بينا انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة زيك ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂";
+            document.getElementById('modal-text-content').innerText = customMsg;
+            checkSavedCommentState();
+            document.getElementById('modalOverlay').classList.add('active');
         }
 
         function saveUserComment() {
@@ -846,20 +873,19 @@
             bgMusic.pause();
         }
 
-        /* قوالب العناصر المتساقطة (قلوب، قبلات، ونجوم رومانسية إضافية بدلاً من العناق) */
-        const fallingTemplate1 = document.createElement('div');
-        fallingTemplate1.innerHTML = '<svg viewBox="0 0 24 24" fill="#ff4d94"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+        const svgTemplate1 = document.createElement('div');
+        svgTemplate1.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="url(#pinkGrad)"><defs><linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff4d94"/><stop offset="100%" stop-color="#ff8fa3"/></linearGradient></defs><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
         
-        const fallingTemplate2 = document.createElement('div');
-        fallingTemplate2.innerHTML = '<svg viewBox="0 0 24 24" fill="#d8b4fe"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+        const svgTemplate2 = document.createElement('div');
+        svgTemplate2.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="url(#purpleGrad)"><defs><linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
         
-        const fallingTemplate3 = document.createElement('div');
-        fallingTemplate3.innerHTML = '<div style="font-size: 20px; line-height: 1;">💋</div>';
+        const svgTemplate3 = document.createElement('div');
+        svgTemplate3.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff4d94"><path d="M19 10.5C19 12.5 17.5 14 15.5 14C14.12 14 12.95 13.25 12.4 12.15C11.85 13.25 10.68 14 9.3 14C7.3 14 5.8 12.5 5.8 10.5C5.8 9.3 6.4 8.2 7.3 7.5C6.4 6.8 5.8 5.7 5.8 4.5C5.8 2.5 7.3 1 9.3 1C10.5 1 11.6 1.6 12.2 2.5C12.8 1.6 13.9 1 15.1 1C17.1 1 18.6 2.5 18.6 4.5C18.6 5.7 18 6.8 17.1 7.5C18 8.2 19 9.3 19 10.5ZM12.2 4.2C11.8 3.5 11 3 10.1 3C8.9 3 8 3.9 8 5.1C8 6.3 8.9 7.2 10.1 7.2C11 7.2 11.8 6.7 12.2 6C12.6 6.7 13.4 7.2 14.3 7.2C15.5 7.2 16.4 6.3 16.4 5.1C16.4 3.9 15.5 3 14.3 3C13.4 3 12.6 3.5 12.2 4.2ZM12.4 9.1C11.3 9.1 10.4 10 10.4 11.1C10.4 12.2 11.3 13.1 12.4 13.1C13.5 13.1 14.4 12.2 14.4 11.1C14.4 10 13.5 9.1 12.4 9.1Z"/></svg>';
 
-        const fallingTemplate4 = document.createElement('div');
-        fallingTemplate4.innerHTML = '<div style="font-size: 18px; line-height: 1;">⭐</div>';
+        const svgTemplate4 = document.createElement('div');
+        svgTemplate4.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ffd1dc"><path d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z"/></svg>';
 
-        const fallingTemplates = [fallingTemplate1, fallingTemplate2, fallingTemplate3, fallingTemplate4];
+        const fallingTemplates = [svgTemplate1, svgTemplate2, svgTemplate3, svgTemplate4];
 
         const elementsContainer = document.getElementById('elements-container');
 
@@ -868,7 +894,7 @@
             const el = template.cloneNode(true);
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
-            const size = Math.floor(Math.random() * 10) + 14;
+            const size = Math.floor(Math.random() * 12) + 16;
             el.style.width = size + 'px'; el.style.height = size + 'px';
             const duration = Math.random() * 2 + 3.5;
             el.style.animationDuration = duration + 's';
