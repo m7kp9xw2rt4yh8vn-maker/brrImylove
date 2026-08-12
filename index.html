@@ -312,7 +312,7 @@
             display: block; line-height: 1.6; text-align: center;
         }
 
-        /* --- تعديل شبكة الوسائط لتكون الصور والفيديو بجانب بعضها بشكل متناسق --- */
+        /* --- شبكة الوسائط لتكون الصور والفيديو بجانب بعضها بشكل متناسق --- */
         .media-grid { 
             display: flex; 
             justify-content: center; 
@@ -676,10 +676,10 @@
             <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2"><p>Always thinking of you</p></div>
             <div class="polaroid"><img src="my-love.jpg" alt="Aya"><p>Your lovely smile</p></div>
             <div class="polaroid"><img src="girl2.jpg" alt="Aya 2"><p>The light of my days</p></div>
-            <!-- تم التأكد من تشغيل الفيديو وجعله بجانب الصور بترتيب منسق -->
+            <!-- فيديو آية المحدث بالاسم الجديد aya-video.mp4 وبجانب الصور بترتيب منسق -->
             <div class="video-box">
                 <video id="myVideoElement" autoplay muted loop playsinline preload="auto">
-                    <source src="my-video.mp4" type="video/mp4">
+                    <source src="aya-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -722,7 +722,6 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 1200);
             
-            // ضمان تشغيل الفيديو قسرياً عند الدخول لحل مشكلة عدم ظهوره
             const vid = document.getElementById('myVideoElement');
             if(vid) {
                 vid.play().catch(e => console.log("Video autoplay prevented:", e));
