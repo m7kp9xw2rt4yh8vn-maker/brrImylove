@@ -320,7 +320,6 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
-            will-change: transform;
         }
 
         .album-card:hover .album-cover-container img {
@@ -364,6 +363,7 @@
         }
         .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
 
+        /* تعديلات نافذة الألبوم لتحسين الأداء والتمرير */
         .album-modal-card {
             background: linear-gradient(135deg, #180615, #0d0210);
             border: 1.5px solid #ff4d94;
@@ -373,13 +373,31 @@
             max-width: 950px;
             max-height: 92vh;
             overflow-y: auto;
+            overscroll-behavior: contain; /* تمنع تمرير خلفية الموقع عند الوصول لآخر النافذة */
+            -webkit-overflow-scrolling: touch; /* تمرير سلس جداً على الموبايل */
             box-shadow: 0 0 45px rgba(255, 77, 148, 0.4);
             text-align: center;
             transform: scale(0.92);
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
-            -webkit-overflow-scrolling: touch;
+            
+            /* تنسيق شريط التمرير ليناسب الألوان */
+            scrollbar-width: thin;
+            scrollbar-color: #ff4d94 transparent;
         }
+        
+        .album-modal-card::-webkit-scrollbar {
+            width: 8px;
+        }
+        .album-modal-card::-webkit-scrollbar-track {
+            background: rgba(24, 6, 21, 0.5);
+            border-radius: 10px;
+        }
+        .album-modal-card::-webkit-scrollbar-thumb {
+            background: #ff4d94;
+            border-radius: 10px;
+        }
+
         .album-modal-overlay.active .album-modal-card { transform: scale(1); }
 
         .album-modal-card h3 {
@@ -400,16 +418,14 @@
             padding: 10px;
         }
 
-        /* تنسيق الصور الجديد (بديل البلارويد) */
         .gallery-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 15px;
             width: 100%;
-            max-width: 360px; /* حجم عرض كبير */
+            max-width: 360px; 
             transition: transform 0.3s ease;
-            will-change: transform;
         }
 
         .gallery-item:hover {
@@ -418,7 +434,7 @@
 
         .modal-media {
             width: 100%;
-            aspect-ratio: 3/4; /* نسبة أبعاد متناسقة للصور العمودية */
+            aspect-ratio: 3/4; 
             object-fit: cover;
             border-radius: 22px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
@@ -756,7 +772,6 @@
         <div class="albums-grid">
             <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
-                    <!-- تم تعيين صورة my-photo1 لتكون غلاف ألبوم الولد -->
                     <img src="my-photo1.jpg" alt="Mohie's Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
                 </div>
@@ -807,11 +822,21 @@
                 mouse.x = event.touches[0].clientX;
                 mouse.y = event.touches[0].clientY;
             }
-        });
+        }, {passive: true}); // تحسين الأداء أثناء التمرير
 
         window.addEventListener('mouseout', function() {
             mouse.x = null;
             mouse.y = null;
+        });
+
+        // Debounce Resize للحفاظ على السلاسة عند دوران الهاتف
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                resizeCanvas();
+                initConstellation(); 
+            }, 200);
         });
 
         class Particle {
@@ -819,8 +844,6 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.baseX = this.x;
-                this.baseY = this.y;
                 this.vx = (Math.random() - 0.5) * 0.4;
                 this.vy = (Math.random() - 0.5) * 0.4;
                 this.color = Math.random() > 0.4 ? 'rgba(255, 77, 148, ' : 'rgba(192, 132, 252, ';
@@ -836,8 +859,10 @@
                 if (mouse.x !== null && mouse.y !== null) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius) {
+                    let distSq = dx * dx + dy * dy; // Optimization: لا تحسب الجذر فوراً
+                    
+                    if (distSq < mouse.radius * mouse.radius) {
+                        let distance = Math.sqrt(distSq);
                         let force = (mouse.radius - distance) / mouse.radius;
                         let directionX = dx / distance;
                         let directionY = dy / distance;
@@ -876,12 +901,15 @@
                 particlesArray[i].update();
                 particlesArray[i].draw();
 
+                // Optimization: تجنب الجذور التربيعية قدر المستطاع
                 for (let j = i; j < particlesArray.length; j++) {
                     let dx = particlesArray[i].x - particlesArray[j].x;
                     let dy = particlesArray[i].y - particlesArray[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let distSq = dx * dx + dy * dy;
 
-                    if (distance < 110) {
+                    // المسافة القصوى للنجوم 110 (أي 110*110 = 12100)
+                    if (distSq < 12100) {
+                        let distance = Math.sqrt(distSq);
                         ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
                         ctx.lineWidth = 0.8;
                         ctx.beginPath();
@@ -894,8 +922,11 @@
                 if (mouse.x !== null && mouse.y !== null) {
                     let mdx = particlesArray[i].x - mouse.x;
                     let mdy = particlesArray[i].y - mouse.y;
-                    let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-                    if (mdist < 130) {
+                    let mdistSq = mdx * mdx + mdy * mdy;
+                    
+                    // مسافة الماوس القصوى 130 (أي 130*130 = 16900)
+                    if (mdistSq < 16900) {
+                        let mdist = Math.sqrt(mdistSq);
                         ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
                         ctx.lineWidth = 0.9;
                         ctx.beginPath();
