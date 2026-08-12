@@ -15,8 +15,8 @@
         body { 
             background-color: #020202; 
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(255, 77, 148, 0.1) 0%, transparent 45%), 
-                radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.1) 0%, transparent 45%), 
+                radial-gradient(circle at 15% 15%, rgba(255, 77, 148, 0.12) 0%, transparent 50%), 
+                radial-gradient(circle at 85% 85%, rgba(147, 51, 234, 0.12) 0%, transparent 50%), 
                 linear-gradient(135deg, #050103 0%, #020202 100%); 
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
@@ -45,7 +45,7 @@
             font-size: 4.8rem; 
             color: #ff4d94; 
             margin-bottom: 12px; 
-            text-shadow: 0 0 25px rgba(255,77,148,0.6); 
+            text-shadow: 0 0 30px rgba(255,77,148,0.7); 
             line-height: 1.2;
         }
 
@@ -59,34 +59,35 @@
         }
 
         .enter-btn { 
-            background: linear-gradient(135deg, rgba(255, 77, 148, 0.2), rgba(147, 51, 234, 0.2)); 
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.25), rgba(147, 51, 234, 0.25)); 
             color: #fff; 
-            border: 2px solid rgba(255, 77, 148, 0.7); 
+            border: 2px solid rgba(255, 77, 148, 0.8); 
             padding: 16px 50px; 
             font-size: 1.3rem; 
             font-family: 'Playfair Display', serif; 
             border-radius: 50px; 
             cursor: pointer; 
-            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; 
-            box-shadow: 0 0 20px rgba(255, 77, 148, 0.25); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 0 25px rgba(255, 77, 148, 0.3); 
             letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
 
         .enter-btn:hover { 
-            transform: scale(1.05); 
+            transform: translateY(-3px) scale(1.05); 
             background: linear-gradient(135deg, #ff4d94, #9333ea);
-            box-shadow: 0 0 35px rgba(255, 77, 148, 0.5); 
+            box-shadow: 0 0 40px rgba(255, 77, 148, 0.6); 
+            border-color: #fff;
         }
 
-        /* تحسين وعمل أنيميشن خفيف للعناصر الساقطة في الخلفية بدون ضغط على الـ GPU */
         .falling-element { 
             position: fixed; top: -50px; 
             animation: fall linear infinite; z-index: 1; pointer-events: none; 
-            opacity: 0.6;
+            opacity: 0.7;
             will-change: transform;
         }
         @keyframes fall { 
-            0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.6; } 
+            0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.7; } 
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
         }
 
@@ -97,7 +98,7 @@
         .cascade-text {
             position: absolute; 
             font-family: 'Great Vibes', cursive; 
-            font-size: 2.2rem; 
+            font-size: 2.3rem; 
             background: linear-gradient(135deg, #ff4d94, #ffb6c1, #da70d6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -105,12 +106,13 @@
             animation: lightCascade 6s ease-in-out infinite; 
             opacity: 0;
             will-change: transform, opacity;
+            filter: drop-shadow(0 0 10px rgba(255,77,148,0.4));
         }
 
         @keyframes lightCascade {
             0% { transform: translateY(-20px); opacity: 0; }
-            20% { opacity: 0.85; transform: translateY(20px); }
-            80% { opacity: 0.85; transform: translateY(140px); }
+            20% { opacity: 0.9; transform: translateY(20px); }
+            80% { opacity: 0.9; transform: translateY(140px); }
             100% { transform: translateY(180px); opacity: 0; }
         }
 
@@ -119,7 +121,7 @@
             font-family: 'Great Vibes', cursive; 
             font-size: 5.2rem; 
             color: #ff4d94; 
-            text-shadow: 0 0 30px rgba(255,77,148,0.6); 
+            text-shadow: 0 0 35px rgba(255,77,148,0.6); 
             line-height: 1.1;
             display: flex;
             flex-direction: column;
@@ -130,21 +132,24 @@
         .aya-title .me-text {
             font-size: 4.2rem;
             color: #ffd1dc;
-            text-shadow: 0 0 20px rgba(255,209,220,0.5);
+            text-shadow: 0 0 25px rgba(255,209,220,0.6);
         }
 
         .glass-section { 
-            background: linear-gradient(135deg, rgba(30, 10, 24, 0.8), rgba(10, 3, 12, 0.9)); 
-            border: 1px solid rgba(255, 77, 148, 0.25); width: 90%; max-width: 900px; 
-            margin: 45px auto; padding: 40px 30px; border-radius: 30px; z-index: 2; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
-            opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; 
+            background: linear-gradient(135deg, rgba(35, 12, 28, 0.75), rgba(12, 4, 15, 0.85)); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 77, 148, 0.3); 
+            width: 90%; max-width: 900px; 
+            margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 2; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,77,148,0.05); 
+            opacity: 0; transform: translateY(25px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .glass-section.visible { opacity: 1; transform: translateY(0); }
         
         .glass-section h2 { 
-            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.2rem; margin-bottom: 20px; 
-            text-shadow: 0 0 15px rgba(255,143,163,0.4);
+            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.3rem; margin-bottom: 20px; 
+            text-shadow: 0 0 20px rgba(255,143,163,0.5);
         }
 
         .map-container-box {
@@ -152,10 +157,11 @@
             width: 100%;
             max-width: 650px;
             margin: 20px auto 10px auto;
-            background: rgba(15, 5, 12, 0.8);
-            border: 1px solid rgba(255, 77, 148, 0.25);
-            border-radius: 24px;
-            padding: 30px 20px;
+            background: rgba(18, 6, 15, 0.85);
+            border: 1px solid rgba(255, 77, 148, 0.3);
+            border-radius: 28px;
+            padding: 35px 20px;
+            box-shadow: inset 0 0 15px rgba(255,77,148,0.08);
         }
 
         .connection-visual {
@@ -176,16 +182,17 @@
 
         .country-name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.9rem;
+            font-size: 2rem;
             color: #ff4d94;
             font-weight: 600;
+            text-shadow: 0 0 10px rgba(255,77,148,0.4);
         }
 
         .country-desc {
             font-family: 'Poppins', sans-serif;
             font-size: 0.9rem;
             color: #ffd1dc;
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .heart-bridge {
@@ -193,42 +200,44 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 130px;
+            width: 140px;
         }
 
         .bridge-line {
             width: 100%;
-            height: 1.5px;
-            background: rgba(255, 77, 148, 0.5);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.8), transparent);
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
         }
 
         .beating-bridge-heart {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             fill: #ff4d94;
+            filter: drop-shadow(0 0 10px rgba(255,77,148,0.8));
             z-index: 2;
             animation: simplePulse 2s ease-in-out infinite;
         }
 
         @keyframes simplePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,77,148,0.6)); }
+            50% { transform: scale(1.2); filter: drop-shadow(0 0 18px rgba(255,77,148,1)); }
         }
 
         .distance-badge-box {
-            margin-top: 15px;
+            margin-top: 18px;
             display: inline-block;
-            background: rgba(255, 77, 148, 0.08);
-            border: 1px solid rgba(255, 77, 148, 0.25);
-            padding: 8px 20px;
+            background: rgba(255, 77, 148, 0.1);
+            border: 1px solid rgba(255, 77, 148, 0.3);
+            padding: 10px 24px;
             border-radius: 30px;
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: #ffd1dc;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            box-shadow: 0 0 15px rgba(255,77,148,0.1);
         }
 
         .counter-box {
@@ -236,56 +245,64 @@
         }
 
         .counter-item {
-            background: rgba(255, 77, 148, 0.05);
-            border: 1px solid rgba(255, 77, 148, 0.25);
-            border-radius: 20px; padding: 18px 30px; min-width: 130px;
+            background: rgba(255, 77, 148, 0.08);
+            border: 1px solid rgba(255, 77, 148, 0.3);
+            border-radius: 24px; padding: 20px 35px; min-width: 140px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .counter-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,77,148,0.6);
         }
 
         .counter-number {
-            font-family: 'Playfair Display', serif; font-size: 2.6rem;
+            font-family: 'Playfair Display', serif; font-size: 2.8rem;
             color: #ff4d94; font-weight: 600;
+            text-shadow: 0 0 15px rgba(255,77,148,0.5);
         }
 
         .counter-label {
             font-family: 'Poppins', sans-serif; font-size: 0.9rem;
-            color: #ffd1dc; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;
+            color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;
         }
 
         .counter-desc {
             font-family: 'Playfair Display', serif; font-style: italic;
-            color: #e9d5ff; font-size: 1.2rem; margin-top: 12px; line-height: 1.5; text-align: center;
+            color: #e9d5ff; font-size: 1.25rem; margin-top: 12px; line-height: 1.5; text-align: center;
         }
 
         .albums-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
+            gap: 30px;
             flex-wrap: wrap;
-            margin-top: 25px;
+            margin-top: 30px;
         }
 
         .album-card {
-            background: rgba(20, 8, 16, 0.9);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            padding: 16px;
-            border-radius: 25px;
-            width: 250px;
+            background: linear-gradient(135deg, rgba(25, 10, 20, 0.9), rgba(12, 4, 15, 0.95));
+            border: 1px solid rgba(255, 77, 148, 0.35);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            padding: 18px;
+            border-radius: 28px;
+            width: 265px;
             cursor: pointer;
-            transition: transform 0.25s ease, border-color 0.25s ease;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
 
         .album-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 77, 148, 0.8);
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255, 77, 148, 0.9);
+            box-shadow: 0 15px 35px rgba(255,77,148,0.25);
         }
 
         .album-cover-container {
             width: 100%;
-            height: 200px;
-            border-radius: 16px;
+            height: 210px;
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
         }
@@ -294,59 +311,62 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
             will-change: transform;
         }
 
         .album-card:hover .album-cover-container img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .album-overlay-badge {
             position: absolute;
-            bottom: 10px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 14px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 77, 148, 0.4);
-            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 77, 148, 0.5);
+            font-size: 0.85rem;
             font-family: 'Playfair Display', serif;
             color: #ffd1dc;
             white-space: nowrap;
         }
 
         .album-title {
-            margin-top: 12px;
+            margin-top: 15px;
             font-family: 'Great Vibes', cursive;
             color: #ff8fa3;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px rgba(255,143,163,0.3);
         }
 
         .album-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.82);
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center; z-index: 10001;
-            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
             padding: 15px;
             will-change: opacity;
         }
         .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .album-modal-card {
-            background: #12040e;
+            background: linear-gradient(135deg, #180615, #0d0210);
             border: 1.5px solid #ff4d94;
-            padding: 30px 20px;
-            border-radius: 30px;
+            padding: 35px 20px;
+            border-radius: 35px;
             width: 100%;
-            max-width: 780px;
-            max-height: 90vh;
+            max-width: 950px;
+            max-height: 92vh;
             overflow-y: auto;
-            box-shadow: 0 0 30px rgba(255, 77, 148, 0.25);
+            box-shadow: 0 0 45px rgba(255, 77, 148, 0.4);
             text-align: center;
-            transform: scale(0.95);
-            transition: transform 0.25s ease;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
         .album-modal-overlay.active .album-modal-card { transform: scale(1); }
@@ -354,141 +374,162 @@
         .album-modal-card h3 {
             font-family: 'Great Vibes', cursive;
             color: #ff4d94;
-            font-size: 3.2rem;
-            margin-bottom: 22px;
+            font-size: 3.4rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255,77,148,0.5);
         }
 
         .modal-media-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .polaroid { 
-            background: #1a0815; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            padding: 14px 14px 20px 14px; 
-            border-radius: 20px; 
-            width: 210px; 
+            background: #1f0a1b; 
+            border: 1px solid rgba(255, 77, 148, 0.3); 
+            padding: 18px 18px 25px 18px; 
+            border-radius: 25px; 
+            width: 280px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
-        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; }
-        .polaroid p { margin-top: 10px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 0.95rem; }
+        .polaroid:hover { transform: translateY(-5px); }
+        .polaroid img { width: 100%; height: 290px; object-fit: cover; border-radius: 16px; }
+        .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.1rem; }
 
         .video-polaroid { 
-            background: #1a0815; 
-            border: 1.5px solid rgba(255, 77, 148, 0.4); 
-            padding: 14px 14px 20px 14px; 
-            border-radius: 20px; 
-            width: 210px; 
+            background: #1f0a1b; 
+            border: 1.5px solid rgba(255, 77, 148, 0.6); 
+            padding: 18px 18px 25px 18px; 
+            border-radius: 25px; 
+            width: 280px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
+        .video-polaroid:hover { transform: translateY(-5px); }
         .video-polaroid video { 
             width: 100%; 
-            height: 180px; 
+            height: 290px; 
             object-fit: cover; 
-            border-radius: 12px; 
+            border-radius: 16px; 
             display: block; 
         }
         .video-polaroid p { 
-            margin-top: 10px; 
+            margin-top: 14px; 
             font-family: 'Playfair Display', serif; 
             color: #ffd1dc; 
-            font-size: 0.95rem; 
+            font-size: 1.1rem; 
         }
 
         .msg-btn { 
             background: rgba(255, 77, 148, 0.12); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 12px 25px; margin: 8px; 
-            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.05rem; 
-            transition: background 0.2s ease, transform 0.2s ease; 
+            color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; 
+            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; 
+            transition: all 0.25s ease; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .msg-btn:hover { 
             background: #ff4d94; 
-            transform: translateY(-2px); 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(255,77,148,0.4);
         }
-        #msg-display { margin-top: 20px; font-size: 1.3rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; }
+        #msg-display { margin-top: 20px; font-size: 1.35rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; text-shadow: 0 0 10px rgba(255,209,220,0.3); }
 
         .floating-container {
             position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end;
         }
 
         .floating-bubble { 
-            background: #180814; 
-            border: 1.5px solid rgba(255, 77, 148, 0.4); color: #fff; padding: 12px 22px; border-radius: 35px; 
-            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
-            font-family: 'Playfair Display', serif; font-size: 1rem; 
-            display: flex; align-items: center; gap: 8px; 
-            transition: transform 0.2s ease, border-color 0.2s ease; 
+            background: rgba(24, 8, 20, 0.85); 
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; 
+            cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
+            font-family: 'Playfair Display', serif; font-size: 1.05rem; 
+            display: flex; align-items: center; gap: 10px; 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .floating-bubble:hover { 
-            transform: translateY(-2px); 
+            transform: translateY(-3px) scale(1.03); 
             border-color: #ff4d94; 
+            box-shadow: 0 10px 30px rgba(255,77,148,0.3);
         }
 
         .music-bubble {
-            border-color: rgba(168, 85, 247, 0.5);
-            background: #180c22;
+            border-color: rgba(168, 85, 247, 0.6);
+            background: rgba(24, 12, 34, 0.85);
+        }
+        .music-bubble:hover {
+            border-color: #a855f7;
+            box-shadow: 0 10px 30px rgba(168,85,247,0.3);
         }
 
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0, 0, 0, 0.8); 
+            background: rgba(0, 0, 0, 0.82); 
+            backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.25s ease; 
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; 
         }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         
         .modal-card { 
-            background: #12040e; 
-            border: 1.5px solid #ff4d94; padding: 35px 25px; border-radius: 30px; width: 90%; max-width: 420px; 
-            box-shadow: 0 0 25px rgba(255, 77, 148, 0.2); 
-            text-align: center; transform: scale(0.95); transition: transform 0.25s ease; 
+            background: linear-gradient(135deg, #180615, #0d0210); 
+            border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; 
+            box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); 
+            text-align: center; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
         .modal-card h3 { 
-            font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3rem; margin-bottom: 18px; 
+            font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.2rem; margin-bottom: 18px; 
             line-height: 1.2;
+            text-shadow: 0 0 15px rgba(255,77,148,0.4);
         }
-        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.2rem; line-height: 1.7; margin-bottom: 25px; }
+        .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.25rem; line-height: 1.7; margin-bottom: 25px; }
         
         .close-modal-btn { 
-            background: #ff4d94; color: #fff; border: none; padding: 12px 35px; 
+            background: #ff4d94; color: #fff; border: none; padding: 12px 38px; 
             font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 30px; 
-            cursor: pointer; transition: transform 0.2s ease; 
+            cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            box-shadow: 0 4px 15px rgba(255,77,148,0.4);
         }
-        .close-modal-btn:hover { transform: scale(1.03); }
+        .close-modal-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255,77,148,0.6); }
 
         .music-card-modal {
-            border-color: rgba(168, 85, 247, 0.7);
-            background: #14061d;
+            border-color: rgba(168, 85, 247, 0.8);
+            background: linear-gradient(135deg, #160822, #090212);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.3);
         }
         .music-card-modal h3 {
             color: #d8b4fe;
-            font-size: 3.2rem;
+            font-size: 3.4rem;
+            text-shadow: 0 0 15px rgba(168,85,247,0.5);
         }
 
         .ui-music-display {
             position: relative;
-            width: 170px; height: 170px;
+            width: 180px; height: 180px;
             margin: 15px auto 20px auto;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, #0d0214 80%);
-            border: 2px solid rgba(168, 85, 247, 0.5);
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, #0d0214 80%);
+            border: 2px solid rgba(168, 85, 247, 0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 2;
+            box-shadow: 0 0 25px rgba(168,85,247,0.2);
         }
 
         .vinyl-grooves {
             position: absolute;
-            width: 140px; height: 140px;
+            width: 145px; height: 145px;
             border-radius: 50%;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
             animation: spinVinyl 10s linear infinite;
             pointer-events: none;
         }
@@ -499,12 +540,13 @@
         }
 
         .cinematic-headphone {
-            width: 48px; height: 48px; fill: #d8b4fe;
+            width: 50px; height: 50px; fill: #d8b4fe;
             margin-bottom: 8px;
+            filter: drop-shadow(0 0 8px rgba(216,180,254,0.6));
         }
 
         .sound-waves {
-            display: flex; gap: 3px; align-items: flex-end; height: 15px;
+            display: flex; gap: 3.5px; align-items: flex-end; height: 16px;
         }
 
         .wave-bar {
@@ -520,14 +562,14 @@
 
         @keyframes soundWaveAnim {
             0% { transform: scaleY(0.4); }
-            100% { transform: scaleY(1.1); }
+            100% { transform: scaleY(1.2); }
         }
 
         footer { 
-            padding: 20px; 
+            padding: 25px; 
             color: #777; 
             font-family: 'Playfair Display', serif; 
-            font-size: 0.75rem; 
+            font-size: 0.8rem; 
             text-align: left; 
         }
     </style>
@@ -550,16 +592,15 @@
 
     <div class="floating-container">
         <div class="floating-bubble music-bubble" onclick="openMusicModal()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
             Our Song
         </div>
         <div class="floating-bubble" onclick="openFloatingModal()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             Tap for Us
         </div>
     </div>
 
-    <!-- نافذة الألبوم الخاصة بك -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>My Album</h3>
@@ -577,7 +618,6 @@
         </div>
     </div>
 
-    <!-- نافذة الألبوم الخاصة بـ آية -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
@@ -619,8 +659,8 @@
                     <div class="wave-bar"></div>
                 </div>
             </div>
-            <p style="font-size: 1.1rem; color: #e9d5ff; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-style: italic;">Our Special Song Playing...</p>
-            <button class="close-modal-btn" style="background: #a855f7;" onclick="closeMusicModal()">Close</button>
+            <p style="font-size: 1.15rem; color: #e9d5ff; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-style: italic;">Our Special Song Playing...</p>
+            <button class="close-modal-btn" style="background: #a855f7; box-shadow: 0 4px 15px rgba(168,85,247,0.4);" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -668,7 +708,7 @@
                 <div class="counter-label">Days</div>
             </div>
         </div>
-        <p style="font-family: 'Playfair Display', serif; color: #ffd1dc; margin-top: 15px; font-size: 1rem;">Since June 24, 2026, and forever to go...</p>
+        <p style="font-family: 'Playfair Display', serif; color: #ffd1dc; margin-top: 15px; font-size: 1.05rem;">Since June 24, 2026, and forever to go...</p>
     </section>
 
     <section class="glass-section">
@@ -733,9 +773,7 @@
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 800);
-
-            // زيادة معدل ظهور عناصر الخلفية الساقطة (قلوب، عناق، وقبلات) مع الحفاظ على الأداء
-            setInterval(createFallingElement, 900);
+            setInterval(createFallingElement, 700);
         }
 
         function openAlbumModal(modalId, videoId) {
@@ -789,32 +827,27 @@
             bgMusic.pause();
         }
 
-        // الأيقونات المتنوعة للخلفية (قلوب، عناق SVG، وقبلات SVG)
+        // تم تحديث الأيقونات لتشمل العناق (Hugs) وأيقونة قبلة واقعية ومجسمة (Realistic Kiss)
         const siteBackgroundIcons = [
-            // قلب SVG
+            // 1. قلوب نابضة
             '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
-            
-            // أيقونة عناق (Hug) SVG تليق بالموقع
-            '<svg viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
-            
-            // أيقونة قبلة (💋) تليق بالموقع بتصميم SVG ناعم وفخم
-            '<svg viewBox="0 0 24 24" fill="#ff4d94"><path d="M12 12c-2.5 0-4.5-1-6-2.5 1.5 2.5 4 4 6 4s4.5-1.5 6-4c-1.5 1.5-3.5 2.5-6 2.5zm0-8c2.2 0 4 1.5 4 3.5 0 .8-.3 1.5-.8 2.1-.9-.4-1.9-.6-3.2-.6s-2.3.2-3.2.6c-.5-.6-.8-1.3-.8-2.1 0-2 1.8-3.5 4-3.5zm0 12c-3.3 0-6.1-1.5-8-3.8 1.9 3.2 5.1 5.8 8 5.8s6.1-2.6 8-5.8c-1.9 2.3-4.7 3.8-8 3.8z"/></svg>'
+            // 2. قبلة واقعية (شفاة متوهجة مع تأثير أحمر شفاه سينمائي وواقعي)
+            '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>',
+            // 3. أيقونة العناق (شخصين يعانقان بعضهما بحرارة ودفء)
+            '<svg viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
         ];
 
         function createFallingElement() {
             const el = document.createElement('div');
-            // اختيار عشوائي للأيقونات (قلب، عناق، أو قبلة)
             const randomIcon = siteBackgroundIcons[Math.floor(Math.random() * siteBackgroundIcons.length)];
             el.innerHTML = randomIcon;
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
             
-            // أحجام متنوعة وخفيفة للأيقونات
-            const size = Math.floor(Math.random() * 10) + 16;
+            const size = Math.floor(Math.random() * 8) + 18;
             el.style.width = size + 'px';
             el.style.height = size + 'px';
             
-            // سرعات سقوط مختلفة لتبدو طبيعية وانسيابية
             const duration = Math.random() * 3 + 5;
             el.style.animationDuration = duration + 's';
             
