@@ -78,45 +78,59 @@
             box-shadow: 0 0 35px rgba(255, 77, 148, 0.5); 
         }
 
+        /* تحسين وعمل أنيميشن خفيف للعناصر الساقطة في الخلفية بدون ضغط على الـ GPU */
         .falling-element { 
-            position: fixed; top: -50px; width: 20px; height: 20px; 
+            position: fixed; top: -50px; 
             animation: fall linear infinite; z-index: 1; pointer-events: none; 
-            opacity: 0.5;
+            opacity: 0.6;
+            will-change: transform;
         }
         @keyframes fall { 
-            0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.5; } 
+            0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.6; } 
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
         }
 
         .cascade-container {
-            position: relative; width: 100%; height: 180px; overflow: hidden; margin: 25px auto 0; z-index: 2;
+            position: relative; width: 100%; height: 200px; overflow: hidden; margin: 25px auto 0; z-index: 2;
         }
 
         .cascade-text {
             position: absolute; 
             font-family: 'Great Vibes', cursive; 
             font-size: 2.2rem; 
-            background: linear-gradient(135deg, #ff4d94, #ffb6c1);
+            background: linear-gradient(135deg, #ff4d94, #ffb6c1, #da70d6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             white-space: nowrap; 
-            animation: lightCascade 7s ease-in-out infinite; 
+            animation: lightCascade 6s ease-in-out infinite; 
             opacity: 0;
             will-change: transform, opacity;
         }
 
         @keyframes lightCascade {
             0% { transform: translateY(-20px); opacity: 0; }
-            20% { opacity: 0.8; transform: translateY(20px); }
-            80% { opacity: 0.8; transform: translateY(120px); }
-            100% { transform: translateY(150px); opacity: 0; }
+            20% { opacity: 0.85; transform: translateY(20px); }
+            80% { opacity: 0.85; transform: translateY(140px); }
+            100% { transform: translateY(180px); opacity: 0; }
         }
 
-        .name-wrapper { margin-top: 10px; margin-bottom: 20px; z-index: 2; position: relative; }
+        .name-wrapper { margin-top: 15px; margin-bottom: 25px; z-index: 2; position: relative; }
         .aya-title { 
-            font-family: 'Great Vibes', cursive; font-size: 6rem; color: #ff4d94; 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 5.2rem; 
+            color: #ff4d94; 
             text-shadow: 0 0 30px rgba(255,77,148,0.6); 
-            letter-spacing: 3px;
+            line-height: 1.1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .aya-title .me-text {
+            font-size: 4.2rem;
+            color: #ffd1dc;
+            text-shadow: 0 0 20px rgba(255,209,220,0.5);
         }
 
         .glass-section { 
@@ -242,7 +256,6 @@
             color: #e9d5ff; font-size: 1.2rem; margin-top: 12px; line-height: 1.5; text-align: center;
         }
 
-        /* --- الألبومات بتأثيرات خفيفة وسريعة 100% --- */
         .albums-grid {
             display: flex;
             justify-content: center;
@@ -311,10 +324,9 @@
             font-size: 2rem;
         }
 
-        /* --- نافذة الألبوم بدون تعليق (خفيفة جداً) --- */
         .album-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.82);
             display: flex; justify-content: center; align-items: center; z-index: 10001;
             opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
             padding: 15px;
@@ -328,10 +340,10 @@
             padding: 30px 20px;
             border-radius: 30px;
             width: 100%;
-            max-width: 700px;
-            max-height: 85vh;
+            max-width: 780px;
+            max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 0 25px rgba(255, 77, 148, 0.2);
+            box-shadow: 0 0 30px rgba(255, 77, 148, 0.25);
             text-align: center;
             transform: scale(0.95);
             transition: transform 0.25s ease;
@@ -342,48 +354,48 @@
         .album-modal-card h3 {
             font-family: 'Great Vibes', cursive;
             color: #ff4d94;
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 3.2rem;
+            margin-bottom: 22px;
         }
 
         .modal-media-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .polaroid { 
             background: #1a0815; 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            padding: 10px 10px 15px 10px; 
-            border-radius: 16px; 
-            width: 165px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 14px 14px 20px 14px; 
+            border-radius: 20px; 
+            width: 210px; 
         }
-        .polaroid img { width: 100%; height: 130px; object-fit: cover; border-radius: 10px; }
-        .polaroid p { margin-top: 8px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 0.85rem; }
+        .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; }
+        .polaroid p { margin-top: 10px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 0.95rem; }
 
         .video-polaroid { 
             background: #1a0815; 
-            border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 10px 10px 15px 10px; 
-            border-radius: 16px; 
-            width: 165px; 
+            border: 1.5px solid rgba(255, 77, 148, 0.4); 
+            padding: 14px 14px 20px 14px; 
+            border-radius: 20px; 
+            width: 210px; 
         }
         .video-polaroid video { 
             width: 100%; 
-            height: 130px; 
+            height: 180px; 
             object-fit: cover; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             display: block; 
         }
         .video-polaroid p { 
-            margin-top: 8px; 
+            margin-top: 10px; 
             font-family: 'Playfair Display', serif; 
             color: #ffd1dc; 
-            font-size: 0.85rem; 
+            font-size: 0.95rem; 
         }
 
         .msg-btn { 
@@ -518,15 +530,6 @@
             font-size: 0.75rem; 
             text-align: left; 
         }
-
-        .inline-svg-heart {
-            width: 16px;
-            height: 16px;
-            fill: #ff4d94;
-            display: inline-block;
-            vertical-align: -2px;
-            margin-inline-start: 5px;
-        }
     </style>
 </head>
 <body>
@@ -624,7 +627,10 @@
     <div class="cascade-container" id="cascadeContainer"></div>
 
     <div class="name-wrapper">
-        <h1 class="aya-title">Us & Aya</h1>
+        <h1 class="aya-title">
+            <span class="me-text">Me</span>
+            <span>& Aya</span>
+        </h1>
     </div>
 
     <section class="glass-section">
@@ -710,13 +716,14 @@
         updateLoveCounter();
 
         const cascadeContainer = document.getElementById('cascadeContainer');
-        for (let i = 0; i < 2; i++) {
+        const cascadeWordsCount = 4; 
+        for (let i = 0; i < cascadeWordsCount; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${30 + (i * 35)}%`;
-            span.style.animationDelay = `${i * 3.5}s`;
-            span.style.animationDuration = '7s';
+            span.style.left = `${10 + (i * 25)}%`;
+            span.style.animationDelay = `${i * 1.5}s`;
+            span.style.animationDuration = '6s';
             cascadeContainer.appendChild(span);
         }
 
@@ -727,7 +734,8 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 800);
 
-            setInterval(createFallingElement, 2500);
+            // زيادة معدل ظهور عناصر الخلفية الساقطة (قلوب، عناق، وقبلات) مع الحفاظ على الأداء
+            setInterval(createFallingElement, 900);
         }
 
         function openAlbumModal(modalId, videoId) {
@@ -781,18 +789,37 @@
             bgMusic.pause();
         }
 
+        // الأيقونات المتنوعة للخلفية (قلوب، عناق SVG، وقبلات SVG)
         const siteBackgroundIcons = [
-            '<svg viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>'
+            // قلب SVG
+            '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+            
+            // أيقونة عناق (Hug) SVG تليق بالموقع
+            '<svg viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
+            
+            // أيقونة قبلة (💋) تليق بالموقع بتصميم SVG ناعم وفخم
+            '<svg viewBox="0 0 24 24" fill="#ff4d94"><path d="M12 12c-2.5 0-4.5-1-6-2.5 1.5 2.5 4 4 6 4s4.5-1.5 6-4c-1.5 1.5-3.5 2.5-6 2.5zm0-8c2.2 0 4 1.5 4 3.5 0 .8-.3 1.5-.8 2.1-.9-.4-1.9-.6-3.2-.6s-2.3.2-3.2.6c-.5-.6-.8-1.3-.8-2.1 0-2 1.8-3.5 4-3.5zm0 12c-3.3 0-6.1-1.5-8-3.8 1.9 3.2 5.1 5.8 8 5.8s6.1-2.6 8-5.8c-1.9 2.3-4.7 3.8-8 3.8z"/></svg>'
         ];
 
         function createFallingElement() {
             const el = document.createElement('div');
-            el.innerHTML = siteBackgroundIcons[0];
+            // اختيار عشوائي للأيقونات (قلب، عناق، أو قبلة)
+            const randomIcon = siteBackgroundIcons[Math.floor(Math.random() * siteBackgroundIcons.length)];
+            el.innerHTML = randomIcon;
             el.className = 'falling-element';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = '8s';
+            
+            // أحجام متنوعة وخفيفة للأيقونات
+            const size = Math.floor(Math.random() * 10) + 16;
+            el.style.width = size + 'px';
+            el.style.height = size + 'px';
+            
+            // سرعات سقوط مختلفة لتبدو طبيعية وانسيابية
+            const duration = Math.random() * 3 + 5;
+            el.style.animationDuration = duration + 's';
+            
             document.getElementById('elements-container').appendChild(el);
-            setTimeout(() => { el.remove(); }, 8000);
+            setTimeout(() => { el.remove(); }, duration * 1000);
         }
 
         const observer = new IntersectionObserver((entries) => {
