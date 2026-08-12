@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#020202">
+    <meta name="theme-color" content="#050106">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="./manifest.json">
     <title>For Aya & Our Eternal Love</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-accent: #ff4d94;
             --secondary-accent: #d8b4fe;
-            --bg-dark: #030104;
-            --card-bg: #10040f;
-            --border-glow: rgba(255, 77, 148, 0.35);
+            --bg-dark: #050106;
+            --card-bg: linear-gradient(145deg, rgba(22, 6, 20, 0.9), rgba(10, 2, 9, 0.85));
+            --border-glow: rgba(255, 77, 148, 0.4);
+            --neon-shadow: 0 0 15px rgba(255, 77, 148, 0.15), inset 0 0 10px rgba(255, 77, 148, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
         body { 
-            background-color: var(--bg-dark); 
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, rgba(40, 10, 30, 0.3) 0%, transparent 70%);
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
             overflow-x: hidden; 
@@ -29,305 +30,257 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* مؤثرات حركية خفيفة على المعالج */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 77, 148, 0.2), inset 0 0 10px rgba(255, 77, 148, 0.05); }
+            50% { box-shadow: 0 0 25px rgba(255, 77, 148, 0.4), inset 0 0 15px rgba(255, 77, 148, 0.1); }
+        }
+
+        @keyframes floatingSoft {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
         #constellation-canvas {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 1; transform: translate3d(0,0,0);
+            pointer-events: none; z-index: 1; transform: translateZ(0); /* تسريع الأداء */
         }
 
         /* شاشة الإنترو */
         #intro-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: #080207; 
+            background: radial-gradient(circle, #1a0512 0%, #050106 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 9999; transition: opacity 0.3s ease;
-            padding: 20px; text-align: center;
+            z-index: 9999; transition: opacity 0.5s ease; padding: 20px;
         }
 
-        .intro-content-box {
-            position: relative; z-index: 2; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; width: 100%; max-width: 600px;
-            margin: 0 auto; text-align: center;
-        }
+        .intro-content-box { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; max-width: 600px; }
 
         #intro-screen h1 { 
-            font-family: 'Great Vibes', cursive; font-size: 3.8rem; 
-            color: #ff4d94;
-            margin-bottom: 12px; line-height: 1.3; text-align: center;
+            font-family: 'Great Vibes', cursive; font-size: 4.2rem; 
+            color: #ff8fa3; text-shadow: 0 0 20px rgba(255, 143, 163, 0.5);
+            margin-bottom: 15px; line-height: 1.2;
+            animation: floatingSoft 4s ease-in-out infinite;
         }
 
-        .intro-subtitle {
-            font-family: 'Playfair Display', serif; font-style: italic;
-            color: #ffd1dc; font-size: 1.1rem; margin-bottom: 28px; letter-spacing: 0.5px; opacity: 0.9;
-            text-align: center; line-height: 1.5;
-        }
+        .intro-subtitle { font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1dc; font-size: 1.2rem; margin-bottom: 35px; letter-spacing: 1px; }
 
         .enter-btn { 
-            position: relative;
-            background: linear-gradient(135deg, #ff4d94, #a855f7); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.8); 
-            padding: 14px 44px; font-size: 1.15rem; font-family: 'Playfair Display', serif; 
-            border-radius: 50px; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, rgba(255, 77, 148, 0.2), rgba(216, 180, 254, 0.2)); 
+            color: #fff; border: 1px solid var(--border-glow); 
+            padding: 16px 48px; font-size: 1.2rem; font-family: 'Playfair Display', serif; 
+            border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
+            animation: pulseGlow 3s infinite;
         }
+        .enter-btn:hover { transform: scale(1.05); background: rgba(255, 77, 148, 0.5); box-shadow: 0 0 20px rgba(255, 77, 148, 0.6); }
 
-        .enter-btn:hover { 
-            transform: scale(1.03); 
-            background: linear-gradient(135deg, #ff66a3, #b866ff);
-        }
-
+        /* العناصر المتساقطة الخفيفة */
         .falling-element { 
             position: fixed; top: -40px; animation: fall linear infinite; z-index: 2; pointer-events: none; 
-            will-change: transform; transform: translate3d(0,0,0);
+            will-change: transform; transform: translateZ(0); filter: drop-shadow(0 0 5px rgba(255, 77, 148, 0.4));
         }
 
         @keyframes fall { 
-            0% { transform: translate3d(0, -5vh, 0) rotate(0deg); opacity: 0; } 
-            15% { opacity: 0.9; }
-            85% { opacity: 0.9; }
-            100% { transform: translate3d(0, 105vh, 0) rotate(360deg); opacity: 0; } 
+            0% { transform: translateY(-5vh) rotate(0deg) scale(0.8); opacity: 0; } 
+            15% { opacity: 1; transform: translateY(15vh) rotate(45deg) scale(1); }
+            85% { opacity: 1; transform: translateY(85vh) rotate(135deg) scale(1); }
+            100% { transform: translateY(105vh) rotate(180deg) scale(0.8); opacity: 0; } 
         }
 
-        .cascade-container {
-            position: relative; width: 100%; height: 180px; overflow: hidden; margin: 20px auto 0; z-index: 3;
-        }
-
+        .cascade-container { position: relative; width: 100%; height: 140px; overflow: hidden; margin: 10px auto 0; z-index: 3; }
+        
         .cascade-text {
-            position: absolute; font-family: 'Great Vibes', cursive; font-size: 2.2rem; 
-            color: #ff4d94;
-            white-space: nowrap; animation: lightCascade 4.8s ease-in-out infinite; opacity: 0;
+            position: absolute; font-family: 'Great Vibes', cursive; font-size: 2.5rem; 
+            color: #ffb3c6; text-shadow: 0 0 15px rgba(255, 179, 198, 0.6);
+            white-space: nowrap; animation: lightCascade 5s ease-in-out infinite; opacity: 0;
             will-change: transform, opacity;
         }
 
         @keyframes lightCascade {
-            0% { transform: translate3d(0, -20px, 0); opacity: 0; }
-            20% { opacity: 1; transform: translate3d(0, 20px, 0); }
-            80% { opacity: 1; transform: translate3d(0, 130px, 0); }
-            100% { transform: translate3d(0, 160px, 0); opacity: 0; }
+            0% { transform: translateY(-10px) scale(0.9); opacity: 0; }
+            20% { opacity: 1; transform: translateY(20px) scale(1.1); }
+            80% { opacity: 1; transform: translateY(90px) scale(1); }
+            100% { transform: translateY(120px) scale(0.9); opacity: 0; }
         }
 
-        .name-wrapper { margin-top: 10px; margin-bottom: 20px; z-index: 3; position: relative; }
-        
+        .name-wrapper { margin-top: 5px; margin-bottom: 25px; z-index: 3; position: relative; }
         .aya-title { 
-            font-family: 'Great Vibes', cursive; font-size: 4.8rem; line-height: 1.1;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-            color: #ff4d94;
+            font-family: 'Great Vibes', cursive; font-size: 5rem; line-height: 1;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            color: #ff4d94; text-shadow: 0 0 20px rgba(255, 77, 148, 0.4);
+            animation: floatingSoft 5s ease-in-out infinite;
         }
-        
-        .aya-title .me-text { font-size: 3.8rem; color: #ffd1dc; }
+        .aya-title .me-text { font-size: 3.5rem; color: #ffd1dc; text-shadow: 0 0 15px rgba(255, 209, 220, 0.3); }
 
-        /* البطاقات الرئيسية بدون بلور */
+        /* البطاقات الأنيقة - مظهر زجاجي لامع وبدون تعليق */
         .glass-section { 
             background: var(--card-bg);
             border: 1px solid var(--border-glow); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            width: 90%; max-width: 850px; margin: 35px auto; padding: 35px 24px; border-radius: 24px; z-index: 3; 
-            opacity: 0; transform: translate3d(0, 15px, 0); transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.25s ease; 
-            position: relative; will-change: opacity, transform; display: flex; flex-direction: column; align-items: center;
+            box-shadow: var(--neon-shadow);
+            border-radius: 24px;
+            width: 90%; max-width: 850px; margin: 30px auto; padding: 35px 20px; z-index: 3; 
+            opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; 
+            position: relative; display: flex; flex-direction: column; align-items: center;
         }
+        .glass-section.visible { opacity: 1; transform: translateY(0); }
+        .glass-section h2 { font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.2rem; margin-bottom: 12px; text-shadow: 0 0 10px rgba(255, 143, 163, 0.3); }
 
-        .glass-section:hover { 
-            border-color: rgba(255, 77, 148, 0.7); 
-        }
-        .glass-section.visible { opacity: 1; transform: translate3d(0,0,0); }
-        
-        .glass-section h2 { 
-            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.2rem; margin-bottom: 12px; 
-        }
+        .counter-desc { font-family: 'Playfair Display', serif; font-style: italic; color: #e9d5ff; font-size: 1.15rem; margin-bottom: 15px; text-align: center; }
 
+        /* خريطة المسافة */
         .map-container-box {
-            position: relative; width: 100%; max-width: 520px; margin: 20px auto 10px auto;
-            background: #080207; border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 20px; padding: 25px 20px;
+            position: relative; width: 100%; max-width: 520px; margin: 10px auto;
+            background: rgba(5, 1, 6, 0.8); border: 1px solid rgba(255, 77, 148, 0.2);
+            border-radius: 20px; padding: 25px 15px;
+            box-shadow: inset 0 0 20px rgba(255, 77, 148, 0.05);
         }
 
-        .connection-visual-horizontal { 
-            display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; width: 100%; 
-        }
+        .connection-visual-horizontal { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; }
+        .country-node { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+        .country-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #ff4d94; font-weight: 600; text-shadow: 0 0 8px rgba(255, 77, 148, 0.4); }
+        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: #ffd1dc; opacity: 0.9; margin-top: 4px; }
         
-        .country-node { display: flex; flex-direction: column; align-items: center; min-width: 75px; }
-        .country-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #ff4d94; font-weight: 600; }
-        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.8rem; color: #ffd1dc; opacity: 0.9; }
-        
-        .heart-bridge-horizontal { 
-            display: flex; align-items: center; justify-content: center; position: relative; flex: 1; height: 36px; margin: 0 10px;
-        }
-        
+        .heart-bridge-horizontal { display: flex; align-items: center; justify-content: center; position: relative; flex: 1; height: 32px; margin: 0 10px; }
         .bridge-line-h {
             height: 2px; width: 100%;
-            background: #ff4d94;
+            background: linear-gradient(90deg, transparent, #ff4d94, transparent);
             position: absolute; top: 50%; transform: translateY(-50%);
         }
-
         .beating-bridge-heart {
-            width: 30px; height: 30px; fill: #ff4d94; z-index: 2;
+            width: 32px; height: 32px; fill: #ff4d94; z-index: 2;
             animation: heartBeat 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.6));
         }
 
         @keyframes heartBeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.3); }
         }
 
         .distance-badge-box {
-            margin-top: 20px; display: inline-block; background: rgba(255, 77, 148, 0.15);
-            border: 1px solid rgba(255, 77, 148, 0.35); padding: 10px 22px; border-radius: 25px;
+            margin-top: 15px; display: inline-block; background: rgba(255, 77, 148, 0.15);
+            border: 1px solid rgba(255, 77, 148, 0.4); padding: 10px 22px; border-radius: 30px;
             font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1dc; font-size: 0.95rem;
+            box-shadow: 0 0 15px rgba(255, 77, 148, 0.1);
         }
 
-        .counter-box { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0 10px 0; width: 100%; }
-
+        /* العداد */
+        .counter-box { display: flex; justify-content: center; align-items: center; margin: 10px 0; width: 100%; }
         .counter-item {
-            background: #080207; border: 1px solid rgba(255, 77, 148, 0.4);
-            border-radius: 18px; padding: 20px 38px; min-width: 140px;
-            transition: transform 0.2s ease;
+            background: linear-gradient(180deg, rgba(255,77,148,0.1), transparent);
+            border: 1px solid rgba(255, 77, 148, 0.4);
+            border-radius: 20px; padding: 20px 40px; min-width: 150px;
+            box-shadow: 0 5px 15px rgba(255, 77, 148, 0.1);
         }
-        .counter-item:hover { transform: translateY(-3px); border-color: #ff4d94; }
+        .counter-number { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #ff8fa3; font-weight: 700; text-shadow: 0 0 15px rgba(255, 143, 163, 0.5); line-height: 1; }
+        .counter-label { font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: #ffd1dc; text-transform: uppercase; letter-spacing: 3px; margin-top: 8px; }
 
-        .counter-number {
-            font-family: 'Playfair Display', serif; font-size: 3rem; color: #ff4d94; font-weight: 600;
+        /* الأزرار */
+        .msg-btn-group { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px; margin-top: 15px; }
+        .msg-btn { 
+            background: rgba(255, 77, 148, 0.05); color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); 
+            padding: 14px 25px; border-radius: 25px; cursor: pointer; 
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; transition: all 0.3s ease; width: 100%;
         }
+        .msg-btn:hover { background: rgba(255, 77, 148, 0.3); border-color: #ff8fa3; transform: translateX(5px); box-shadow: 0 0 15px rgba(255, 77, 148, 0.2); }
+        #msg-display { margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 10px; min-height: 35px; text-shadow: 0 0 8px rgba(255, 209, 220, 0.3); }
 
-        .counter-label { font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; }
-        .counter-desc { font-family: 'Playfair Display', serif; font-style: italic; color: #e9d5ff; font-size: 1.15rem; margin-top: 6px; line-height: 1.4; text-align: center; }
-
+        /* الألبومات */
         .albums-grid { display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap; margin-top: 25px; width: 100%; }
-
         .album-card {
-            background: #080207; border: 1px solid rgba(255, 77, 148, 0.35);
-            padding: 15px; border-radius: 20px; width: 250px; cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            background: linear-gradient(180deg, rgba(22, 6, 20, 0.9), #050106);
+            border: 1px solid rgba(255, 77, 148, 0.3); padding: 15px; border-radius: 22px; width: 240px; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-        .album-card:hover { transform: translateY(-4px); border-color: rgba(255, 77, 148, 0.85); }
-
-        .album-cover-container { width: 100%; height: 190px; border-radius: 14px; overflow: hidden; position: relative; }
-        .album-cover-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .album-card:hover .album-cover-container img { transform: scale(1.04); }
-
+        .album-card:hover { transform: translateY(-8px); border-color: #ff8fa3; box-shadow: 0 15px 25px rgba(255, 77, 148, 0.2); }
+        .album-cover-container { width: 100%; height: 180px; border-radius: 16px; overflow: hidden; position: relative; }
+        .album-cover-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .album-card:hover .album-cover-container img { transform: scale(1.08); }
         .album-overlay-badge {
             position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-            background: #000; padding: 6px 16px; border-radius: 20px; 
+            background: rgba(0, 0, 0, 0.7); padding: 6px 16px; border-radius: 20px; 
             border: 1px solid rgba(255, 77, 148, 0.6); font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #fff;
+            backdrop-filter: blur(2px);
         }
+        .album-title { margin-top: 15px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255,143,163,0.3); }
 
-        .album-title { margin-top: 12px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; }
-
-        .msg-btn-group {
-            display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px; margin-top: 15px;
-        }
-
-        .msg-btn { 
-            background: #080207; color: #fff; border: 1px solid rgba(255, 77, 148, 0.45); 
-            padding: 12px 26px; border-radius: 25px; cursor: pointer; 
-            font-family: 'Playfair Display', serif; font-size: 1.05rem; transition: background 0.2s ease, transform 0.2s ease; width: 100%;
-        }
-        .msg-btn:hover { background: #ff4d94; transform: translateY(-2px); border-color: #fff; }
-
-        #msg-display { 
-            margin-top: 15px; font-size: 1.2rem; color: #ffd1dc; font-style: italic; 
-            font-family: 'Playfair Display', serif; padding: 0 10px; min-height: 35px;
-        }
-
-        /* النوافذ المنبثقة بدون بلور */
+        /* النوافذ المنبثقة (Modals) */
         .album-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(3, 1, 4, 0.96);
-            display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.2s ease; padding: 12px;
+            background: rgba(3, 1, 4, 0.95); display: flex; justify-content: center; align-items: center; 
+            z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 15px;
         }
         .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
-
+        
         .modal-card, .album-modal-card {
-            background: #120511;
-            border: 1px solid rgba(255, 77, 148, 0.6);
-            padding: 25px 18px; 
-            border-radius: 24px; 
-            width: 92%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.95);
-            text-align: center; 
-            transform: scale(0.95); 
-            transition: transform 0.25s ease;
+            background: linear-gradient(145deg, #140510, #0a0208);
+            border: 1px solid rgba(255, 77, 148, 0.5); box-shadow: 0 0 30px rgba(255, 77, 148, 0.15);
+            padding: 30px 20px; border-radius: 24px; width: 95%; max-width: 480px; max-height: 85vh;
+            overflow-y: auto; text-align: center; transform: translateY(20px) scale(0.95); transition: all 0.3s ease;
         }
+        .album-modal-overlay.active .album-modal-card, .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
 
-        .album-modal-card::-webkit-scrollbar, .modal-card::-webkit-scrollbar { width: 5px; }
-        .album-modal-card::-webkit-scrollbar-thumb, .modal-card::-webkit-scrollbar-thumb { background: #ff4d94; border-radius: 10px; }
-
-        .album-modal-overlay.active .album-modal-card, .modal-overlay.active .modal-card { transform: scale(1); }
+        .polaroid { 
+            background: #fff; padding: 12px 12px 25px 12px; border-radius: 4px; width: 100%; max-width: 320px; margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); transform: rotate(random);
+        }
+        .polaroid img { width: 100%; border-radius: 2px; }
+        .polaroid p { color: #333; margin-top: 12px; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; }
 
         .close-modal-btn { 
-            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none; padding: 10px 32px; 
-            font-family: 'Playfair Display', serif; font-size: 1rem; border-radius: 30px; 
-            cursor: pointer; transition: transform 0.2s ease; margin-top: 15px;
+            background: linear-gradient(90deg, #ff4d94, #ff8fa3); color: #fff; border: none; padding: 12px 35px; 
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 30px; 
+            cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 77, 148, 0.3);
         }
-        .close-modal-btn:hover { transform: scale(1.03); }
+        .close-modal-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(255, 77, 148, 0.5); }
 
-        .polaroid, .video-polaroid { 
-            background: #080207; border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 12px; border-radius: 14px; width: 100%; max-width: 320px; margin: 0 auto;
-        }
-        
-        .floating-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 998; }
-
+        /* الأيقونات العائمة */
+        .floating-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 998; }
         .floating-bubble { 
-            background: #180715; 
-            border: 1px solid rgba(255, 77, 148, 0.7); color: #fff; 
-            padding: 12px 22px; border-radius: 30px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.8); 
+            background: rgba(20, 5, 18, 0.9); border: 1px solid rgba(255, 77, 148, 0.6); color: #fff; 
+            padding: 12px 22px; border-radius: 30px; cursor: pointer; 
             font-family: 'Playfair Display', serif; font-size: 1rem; display: flex; align-items: center; gap: 10px; 
-            transition: transform 0.2s ease, background 0.2s ease;
+            box-shadow: 0 0 15px rgba(255, 77, 148, 0.2); transition: all 0.3s ease;
         }
-        .floating-bubble:hover { transform: translateY(-3px); background: #ff4d94; }
+        .floating-bubble:hover { transform: translateY(-5px); background: rgba(255, 77, 148, 0.2); box-shadow: 0 0 20px rgba(255, 77, 148, 0.4); }
 
-        .comment-box-wrapper {
-            margin-top: 15px; background: #080207; border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 16px; padding: 12px; text-align: center;
-        }
-
+        /* مدخل الباسورد والرسائل السرية */
         .comment-input, .password-input {
-            width: 100%; background: #030104; border: 1px solid rgba(255, 77, 148, 0.4);
-            border-radius: 12px; padding: 12px 14px; color: #fff; font-family: 'Playfair Display', serif;
-            font-size: 0.98rem; resize: none; outline: none; text-align: center;
+            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255, 77, 148, 0.4);
+            border-radius: 15px; padding: 12px 15px; color: #fff; font-family: 'Playfair Display', serif;
+            font-size: 1rem; outline: none; text-align: center; transition: border-color 0.3s ease;
         }
-        .comment-input:focus, .password-input:focus { border-color: #ff4d94; }
-
-        .comment-submit-btn, .password-submit-btn {
-            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none;
-            padding: 10px 28px; border-radius: 20px; font-family: 'Playfair Display', serif;
-            font-size: 0.95rem; cursor: pointer; margin-top: 10px; transition: transform 0.2s;
+        .comment-input:focus, .password-input:focus { border-color: #ff8fa3; box-shadow: 0 0 10px rgba(255,143,163,0.2); }
+        
+        .password-submit-btn, .comment-submit-btn {
+            background: #ff4d94; color: #fff; border: none; padding: 10px 30px; border-radius: 20px;
+            font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 10px; transition: transform 0.2s;
         }
-        .password-submit-btn:hover, .comment-submit-btn:hover { transform: scale(1.03); }
-
-        .saved-comment-display {
-            margin-top: 8px; padding: 10px 14px; background: rgba(255, 77, 148, 0.15);
-            border: 1px solid rgba(255, 77, 148, 0.4); border-radius: 12px;
-            font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 0.98rem; text-align: center; word-break: break-word;
-        }
+        .password-submit-btn:hover, .comment-submit-btn:hover { transform: scale(1.05); }
 
         #modal-text-content {
-            font-family: 'Amiri', 'Cairo', serif; color: #ffe4e6; font-size: 1.15rem; line-height: 1.8;
-            margin-bottom: 15px; text-align: right; direction: rtl; max-height: 42vh; overflow-y: auto;
-            padding: 12px; background: #080207; border-radius: 14px;
+            font-family: 'Amiri', 'Cairo', serif; color: #ffe4e6; font-size: 1.2rem; line-height: 1.8;
+            margin-bottom: 15px; text-align: right; direction: rtl; max-height: 45vh; overflow-y: auto;
+            padding: 15px; background: rgba(255, 255, 255, 0.03); border-radius: 15px;
             border: 1px solid rgba(255, 77, 148, 0.2);
         }
 
-        #modal-text-content::-webkit-scrollbar { width: 4px; }
-        #modal-text-content::-webkit-scrollbar-thumb { background: #ff4d94; border-radius: 10px; }
-
-        footer { padding: 30px; color: #a8a8a8; font-family: 'Playfair Display', serif; font-size: 0.9rem; text-align: center; z-index: 3; position: relative; }
+        footer { padding: 30px; color: #a1a1aa; font-family: 'Playfair Display', serif; font-size: 0.9rem; text-align: center; z-index: 3; position: relative; }
     </style>
 </head>
 <body>
 
+    <!-- الكانفاس المحسن فائق السرعة -->
     <canvas id="constellation-canvas"></canvas>
 
-    <!-- شاشة الإنترو -->
     <div id="intro-screen">
         <div class="intro-content-box">
             <h1>A Special Universe For Us...</h1>
             <p class="intro-subtitle">Prepared with endless love, for Mohie & Aya</p>
-            <button class="enter-btn" onclick="startExperience()">Click Here to Enter</button>
+            <button class="enter-btn" onclick="startExperience()">Unlock Our World</button>
         </div>
     </div>
 
@@ -337,11 +290,10 @@
 
     <div id="elements-container"></div>
 
-    <!-- العناصر العائمة -->
     <div class="floating-container">
-        <div class="floating-bubble music-bubble" onclick="openMusicModal()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="16" r="2.5"></circle></svg>
-            Our Song
+        <div class="floating-bubble" style="border-color: #d8b4fe; box-shadow: 0 0 15px rgba(216, 180, 254, 0.2);" onclick="openMusicModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d8b4fe" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            Our Melody
         </div>
         <div class="floating-bubble" onclick="openFloatingModal()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -349,80 +301,101 @@
         </div>
     </div>
 
-    <!-- ألبوم صور وفيديوهات Mohie -->
+    <!-- ألبوم Mohie (تم حذف الفيديو واستبداله بصورة ثالثة) -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3rem; margin-bottom:20px;">My Album</h3>
-            <div class="modal-media-grid" style="display:flex; flex-direction:column; align-items:center; gap:20px; width:100%;">
-                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">My moments</p></div>
-                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">Always thinking of you</p></div>
-                <div class="video-polaroid">
-                    <video id="boyVideoElement" muted loop playsinline preload="metadata" style="width:100%; border-radius:8px;"><source src="my-video.mp4" type="video/mp4"></video>
-                    <p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">Our memories</p>
+            <h3 style="font-family: 'Great Vibes'; color:#ff8fa3; font-size:3.2rem; margin-bottom:20px; text-shadow: 0 0 15px rgba(255,143,163,0.3);">My Album</h3>
+            <div class="modal-media-grid" style="display:flex; flex-direction:column; align-items:center; gap:25px; width:100%;">
+                
+                <div class="polaroid" style="transform: rotate(-2deg);">
+                    <img src="my-photo1.jpg" alt="My Photo" loading="lazy">
+                    <p>My moments</p>
                 </div>
+                
+                <div class="polaroid" style="transform: rotate(3deg);">
+                    <img src="my-photo2.jpg" alt="My Photo 2" loading="lazy">
+                    <p>Always thinking of you</p>
+                </div>
+
+                <!-- الصورة الثالثة بديلة الفيديو -->
+                <div class="polaroid" style="transform: rotate(-1deg);">
+                    <!-- قم بتغيير اسم الصورة هنا -->
+                    <img src="my-photo3.jpg" alt="My Photo 3" loading="lazy">
+                    <p>Unforgettable memories</p>
+                </div>
+
             </div>
-            <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
+            <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close Album</button>
         </div>
     </div>
 
-    <!-- ألبوم صور وفيديوهات Aya -->
+    <!-- ألبوم Aya -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3rem; margin-bottom:20px;">Aya's Album</h3>
-            <div class="modal-media-grid" style="display:flex; flex-direction:column; align-items:center; gap:20px; width:100%;">
-                <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">Your lovely smile</p></div>
-                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">The light of my days</p></div>
-                <div class="video-polaroid">
-                    <video id="ayaVideoElement" muted loop playsinline preload="metadata" style="width:100%; border-radius:8px;"><source src="aya-video.mp4" type="video/mp4"></video>
-                    <p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">Precious moments</p>
+            <h3 style="font-family: 'Great Vibes'; color:#ff8fa3; font-size:3.2rem; margin-bottom:20px; text-shadow: 0 0 15px rgba(255,143,163,0.3);">Aya's Album</h3>
+            <div class="modal-media-grid" style="display:flex; flex-direction:column; align-items:center; gap:25px; width:100%;">
+                <div class="polaroid" style="transform: rotate(2deg);">
+                    <img src="my-love.jpg" alt="Aya" loading="lazy">
+                    <p>Your lovely smile</p>
+                </div>
+                <div class="polaroid" style="transform: rotate(-3deg);">
+                    <img src="girl2.jpg" alt="Aya 2" loading="lazy">
+                    <p>The light of my days</p>
+                </div>
+                <!-- يمكنك تغيير هذا الفيديو بصورة بنفس الطريقة إذا أردت لاحقاً -->
+                <div class="polaroid" style="transform: rotate(1deg); padding-bottom: 15px;">
+                    <video id="ayaVideoElement" muted loop playsinline preload="metadata" style="width:100%; border-radius:2px;"><source src="aya-video.mp4" type="video/mp4"></video>
+                    <p style="margin-top: 10px;">Precious moments</p>
                 </div>
             </div>
-            <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
+            <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close Album</button>
         </div>
     </div>
 
+    <!-- نافذة الرقم السري -->
     <div class="modal-overlay" id="passwordModalOverlay" onclick="closePasswordModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:6px;">Secret Space</h3>
-            <p style="font-family:'Playfair Display', serif; color:#ffd1dc; font-size:0.95rem; margin-bottom:16px;">Enter password to unlock:</p>
-            <input type="password" id="secretPasswordInput" class="password-input" placeholder="Password..." style="margin-bottom: 6px;">
-            <p id="passwordErrorMsg" style="font-family: 'Playfair Display', serif; color: #ff4d94; font-size: 0.9rem; min-height: 22px; margin-bottom: 6px; font-style: italic;"></p>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:5px;">Secret Space</h3>
+            <p style="font-family:'Playfair Display', serif; color:#ffd1dc; font-size:1rem; margin-bottom:15px;">Enter password to unlock our secret:</p>
+            <input type="password" id="secretPasswordInput" class="password-input" placeholder="Enter Password...">
+            <p id="passwordErrorMsg" style="font-family: 'Playfair Display', serif; color: #ff4d94; font-size: 0.9rem; min-height: 20px; margin-top: 8px; font-style: italic;"></p>
             <button class="password-submit-btn" onclick="verifySecretPassword()">Unlock</button>
             <br>
-            <button class="close-modal-btn" style="margin-top: 12px; padding: 7px 22px; font-size: 0.9rem;" onclick="closePasswordModal()">Cancel</button>
+            <button class="close-modal-btn" style="background: transparent; border: 1px solid #ff4d94; color: #ff4d94; margin-top: 15px; padding: 8px 25px; font-size: 0.9rem; box-shadow: none;" onclick="closePasswordModal()">Cancel</button>
         </div>
     </div>
 
-    <!-- النافذة المنبثقة للأيقونة العائمة -->
+    <!-- نافذة الرسائل والتعليقات -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:12px;">Always Together</h3>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3rem; margin-bottom:15px; text-shadow: 0 0 10px rgba(255,77,148,0.3);">Always Together</h3>
             <p id="modal-text-content"></p>
             
-            <div class="comment-box-wrapper" id="commentSectionContainer">
+            <div id="commentSectionContainer" style="margin-top: 20px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,77,148,0.2);">
                 <div id="commentInputArea">
-                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.88rem; margin-bottom:6px;">Leave a note (once only):</p>
-                    <textarea id="userCommentInput" class="comment-input" rows="2" placeholder="Write a sweet note..."></textarea>
+                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.95rem; margin-bottom:8px;">Leave a permanent note for me:</p>
+                    <textarea id="userCommentInput" class="comment-input" rows="3" placeholder="Write a sweet note..."></textarea>
                     <button class="comment-submit-btn" onclick="saveUserComment()">Save Message</button>
                 </div>
                 <div id="commentDisplayArea" style="display:none;">
-                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.85rem; margin-bottom:4px;">Saved note:</p>
-                    <div id="savedCommentText" class="saved-comment-display"></div>
+                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.9rem; margin-bottom:5px;">Your beautiful note:</p>
+                    <div id="savedCommentText" style="padding: 12px; background: rgba(255, 77, 148, 0.15); border: 1px dashed rgba(255, 77, 148, 0.4); border-radius: 12px; font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.05rem; word-break: break-word;"></div>
                 </div>
             </div>
 
-            <button class="close-modal-btn" style="margin-top: 15px;" onclick="closeFloatingModal()">Close</button>
+            <button class="close-modal-btn" onclick="closeFloatingModal()">Close</button>
         </div>
     </div>
 
+    <!-- نافذة الموسيقى -->
     <div class="album-modal-overlay" id="musicModalOverlay" onclick="closeMusicModal(event)">
-        <div class="album-modal-card" style="border-color:#a855f7; max-width: 380px;" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#d8b4fe; font-size:2.8rem;">Our Melody</h3>
-            <div style="width:90px; height:90px; margin:15px auto; border-radius:50%; border:2px solid rgba(168,85,247,0.5); display:flex; justify-content:center; align-items:center; background:rgba(168,85,247,0.1);">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="#d8b4fe"><path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+        <div class="album-modal-card" style="border-color:#d8b4fe; box-shadow: 0 0 30px rgba(216, 180, 254, 0.2); max-width: 350px;" onclick="event.stopPropagation()">
+            <h3 style="font-family: 'Great Vibes'; color:#d8b4fe; font-size:2.8rem; text-shadow: 0 0 15px rgba(216,180,254,0.4);">Our Melody</h3>
+            <div style="width:80px; height:80px; margin:20px auto; border-radius:50%; border:2px solid rgba(216, 180, 254, 0.5); display:flex; justify-content:center; align-items:center; background:rgba(216, 180, 254, 0.15); animation: pulseGlow 2s infinite;">
+                <svg width="35" height="35" viewBox="0 0 24 24" fill="#d8b4fe"><path d="M12 1a9 9 0 0 0-9 9v7a3 3 0 0 0 3 3h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5v-2a7 7 0 0 1 14 0v2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2a3 3 0 0 0 3-3v-7a9 9 0 0 0-9-9z"/></svg>
             </div>
-            <p style="font-size: 1rem; color: #e9d5ff; font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 10px;">Playing our song...</p>
-            <button class="close-modal-btn" style="background:linear-gradient(135deg, #a855f7, #c084fc);" onclick="closeMusicModal()">Close</button>
+            <p style="font-size: 1.05rem; color: #e9d5ff; font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 10px;">Playing our song...</p>
+            <button class="close-modal-btn" style="background: linear-gradient(90deg, #a855f7, #d8b4fe); box-shadow: 0 5px 15px rgba(216, 180, 254, 0.3);" onclick="closeMusicModal()">Close</button>
         </div>
     </div>
 
@@ -435,7 +408,7 @@
         </h1>
     </div>
 
-    <!-- بطاقة المسافة -->
+    <!-- البطاقات الرئيسية -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">No matter the miles between us, our hearts beat as one</p>
@@ -469,7 +442,7 @@
                 <div class="counter-label">Days</div>
             </div>
         </div>
-        <p style="font-family: 'Playfair Display'; color: #ffd1dc; margin-top: 12px; font-size: 1rem; opacity:0.9;">Since June 24, 2026, and forever to go...</p>
+        <p style="font-family: 'Playfair Display'; color: #ffd1dc; margin-top: 15px; font-size: 1rem; opacity:0.9;">Since June 24, 2026, and forever to go...</p>
     </section>
 
     <section class="glass-section">
@@ -477,19 +450,19 @@
         <div class="msg-btn-group">
             <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place, Aya.')">About Us</button>
             <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
-            <button class="msg-btn" onclick="promptSecretNote()">Whispers of My Heart</button>
+            <button class="msg-btn" style="border-color: #ff8fa3; background: rgba(255,143,163,0.1);" onclick="promptSecretNote()">Whispers of My Heart</button>
         </div>
         <div id="msg-display"></div>
     </section>
 
     <section class="glass-section">
-        <h2>Our Memories Albums</h2>
-        <p class="counter-desc">Tap an album to explore our special moments together</p>
+        <h2>Our Memories</h2>
+        <p class="counter-desc">Tap an album to explore our special moments</p>
         <div class="albums-grid">
-            <div class="album-card" onclick="openAlbumModal('boyAlbumModal', 'boyVideoElement')">
+            <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
                     <img src="my-photo1.jpg" alt="My Album Cover" loading="lazy">
-                    <div class="album-overlay-badge">View Album</div>
+                    <div class="album-overlay-badge">View My Album</div>
                 </div>
                 <h3 class="album-title">My Album</h3>
             </div>
@@ -497,7 +470,7 @@
             <div class="album-card" onclick="openAlbumModal('girlAlbumModal', 'ayaVideoElement')">
                 <div class="album-cover-container">
                     <img src="my-love.jpg" alt="Aya's Album Cover" loading="lazy">
-                    <div class="album-overlay-badge">View Album</div>
+                    <div class="album-overlay-badge">View Aya's Album</div>
                 </div>
                 <h3 class="album-title">Aya's Album</h3>
             </div>
@@ -509,8 +482,9 @@
     </footer>
 
     <script>
+        // سكريبت النجوم الخفيف (Canvas)
         const canvas = document.getElementById('constellation-canvas');
-        const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true }); 
+        const ctx = canvas.getContext('2d', { alpha: false }); 
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -520,13 +494,13 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = window.innerWidth > 768 ? 10 : 6;
+        const numberOfParticles = window.innerWidth > 768 ? 8 : 4; 
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
+                this.size = 1.5;
                 this.vx = (Math.random() - 0.5) * 0.3;
                 this.vy = (Math.random() - 0.5) * 0.3;
                 this.color = Math.random() > 0.5 ? '255, 77, 148' : '192, 132, 252';
@@ -538,9 +512,7 @@
             }
             draw() {
                 ctx.fillStyle = `rgba(${this.color}, 0.8)`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
 
@@ -551,21 +523,18 @@
         initConstellation();
 
         function animateConstellation() {
-            ctx.fillStyle = '#030104'; 
+            ctx.fillStyle = '#050106'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
-
                 for (let j = i + 1; j < particlesArray.length; j++) {
                     let dx = particlesArray[i].x - particlesArray[j].x;
                     let dy = particlesArray[i].y - particlesArray[j].y;
                     let distSq = dx * dx + dy * dy;
-
-                    if (distSq < 8000) {
-                        let distance = Math.sqrt(distSq);
-                        ctx.strokeStyle = `rgba(255, 77, 148, ${0.1 * (1 - distance / 90)})`;
+                    if (distSq < 5000) {
+                        ctx.strokeStyle = 'rgba(255, 77, 148, 0.1)';
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
@@ -578,6 +547,7 @@
         }
         requestAnimationFrame(animateConstellation);
 
+        // عداد الأيام
         function updateLoveCounter() {
             const startDate = new Date(2026, 5, 24);
             const today = new Date();
@@ -587,15 +557,15 @@
         }
         updateLoveCounter();
 
+        // كلمة I love you المضيئة
         const cascadeContainer = document.getElementById('cascadeContainer');
         const fragment = document.createDocumentFragment();
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 3; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${10 + (i * 15)}%`;
-            span.style.animationDelay = `${(i * 0.8)}s`;
-            span.style.animationDuration = `${4 + (i % 3)}s`;
+            span.style.left = `${20 + (i * 25)}%`;
+            span.style.animationDelay = `${(i * 1.5)}s`;
             fragment.appendChild(span);
         }
         cascadeContainer.appendChild(fragment);
@@ -606,11 +576,11 @@
         function startExperience() {
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 300);
-            
-            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 700); }
+            setTimeout(() => { intro.style.display = 'none'; }, 500);
+            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 1500); }
         }
 
+        // الألبومات
         function openAlbumModal(modalId, videoId) {
             document.getElementById(modalId).classList.add('active');
             if (videoId) {
@@ -630,32 +600,32 @@
 
         function showMsg(txt) { 
             const display = document.getElementById('msg-display');
-            display.innerText = txt; 
+            display.style.opacity = '0';
+            setTimeout(() => {
+                display.innerText = txt; 
+                display.style.transition = 'opacity 0.3s';
+                display.style.opacity = '1';
+            }, 150);
         }
 
+        // الباسورد والرسالة السرية
         function promptSecretNote() {
             let isAuthorized = sessionStorage.getItem('aya_secret_auth') === 'true';
-
             if (!isAuthorized) {
                 document.getElementById('secretPasswordInput').value = '';
                 document.getElementById('passwordErrorMsg').innerText = '';
                 document.getElementById('passwordModalOverlay').classList.add('active');
-            } else {
-                openSecretContent();
-            }
+            } else { openSecretContent(); }
         }
 
         function verifySecretPassword() {
             let password = document.getElementById('secretPasswordInput').value;
             let errorMsg = document.getElementById('passwordErrorMsg');
-            
             if (password === "Aya05") {
                 sessionStorage.setItem('aya_secret_auth', 'true');
                 document.getElementById('passwordModalOverlay').classList.remove('active');
                 openSecretContent();
-            } else {
-                errorMsg.innerText = "you are not Aya";
-            }
+            } else { errorMsg.innerText = "you are not Aya"; }
         }
 
         function closePasswordModal(e) {
@@ -666,7 +636,6 @@
 
         function openSecretContent() {
             const customMsg = "آية حبيبتي وزوجتي ونور عيني الموقع ده لينا احنا ذكرة حلوة بينا انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة زيك ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂";
-            
             const contentEl = document.getElementById('modal-text-content');
             contentEl.innerText = customMsg;
             contentEl.style.fontFamily = "'Amiri', 'Cairo', serif";
@@ -677,21 +646,18 @@
             document.getElementById('modalOverlay').classList.add('active');
         }
 
+        // التعليقات
         function saveUserComment() {
             const commentText = document.getElementById('userCommentInput').value.trim();
-            if (commentText === "") {
-                alert("Please write a message first.");
-                return;
-            }
+            if (commentText === "") { alert("Please write a message first."); return; }
             localStorage.setItem('aya_user_custom_comment', commentText);
             displaySavedComment(commentText);
         }
 
         function checkSavedCommentState() {
             const savedComment = localStorage.getItem('aya_user_custom_comment');
-            if (savedComment) {
-                displaySavedComment(savedComment);
-            } else {
+            if (savedComment) { displaySavedComment(savedComment); } 
+            else {
                 document.getElementById('commentInputArea').style.display = 'block';
                 document.getElementById('commentDisplayArea').style.display = 'none';
                 document.getElementById('userCommentInput').value = '';
@@ -704,6 +670,7 @@
             document.getElementById('savedCommentText').innerText = comment;
         }
 
+        // الأيقونة العائمة
         const floatingMsgs = [
             'You make my heart skip a beat every single day.',
             'No matter where I go, my thoughts always lead back to you.',
@@ -723,54 +690,49 @@
         }
 
         function closeFloatingModal(e) { 
-            document.getElementById('modalOverlay').classList.remove('active'); 
-            document.getElementById('commentSectionContainer').style.display = 'block';
+            if (!e || e.target.id === 'modalOverlay' || e.target.classList.contains('close-modal-btn')) {
+                document.getElementById('modalOverlay').classList.remove('active'); 
+                document.getElementById('commentSectionContainer').style.display = 'block';
+            }
         }
 
+        // الموسيقى
         function openMusicModal() {
             document.getElementById('musicModalOverlay').classList.add('active');
             bgMusic.play().catch(e => console.log(e));
         }
 
         function closeMusicModal(e) {
-            document.getElementById('musicModalOverlay').classList.remove('active');
-            bgMusic.pause();
+            if (!e || e.target.id === 'musicModalOverlay' || e.target.classList.contains('close-modal-btn')) {
+                document.getElementById('musicModalOverlay').classList.remove('active');
+                bgMusic.pause();
+            }
         }
 
+        // العناصر المتساقطة
         const svgHeart1 = document.createElement('div');
         svgHeart1.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff4d94"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-        
-        const svgHeart2 = document.createElement('div');
-        svgHeart2.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#c084fc"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-        
-        const svgKiss = document.createElement('div');
-        svgKiss.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff3366"><path d="M21.8 10.2c-.8-1.5-2.8-2.2-4.8-1.7-1.4.3-2.7 1.2-4.5 1.2-1.8 0-3.1-.9-4.5-1.2-2-.5-4 .2-4.8 1.7-.8 1.4-.3 3.2 1.2 4.4 1.8 1.4 4.5 1.9 8.1 1.9s6.3-.5 8.1-1.9c1.5-1.2 2-3 1.2-4.4zm-9.8.8c1.3 0 2.4-.7 3.6-1 .9-.2 1.8 0 2.4.5-.4.6-1.1 1.1-2 1.3-1.3.3-2.6-.2-4-.2s-2.7.5-4 .2c-.9-.2-1.6-.7-2-1.3.6-.5 1.5-.7 2.4-.5 1.2.3 2.3 1 3.6 1 z"/></svg>';
-
-        const svgDoubleHeart = document.createElement('div');
-        svgDoubleHeart.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff8fa3"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M19 14l-.8-.7c-2.9-2.6-4.8-4.3-4.8-6.4 0-1.7 1.3-3 3-3 .9 0 1.8.4 2.4 1.1.6-.7 1.5-1.1 2.4-1.1 1.7 0 3 1.3 3 0 2.1-1.9 3.8-4.8 6.4l-.9.7z" fill="#ffd1dc"/></svg>';
-
         const svgSparkle = document.createElement('div');
         svgSparkle.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ffd1dc"><path d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z"/></svg>';
 
-        const fallingTemplates = [svgHeart1, svgHeart2, svgKiss, svgDoubleHeart, svgSparkle];
+        const fallingTemplates = [svgHeart1, svgSparkle];
         const elementsContainer = document.getElementById('elements-container');
 
         function createFallingElement() {
-            if (elementsContainer.children.length > 10) return;
-
+            if (elementsContainer.children.length > 4) return;
             const template = fallingTemplates[Math.floor(Math.random() * fallingTemplates.length)];
             const el = template.cloneNode(true);
             el.className = 'falling-element';
-            el.style.left = Math.random() * 98 + 'vw';
-            const size = Math.floor(Math.random() * 12) + 14;
+            el.style.left = Math.random() * 90 + 'vw';
+            const size = Math.floor(Math.random() * 10) + 15;
             el.style.width = size + 'px'; el.style.height = size + 'px';
-            const duration = Math.random() * 2 + 3;
+            const duration = Math.random() * 3 + 4;
             el.style.animationDuration = duration + 's';
-            
             elementsContainer.appendChild(el);
             setTimeout(() => { el.remove(); }, duration * 1000);
         }
 
+        // مراقب الظهور السلس للبطاقات
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
