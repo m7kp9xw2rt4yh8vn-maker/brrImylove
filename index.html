@@ -12,15 +12,15 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
+        /* تفعيل تدرج الخلفية هنا بدلاً من الكانفاس لتخفيف العبء */
         body { 
-            background-color: #020202; 
+            background: radial-gradient(circle at center, #050103 0%, #020202 100%);
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
             overflow-x: hidden; 
             text-align: center; 
         }
 
-        /* خلفية الكون والنجوم المضيئة */
         #constellation-canvas {
             position: fixed;
             top: 0;
@@ -29,6 +29,7 @@
             height: 100vh;
             pointer-events: none;
             z-index: 1;
+            transform: translateZ(0); /* تسريع عبر GPU */
         }
 
         #intro-screen { 
@@ -87,15 +88,17 @@
             border-color: #fff;
         }
 
+        /* استخدام translate3d بدلاً من translateY للحصول على أقصى نعومة */
         .falling-element { 
             position: fixed; top: -50px; 
             animation: fall linear infinite; z-index: 2; pointer-events: none; 
-            opacity: 0.7;
+            opacity: 0;
             will-change: transform;
         }
+        
         @keyframes fall { 
-            0% { transform: translateY(-5vh) rotate(0deg); opacity: 0.7; } 
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
+            0% { transform: translate3d(0, -5vh, 0) rotate(0deg); opacity: 0.7; } 
+            100% { transform: translate3d(0, 110vh, 0) rotate(360deg); opacity: 0; } 
         }
 
         .cascade-container {
@@ -117,10 +120,10 @@
         }
 
         @keyframes lightCascade {
-            0% { transform: translateY(-20px); opacity: 0; }
-            20% { opacity: 0.9; transform: translateY(20px); }
-            80% { opacity: 0.9; transform: translateY(140px); }
-            100% { transform: translateY(180px); opacity: 0; }
+            0% { transform: translate3d(0, -20px, 0); opacity: 0; }
+            20% { opacity: 0.9; transform: translate3d(0, 20px, 0); }
+            80% { opacity: 0.9; transform: translate3d(0, 140px, 0); }
+            100% { transform: translate3d(0, 180px, 0); opacity: 0; }
         }
 
         .name-wrapper { margin-top: 15px; margin-bottom: 25px; z-index: 3; position: relative; }
@@ -150,10 +153,11 @@
             width: 90%; max-width: 900px; 
             margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 3; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,77,148,0.05); 
-            opacity: 0; transform: translateY(25px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+            opacity: 0; transform: translate3d(0, 25px, 0); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
             position: relative;
+            will-change: transform, opacity;
         }
-        .glass-section.visible { opacity: 1; transform: translateY(0); }
+        .glass-section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         
         .glass-section h2 { 
             font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.3rem; margin-bottom: 20px; 
@@ -172,440 +176,95 @@
             box-shadow: inset 0 0 15px rgba(255,77,148,0.08);
         }
 
-        .connection-visual {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .country-node {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .country-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: #ff4d94;
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(255,77,148,0.4);
-        }
-
-        .country-desc {
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            color: #ffd1dc;
-            opacity: 0.85;
-        }
-
-        .heart-bridge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            height: 40px;
-            justify-content: center;
-        }
-
-        .bridge-line {
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(180deg, transparent, rgba(255, 77, 148, 0.8), transparent);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .beating-bridge-heart {
-            width: 38px;
-            height: 38px;
-            fill: #ff4d94;
-            filter: drop-shadow(0 0 10px rgba(255,77,148,0.8));
-            z-index: 2;
-            animation: simplePulse 2s ease-in-out infinite;
-        }
+        .connection-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+        .country-node { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .country-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #ff4d94; font-weight: 600; text-shadow: 0 0 10px rgba(255,77,148,0.4); }
+        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: #ffd1dc; opacity: 0.85; }
+        
+        .heart-bridge { display: flex; flex-direction: column; align-items: center; position: relative; height: 40px; justify-content: center; }
+        .bridge-line { width: 2px; height: 100%; background: linear-gradient(180deg, transparent, rgba(255, 77, 148, 0.8), transparent); position: absolute; left: 50%; transform: translateX(-50%); }
+        .beating-bridge-heart { width: 38px; height: 38px; fill: #ff4d94; filter: drop-shadow(0 0 10px rgba(255,77,148,0.8)); z-index: 2; animation: simplePulse 2s ease-in-out infinite; will-change: transform; }
 
         @keyframes simplePulse {
             0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,77,148,0.6)); }
             50% { transform: scale(1.2); filter: drop-shadow(0 0 18px rgba(255,77,148,1)); }
         }
 
-        .distance-badge-box {
-            margin-top: 18px;
-            display: inline-block;
-            background: rgba(255, 77, 148, 0.1);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: #ffd1dc;
-            font-size: 1.05rem;
-            box-shadow: 0 0 15px rgba(255,77,148,0.1);
-        }
+        .distance-badge-box { margin-top: 18px; display: inline-block; background: rgba(255, 77, 148, 0.1); border: 1px solid rgba(255, 77, 148, 0.3); padding: 10px 24px; border-radius: 30px; font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1dc; font-size: 1.05rem; box-shadow: 0 0 15px rgba(255,77,148,0.1); }
+        .counter-box { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0 10px 0; }
+        .counter-item { background: rgba(255, 77, 148, 0.08); border: 1px solid rgba(255, 77, 148, 0.3); border-radius: 24px; padding: 20px 35px; min-width: 140px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); transition: transform 0.25s ease; }
+        .counter-item:hover { transform: translateY(-5px); border-color: rgba(255,77,148,0.6); }
+        .counter-number { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #ff4d94; font-weight: 600; text-shadow: 0 0 15px rgba(255,77,148,0.5); }
+        .counter-label { font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; }
+        .counter-desc { font-family: 'Playfair Display', serif; font-style: italic; color: #e9d5ff; font-size: 1.25rem; margin-top: 12px; line-height: 1.5; text-align: center; }
 
-        .counter-box {
-            display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0 10px 0;
-        }
+        .albums-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
+        .album-card { background: linear-gradient(135deg, rgba(25, 10, 20, 0.9), rgba(12, 4, 15, 0.95)); border: 1px solid rgba(255, 77, 148, 0.35); box-shadow: 0 10px 25px rgba(0,0,0,0.4); padding: 18px; border-radius: 28px; width: 310px; cursor: pointer; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease; will-change: transform; }
+        .album-card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(255, 77, 148, 0.9); box-shadow: 0 15px 35px rgba(255,77,148,0.25); }
+        
+        .album-cover-container { width: 100%; height: 250px; border-radius: 20px; overflow: hidden; position: relative; transform: translateZ(0); }
+        .album-cover-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; will-change: transform; }
+        .album-card:hover .album-cover-container img { transform: scale(1.06); }
+        
+        .album-overlay-badge { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255, 77, 148, 0.5); font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #ffd1dc; white-space: nowrap; }
+        .album-title { margin-top: 15px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255,143,163,0.3); }
 
-        .counter-item {
-            background: rgba(255, 77, 148, 0.08);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 24px; padding: 20px 35px; min-width: 140px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: transform 0.25s ease;
-        }
-        .counter-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,77,148,0.6);
-        }
-
-        .counter-number {
-            font-family: 'Playfair Display', serif; font-size: 2.8rem;
-            color: #ff4d94; font-weight: 600;
-            text-shadow: 0 0 15px rgba(255,77,148,0.5);
-        }
-
-        .counter-label {
-            font-family: 'Poppins', sans-serif; font-size: 0.9rem;
-            color: #ffd1dc; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;
-        }
-
-        .counter-desc {
-            font-family: 'Playfair Display', serif; font-style: italic;
-            color: #e9d5ff; font-size: 1.25rem; margin-top: 12px; line-height: 1.5; text-align: center;
-        }
-
-        .albums-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .album-card {
-            background: linear-gradient(135deg, rgba(25, 10, 20, 0.9), rgba(12, 4, 15, 0.95));
-            border: 1px solid rgba(255, 77, 148, 0.35);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            padding: 18px;
-            border-radius: 28px;
-            width: 310px;
-            cursor: pointer;
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
-            will-change: transform;
-        }
-
-        .album-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: rgba(255, 77, 148, 0.9);
-            box-shadow: 0 15px 35px rgba(255,77,148,0.25);
-        }
-
-        .album-cover-container {
-            width: 100%;
-            height: 250px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .album-cover-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .album-card:hover .album-cover-container img {
-            transform: scale(1.06);
-        }
-
-        .album-overlay-badge {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 77, 148, 0.5);
-            font-size: 0.85rem;
-            font-family: 'Playfair Display', serif;
-            color: #ffd1dc;
-            white-space: nowrap;
-        }
-
-        .album-title {
-            margin-top: 15px;
-            font-family: 'Great Vibes', cursive;
-            color: #ff8fa3;
-            font-size: 2.2rem;
-            text-shadow: 0 0 10px rgba(255,143,163,0.3);
-        }
-
-        .album-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            display: flex; justify-content: center; align-items: center; z-index: 10001;
-            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-            padding: 15px;
-            will-change: opacity;
-        }
+        .album-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10001; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; padding: 15px; will-change: opacity; }
         .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* تعديلات نافذة الألبوم لتحسين الأداء والتمرير */
-        .album-modal-card {
-            background: linear-gradient(135deg, #180615, #0d0210);
-            border: 1.5px solid #ff4d94;
-            padding: 35px 20px;
-            border-radius: 35px;
-            width: 100%;
-            max-width: 950px;
-            max-height: 92vh;
-            overflow-y: auto;
-            overscroll-behavior: contain; /* تمنع تمرير خلفية الموقع عند الوصول لآخر النافذة */
-            -webkit-overflow-scrolling: touch; /* تمرير سلس جداً على الموبايل */
-            box-shadow: 0 0 45px rgba(255, 77, 148, 0.4);
-            text-align: center;
-            transform: scale(0.92);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-            
-            /* تنسيق شريط التمرير ليناسب الألوان */
-            scrollbar-width: thin;
-            scrollbar-color: #ff4d94 transparent;
-        }
-        
-        .album-modal-card::-webkit-scrollbar {
-            width: 8px;
-        }
-        .album-modal-card::-webkit-scrollbar-track {
-            background: rgba(24, 6, 21, 0.5);
-            border-radius: 10px;
-        }
-        .album-modal-card::-webkit-scrollbar-thumb {
-            background: #ff4d94;
-            border-radius: 10px;
-        }
-
+        .album-modal-card { background: linear-gradient(135deg, #180615, #0d0210); border: 1.5px solid #ff4d94; padding: 35px 20px; border-radius: 35px; width: 100%; max-width: 950px; max-height: 92vh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; box-shadow: 0 0 45px rgba(255, 77, 148, 0.4); text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; scrollbar-width: thin; scrollbar-color: #ff4d94 transparent; }
+        .album-modal-card::-webkit-scrollbar { width: 8px; }
+        .album-modal-card::-webkit-scrollbar-track { background: rgba(24, 6, 21, 0.5); border-radius: 10px; }
+        .album-modal-card::-webkit-scrollbar-thumb { background: #ff4d94; border-radius: 10px; }
         .album-modal-overlay.active .album-modal-card { transform: scale(1); }
 
-        .album-modal-card h3 {
-            font-family: 'Great Vibes', cursive;
-            color: #ff4d94;
-            font-size: 3.4rem;
-            margin-bottom: 25px;
-            text-shadow: 0 0 20px rgba(255,77,148,0.5);
-        }
+        .album-modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.4rem; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,77,148,0.5); }
+        .modal-media-grid { display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-bottom: 30px; padding: 10px; }
+        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 360px; transition: transform 0.3s ease; }
+        .gallery-item:hover { transform: translateY(-8px); }
+        .modal-media { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid rgba(255, 77, 148, 0.3); transition: border-color 0.3s ease, box-shadow 0.3s ease; transform: translateZ(0); }
+        .gallery-item:hover .modal-media { border-color: rgba(255, 77, 148, 0.8); box-shadow: 0 15px 45px rgba(255, 77, 148, 0.3); }
+        .gallery-item p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.25rem; margin: 0; text-shadow: 0 0 10px rgba(255,209,220,0.3); }
 
-        .modal-media-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 35px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-            padding: 10px;
-        }
+        .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .msg-btn:hover { background: #ff4d94; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,77,148,0.4); }
+        #msg-display { margin-top: 20px; font-size: 1.35rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; text-shadow: 0 0 10px rgba(255,209,220,0.3); min-height: 40px; }
 
-        .gallery-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            max-width: 360px; 
-            transition: transform 0.3s ease;
-        }
+        .floating-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end; }
+        .floating-bubble { background: rgba(24, 8, 20, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); font-family: 'Playfair Display', serif; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .floating-bubble:hover { transform: translateY(-3px) scale(1.03); border-color: #ff4d94; box-shadow: 0 10px 30px rgba(255,77,148,0.3); }
+        .music-bubble { border-color: rgba(168, 85, 247, 0.6); background: rgba(24, 12, 34, 0.85); }
+        .music-bubble:hover { border-color: #a855f7; box-shadow: 0 10px 30px rgba(168,85,247,0.3); }
 
-        .gallery-item:hover {
-            transform: translateY(-8px);
-        }
-
-        .modal-media {
-            width: 100%;
-            aspect-ratio: 3/4; 
-            object-fit: cover;
-            border-radius: 22px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255, 77, 148, 0.3);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery-item:hover .modal-media {
-            border-color: rgba(255, 77, 148, 0.8);
-            box-shadow: 0 15px 45px rgba(255, 77, 148, 0.3);
-        }
-
-        .gallery-item p {
-            font-family: 'Playfair Display', serif;
-            color: #ffd1dc;
-            font-size: 1.25rem;
-            margin: 0;
-            text-shadow: 0 0 10px rgba(255,209,220,0.3);
-        }
-
-        .msg-btn { 
-            background: rgba(255, 77, 148, 0.12); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; 
-            border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; 
-            transition: all 0.2s ease; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .msg-btn:hover { 
-            background: #ff4d94; 
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 20px rgba(255,77,148,0.4);
-        }
-        #msg-display { margin-top: 20px; font-size: 1.35rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; text-shadow: 0 0 10px rgba(255,209,220,0.3); }
-
-        .floating-container {
-            position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end;
-        }
-
-        .floating-bubble { 
-            background: rgba(24, 8, 20, 0.85); 
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; 
-            cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
-            font-family: 'Playfair Display', serif; font-size: 1.05rem; 
-            display: flex; align-items: center; gap: 10px; 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .floating-bubble:hover { 
-            transform: translateY(-3px) scale(1.03); 
-            border-color: #ff4d94; 
-            box-shadow: 0 10px 30px rgba(255,77,148,0.3);
-        }
-
-        .music-bubble {
-            border-color: rgba(168, 85, 247, 0.6);
-            background: rgba(24, 12, 34, 0.85);
-        }
-        .music-bubble:hover {
-            border-color: #a855f7;
-            box-shadow: 0 10px 30px rgba(168,85,247,0.3);
-        }
-
-        .modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0, 0, 0, 0.8); 
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.25s ease; 
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; will-change: opacity; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .modal-card { 
-            background: linear-gradient(135deg, #180615, #0d0210); 
-            border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; 
-            box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); 
-            text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
+        .modal-card { background: linear-gradient(135deg, #180615, #0d0210); border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
-        .modal-card h3 { 
-            font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.2rem; margin-bottom: 18px; 
-            line-height: 1.2;
-            text-shadow: 0 0 15px rgba(255,77,148,0.4);
-        }
+        .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.2rem; margin-bottom: 18px; line-height: 1.2; text-shadow: 0 0 15px rgba(255,77,148,0.4); }
         .modal-card p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.25rem; line-height: 1.7; margin-bottom: 25px; }
         
-        .close-modal-btn { 
-            background: #ff4d94; color: #fff; border: none; padding: 12px 38px; 
-            font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 30px; 
-            cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; 
-            box-shadow: 0 4px 15px rgba(255,77,148,0.4);
-        }
+        .close-modal-btn { background: #ff4d94; color: #fff; border: none; padding: 12px 38px; font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 30px; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; box-shadow: 0 4px 15px rgba(255,77,148,0.4); }
         .close-modal-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255,77,148,0.6); }
 
-        .music-card-modal {
-            border-color: rgba(168, 85, 247, 0.8);
-            background: linear-gradient(135deg, #160822, #090212);
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.3);
-        }
-        .music-card-modal h3 {
-            color: #d8b4fe;
-            font-size: 3.4rem;
-            text-shadow: 0 0 15px rgba(168,85,247,0.5);
-        }
+        .music-card-modal { border-color: rgba(168, 85, 247, 0.8); background: linear-gradient(135deg, #160822, #090212); box-shadow: 0 0 35px rgba(168, 85, 247, 0.3); }
+        .music-card-modal h3 { color: #d8b4fe; font-size: 3.4rem; text-shadow: 0 0 15px rgba(168,85,247,0.5); }
 
-        .ui-music-display {
-            position: relative;
-            width: 180px; height: 180px;
-            margin: 15px auto 20px auto;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, #0d0214 80%);
-            border: 2px solid rgba(168, 85, 247, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            box-shadow: 0 0 25px rgba(168,85,247,0.2);
-        }
+        .ui-music-display { position: relative; width: 180px; height: 180px; margin: 15px auto 20px auto; border-radius: 50%; background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, #0d0214 80%); border: 2px solid rgba(168, 85, 247, 0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 0 25px rgba(168,85,247,0.2); }
+        .vinyl-grooves { position: absolute; width: 145px; height: 145px; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, 0.15); animation: spinVinyl 10s linear infinite; pointer-events: none; }
+        @keyframes spinVinyl { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .vinyl-grooves {
-            position: absolute;
-            width: 145px; height: 145px;
-            border-radius: 50%;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            animation: spinVinyl 10s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes spinVinyl {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .cinematic-headphone {
-            width: 50px; height: 50px; fill: #d8b4fe;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 8px rgba(216,180,254,0.6));
-        }
-
-        .sound-waves {
-            display: flex; gap: 3.5px; align-items: flex-end; height: 16px;
-        }
-
-        .wave-bar {
-            width: 3.5px; background: linear-gradient(to top, #ff4d94, #a855f7);
-            border-radius: 3px; animation: soundWaveAnim 0.8s ease-in-out infinite alternate;
-        }
-
+        .cinematic-headphone { width: 50px; height: 50px; fill: #d8b4fe; margin-bottom: 8px; filter: drop-shadow(0 0 8px rgba(216,180,254,0.6)); }
+        .sound-waves { display: flex; gap: 3.5px; align-items: flex-end; height: 16px; }
+        .wave-bar { width: 3.5px; background: linear-gradient(to top, #ff4d94, #a855f7); border-radius: 3px; animation: soundWaveAnim 0.8s ease-in-out infinite alternate; will-change: transform; }
         .wave-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
         .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
         .wave-bar:nth-child(3) { height: 10px; animation-delay: 0.5s; }
         .wave-bar:nth-child(4) { height: 15px; animation-delay: 0.2s; }
         .wave-bar:nth-child(5) { height: 8px; animation-delay: 0.4s; }
 
-        @keyframes soundWaveAnim {
-            0% { transform: scaleY(0.4); }
-            100% { transform: scaleY(1.2); }
-        }
-
-        footer { 
-            padding: 25px; 
-            color: #777; 
-            font-family: 'Playfair Display', serif; 
-            font-size: 0.8rem; 
-            text-align: left; 
-            position: relative;
-            z-index: 3;
-        }
+        @keyframes soundWaveAnim { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1.2); } }
+        footer { padding: 25px; color: #777; font-family: 'Playfair Display', serif; font-size: 0.8rem; text-align: left; position: relative; z-index: 3; }
     </style>
 </head>
 <body>
@@ -620,7 +279,7 @@
         </div>
     </div>
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="aya-song.mp3" type="audio/mp3">
     </audio>
 
@@ -793,8 +452,9 @@
     </footer>
 
     <script>
+        // --- 1. Canvas Optimization (GPU Friendly) ---
         const canvas = document.getElementById('constellation-canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: true }); // السماح بالشفافية فقط لدعم خلفية الـ CSS
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -804,39 +464,17 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = Math.min(window.innerWidth > 768 ? 50 : 25, 60);
+        const numberOfParticles = Math.min(window.innerWidth > 768 ? 40 : 20, 50);
 
-        let mouse = {
-            x: null,
-            y: null,
-            radius: 130
-        };
+        let mouse = { x: null, y: null, radius: 130 };
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; }, {passive: true});
+        window.addEventListener('touchmove', e => { if(e.touches.length > 0) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; } }, {passive: true});
+        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
-        window.addEventListener('mousemove', function(event) {
-            mouse.x = event.clientX;
-            mouse.y = event.clientY;
-        });
-
-        window.addEventListener('touchmove', function(event) {
-            if(event.touches.length > 0) {
-                mouse.x = event.touches[0].clientX;
-                mouse.y = event.touches[0].clientY;
-            }
-        }, {passive: true}); // تحسين الأداء أثناء التمرير
-
-        window.addEventListener('mouseout', function() {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        // Debounce Resize للحفاظ على السلاسة عند دوران الهاتف
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                resizeCanvas();
-                initConstellation(); 
-            }, 200);
+            resizeTimeout = setTimeout(() => { resizeCanvas(); initConstellation(); }, 250);
         });
 
         class Particle {
@@ -850,89 +488,61 @@
                 this.alpha = Math.random() * 0.6 + 0.3;
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
                 if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
 
                 if (mouse.x !== null && mouse.y !== null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distSq = dx * dx + dy * dy; // Optimization: لا تحسب الجذر فوراً
-                    
+                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                    let distSq = dx * dx + dy * dy;
                     if (distSq < mouse.radius * mouse.radius) {
                         let distance = Math.sqrt(distSq);
                         let force = (mouse.radius - distance) / mouse.radius;
-                        let directionX = dx / distance;
-                        let directionY = dy / distance;
-                        this.x -= directionX * force * 2;
-                        this.y -= directionY * force * 2;
+                        this.x -= (dx / distance) * force * 1.5;
+                        this.y -= (dy / distance) * force * 1.5;
                     }
                 }
             }
             draw() {
                 ctx.fillStyle = this.color + this.alpha + ')';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.closePath(); ctx.fill();
             }
         }
 
         function initConstellation() {
             particlesArray = [];
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
+            for (let i = 0; i < numberOfParticles; i++) particlesArray.push(new Particle());
         }
         initConstellation();
 
         function animateConstellation() {
+            // تنظيف الكانفاس فقط بدلاً من رسم خلفية تدرج لوني معقدة في كل إطار
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            let bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 50, canvas.width/2, canvas.height/2, canvas.width);
-            bgGrad.addColorStop(0, '#050103');
-            bgGrad.addColorStop(1, '#020202');
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
 
-                // Optimization: تجنب الجذور التربيعية قدر المستطاع
                 for (let j = i; j < particlesArray.length; j++) {
                     let dx = particlesArray[i].x - particlesArray[j].x;
                     let dy = particlesArray[i].y - particlesArray[j].y;
                     let distSq = dx * dx + dy * dy;
-
-                    // المسافة القصوى للنجوم 110 (أي 110*110 = 12100)
-                    if (distSq < 12100) {
+                    if (distSq < 12100) { // 110 * 110
                         let distance = Math.sqrt(distSq);
                         ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
+                        ctx.lineWidth = 0.6;
+                        ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
                     }
                 }
 
                 if (mouse.x !== null && mouse.y !== null) {
-                    let mdx = particlesArray[i].x - mouse.x;
-                    let mdy = particlesArray[i].y - mouse.y;
+                    let mdx = particlesArray[i].x - mouse.x; let mdy = particlesArray[i].y - mouse.y;
                     let mdistSq = mdx * mdx + mdy * mdy;
-                    
-                    // مسافة الماوس القصوى 130 (أي 130*130 = 16900)
-                    if (mdistSq < 16900) {
+                    if (mdistSq < 16900) { // 130 * 130
                         let mdist = Math.sqrt(mdistSq);
                         ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
-                        ctx.lineWidth = 0.9;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
                     }
                 }
             }
@@ -940,6 +550,38 @@
         }
         animateConstellation();
 
+        // --- 2. DOM Optimization: Pre-generate falling elements ---
+        const siteBackgroundIcons = [
+            '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+            '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>',
+            '<svg viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+        ];
+
+        function initStaticFallingElements() {
+            const container = document.getElementById('elements-container');
+            const fragment = document.createDocumentFragment(); // بناء العناصر في الذاكرة أولاً
+            const numElements = 12; // عدد ثابت لعدم إرهاق الرامات
+            
+            for (let i = 0; i < numElements; i++) {
+                const el = document.createElement('div');
+                el.innerHTML = siteBackgroundIcons[Math.floor(Math.random() * siteBackgroundIcons.length)];
+                el.className = 'falling-element';
+                el.style.left = Math.random() * 95 + 'vw';
+                
+                const size = Math.floor(Math.random() * 8) + 18;
+                el.style.width = size + 'px';
+                el.style.height = size + 'px';
+                
+                const duration = Math.random() * 4 + 6; // سرعة أبطأ لسلاسة أكبر
+                el.style.animationDuration = duration + 's';
+                el.style.animationDelay = (Math.random() * 5) + 's'; // تأخير عشوائي
+                
+                fragment.appendChild(el);
+            }
+            container.appendChild(fragment); // إضافتهم للموقع مرة واحدة فقط
+        }
+
+        // --- 3. UI logic ---
         function updateLoveCounter() {
             const startDate = new Date(2026, 5, 24);
             const today = new Date();
@@ -947,12 +589,10 @@
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             document.getElementById('days-count').innerText = diffDays >= 0 ? diffDays : 0;
         }
-
         updateLoveCounter();
 
         const cascadeContainer = document.getElementById('cascadeContainer');
-        const cascadeWordsCount = 4; 
-        for (let i = 0; i < cascadeWordsCount; i++) {
+        for (let i = 0; i < 4; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
@@ -968,17 +608,16 @@
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 600);
-            setInterval(createFallingElement, 700);
+            
+            // توليد العناصر المتساقطة مرة واحدة فقط بدلاً من setInterval المسبب للتقطيع
+            initStaticFallingElements();
         }
 
         function openAlbumModal(modalId, videoId) {
             document.getElementById(modalId).classList.add('active');
             if (videoId) {
                 const vid = document.getElementById(videoId);
-                if (vid) {
-                    vid.currentTime = 0;
-                    vid.play().catch(e => console.log("Video autoplay prevented:", e));
-                }
+                if (vid) { vid.currentTime = 0; vid.play().catch(e => console.log(e)); }
             }
         }
 
@@ -991,9 +630,7 @@
             }
         }
 
-        function showMsg(txt) { 
-            document.getElementById('msg-display').innerText = txt; 
-        }
+        function showMsg(txt) { document.getElementById('msg-display').innerText = txt; }
 
         const floatingMsgs = [
             'Aya, you make my heart skip a beat every single day.',
@@ -1003,14 +640,11 @@
         ];
 
         function openFloatingModal() {
-            const randomMsg = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
-            document.getElementById('modal-text-content').innerText = randomMsg;
+            document.getElementById('modal-text-content').innerText = floatingMsgs[Math.floor(Math.random() * floatingMsgs.length)];
             document.getElementById('modalOverlay').classList.add('active');
         }
 
-        function closeFloatingModal(e) {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
+        function closeFloatingModal(e) { document.getElementById('modalOverlay').classList.remove('active'); }
 
         function openMusicModal() {
             document.getElementById('musicModalOverlay').classList.add('active');
@@ -1022,41 +656,22 @@
             bgMusic.pause();
         }
 
-        const siteBackgroundIcons = [
-            '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
-            '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>',
-            '<svg viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
-        ];
-
-        function createFallingElement() {
-            const el = document.createElement('div');
-            const randomIcon = siteBackgroundIcons[Math.floor(Math.random() * siteBackgroundIcons.length)];
-            el.innerHTML = randomIcon;
-            el.className = 'falling-element';
-            el.style.left = Math.random() * 100 + 'vw';
-            
-            const size = Math.floor(Math.random() * 8) + 18;
-            el.style.width = size + 'px';
-            el.style.height = size + 'px';
-            
-            const duration = Math.random() * 3 + 5;
-            el.style.animationDuration = duration + 's';
-            
-            document.getElementById('elements-container').appendChild(el);
-            setTimeout(() => { el.remove(); }, duration * 1000);
-        }
-
-        const observer = new IntersectionObserver((entries) => {
+        // --- 4. Intersection Observer Optimization ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    obs.unobserve(entry.target); // إيقاف المراقبة بعد الظهور لتقليل الضغط
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.glass-section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('.glass-section').forEach(section => { observer.observe(section); });
     </script>
 </body>
 </html>
