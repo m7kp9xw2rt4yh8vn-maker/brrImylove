@@ -300,7 +300,6 @@
 
         @keyframes soundWaveAnim { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1.2); } }
 
-        /* Secret Pass Modal Custom Styles */
         .secret-input {
             width: 100%;
             background: rgba(18, 6, 15, 0.85);
@@ -323,27 +322,30 @@
         .secret-error-text {
             color: #ff6b81;
             font-family: 'Playfair Display', serif;
-            font-size: 1.15srem;
+            font-size: 1.15rem;
             margin-bottom: 20px;
             font-style: italic;
             text-shadow: 0 0 10px rgba(255,107,129,0.4);
         }
-        .secret-success-text {
-            color: #ffd1dc;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.12rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            text-align: right;
-            direction: rtl;
-            text-shadow: 0 0 10px rgba(255,209,220,0.3);
-        }
         
-        /* Interactive Comment Box Styles Inside Success Modal */
+        .secret-svg-container {
+            width: 100%;
+            max-height: 280px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 5px;
+            direction: rtl;
+            scrollbar-width: thin;
+            scrollbar-color: #ff4d94 transparent;
+        }
+        .secret-svg-container::-webkit-scrollbar { width: 6px; }
+        .secret-svg-container::-webkit-scrollbar-thumb { background: #ff4d94; border-radius: 10px; }
+
         .comment-box-container {
-            margin-top: 15px;
+            margin-top: 10px;
             border-top: 1px solid rgba(255, 77, 148, 0.25);
             padding-top: 15px;
+            text-align: right;
         }
         .comment-input {
             width: 100%;
@@ -427,7 +429,6 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
@@ -455,7 +456,6 @@
         </div>
     </div>
 
-    <!-- Girl's Album Modal -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
@@ -514,12 +514,11 @@
         </div>
     </div>
 
-    <!-- Secret Password Floating Modal (محمية بكلمة سر للـ Aya) -->
     <div class="modal-overlay" id="secretModalOverlay" onclick="closeSecretModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3>Secret for Aya</h3>
+            <h3>A Dedication from My Heart</h3>
             <div id="secret-content-area">
-                <p style="font-size: 1.15rem; margin-bottom: 15px;">أدخلي كلمة السر الخاصة بكِ لفتح هذه الرسالة الخاصة جداً:</p>
+                <p style="font-size: 1.15rem; margin-bottom: 15px; font-family: 'Playfair Display', serif; color: #ffd1dc;">أدخلي كلمة السر الخاصة بكِ لفتح هذه الرسالة الخاصة جداً:</p>
                 <input type="password" id="secretPasswordInput" class="secret-input" placeholder="أدخلي كلمة السر هنا..." autocomplete="new-password">
                 <div id="secretErrorBox"></div>
                 <button class="close-modal-btn" onclick="checkSecretPassword()">فتح الرسالة</button>
@@ -578,8 +577,7 @@
         <h2>Secret Notes</h2>
         <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place, Aya.')">About Us</button>
         <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
-        <!-- الخانة الجديدة المخصصة لآيا ومحمية بكلمة سر -->
-        <button class="msg-btn" onclick="openSecretModal()" style="border-color: rgba(255, 77, 148, 0.8); background: rgba(255, 77, 148, 0.2);">Aya's Secret Box 💌</button>
+        <button class="msg-btn" onclick="openSecretModal()" style="border-color: rgba(255, 77, 148, 0.8); background: rgba(255, 77, 148, 0.2);">A Sacred Eternal Vow 💌</button>
         <div id="msg-display"></div>
     </section>
 
@@ -808,9 +806,7 @@
             bgMusic.pause();
         }
 
-        // Logic for Secret Password Modal (Aya's Box)
         function openSecretModal() {
-            // إعادة ضبط محتوى النافذة لطلب الباسورد دائماً عند كل فتح (كما طلبتم: وفي كل مره تدخل هذه الخانة يجب عليها كتابة الباسورد)
             const contentArea = document.getElementById('secret-content-area');
             contentArea.innerHTML = `
                 <p style="font-size: 1.15rem; margin-bottom: 15px; font-family: 'Playfair Display', serif; color: #ffd1dc;">أدخلي كلمة السر الخاصة بكِ لفتح هذه الرسالة الخاصة جداً:</p>
@@ -833,35 +829,41 @@
             const contentArea = document.getElementById('secret-content-area');
 
             if (passInput.value === 'Aya05') {
-                // كلمة السر صحيحة - عرض الرسالة الخاصة جداً مع خانة تعليق مرة واحدة
                 let savedComment = localStorage.getItem('aya_secret_comment');
                 
                 let commentSectionHTML = `
                     <div class="comment-box-container" id="commentAreaWrapper">
-                        <p style="font-family: 'Playfair Display', serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px; text-align: right;">اتركي تعليقكِ هنا (مرة واحدة):</p>
+                        <p style="font-family: 'Playfair Display', serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px;">Leave your comment here (one time only):</p>
                 `;
 
                 if (savedComment) {
                     commentSectionHTML += `
-                        <div class="saved-comment-display">تعليقك المحفوظ: "${savedComment}"</div>
+                        <div class="saved-comment-display">Your saved comment: "${savedComment}"</div>
                     `;
                 } else {
                     commentSectionHTML += `
-                        <textarea id="ayaCommentInput" class="comment-input" placeholder="اكتبي تعليقكِ أو شعوركِ هنا..."></textarea>
-                        <button class="comment-submit-btn" onclick="saveAyaComment()">إرسال التعليق</button>
+                        <textarea id="ayaCommentInput" class="comment-input" placeholder="Type your comment or feeling here..."></textarea>
+                        <button class="comment-submit-btn" onclick="saveAyaComment()">Submit Comment</button>
                     `;
                 }
                 commentSectionHTML += `</div>`;
 
                 contentArea.innerHTML = `
-                    <div class="secret-success-text">
-                        آية حبيبتي وزوجتي ونور عيني الموقع ده لينا احنا ذكرة حلوة بينا انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة zيك ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂
+                    <div class="secret-svg-container">
+                        <svg viewBox="0 0 520 285" width="100%" style="overflow: visible;">
+                            <text x="510" y="32" font-family="'Great Vibes', cursive" font-size="28" fill="#ffd1dc" text-anchor="end" filter="drop-shadow(0 0 8px rgba(255,77,148,0.5))">آية حبيبتي وزوجتي ونور عيني</text>
+                            <text x="510" y="68" font-family="'Great Vibes', cursive" font-size="26" fill="#ffd1dc" text-anchor="end">الموقع ده لينا احنا ذكرة حلوة بينا</text>
+                            <text x="510" y="104" font-family="'Great Vibes', cursive" font-size="26" fill="#ffd1dc" text-anchor="end">انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني</text>
+                            <text x="510" y="140" font-family="'Great Vibes', cursive" font-size="26" fill="#ffd1dc" text-anchor="end">الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني</text>
+                            <text x="510" y="176" font-family="'Great Vibes', cursive" font-size="26" fill="#ffd1dc" text-anchor="end">دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها</text>
+                            <text x="510" y="212" font-family="'Great Vibes', cursive" font-size="26" fill="#ffd1dc" text-anchor="end">ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة zيك</text>
+                            <text x="510" y="248" font-family="'Great Vibes', cursive" font-size="26" fill="#ffd1dc" text-anchor="end">ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂</text>
+                        </svg>
                     </div>
                     ${commentSectionHTML}
-                    <button class="close-modal-btn" style="margin-top: 15px;" onclick="closeSecretModal()">إغلاق</button>
+                    <button class="close-modal-btn" style="margin-top: 15px;" onclick="closeSecretModal()">Close</button>
                 `;
             } else {
-                // كلمة السر خاطئة
                 errorBox.innerHTML = `<div class="secret-error-text">you are not Aya</div>`;
                 passInput.value = '';
                 passInput.focus();
@@ -874,8 +876,8 @@
                 localStorage.setItem('aya_secret_comment', commentInput.value.trim());
                 const wrapper = document.getElementById('commentAreaWrapper');
                 wrapper.innerHTML = `
-                    <p style="font-family: 'Playfair Display', serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px; text-align: right;">اتركي تعليقكِ هنا (مرة واحدة):</p>
-                    <div class="saved-comment-display">تعليقك المحفوظ: "${commentInput.value.trim()}"</div>
+                    <p style="font-family: 'Playfair Display', serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px;">Leave your comment here (one time only):</p>
+                    <div class="saved-comment-display">Your saved comment: "${commentInput.value.trim()}"</div>
                 `;
             }
         }
