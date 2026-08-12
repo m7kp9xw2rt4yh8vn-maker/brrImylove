@@ -25,29 +25,33 @@
             pointer-events: none; z-index: 1; transform: translate3d(0,0,0);
         }
 
+        /* تنظيم شاشة الإنترو */
         #intro-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: radial-gradient(circle at center, #2a0823 0%, #0c030a 60%, #020102 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
             z-index: 9999; transition: opacity 0.4s ease; will-change: opacity;
+            padding: 20px; text-align: center;
         }
 
         .intro-content-box {
             position: relative; z-index: 2; display: flex; flex-direction: column;
-            align-items: center; padding: 0 20px; transform: translate3d(0,0,0);
+            align-items: center; justify-content: center; width: 100%; max-width: 600px;
+            margin: 0 auto; text-align: center;
         }
 
         #intro-screen h1 { 
-            font-family: 'Great Vibes', cursive; font-size: 4.2rem; 
+            font-family: 'Great Vibes', cursive; font-size: 3.8rem; 
             background: linear-gradient(to right, #ff4d94, #ffd1dc, #ff4d94);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 10px; line-height: 1.2;
+            margin-bottom: 12px; line-height: 1.3; text-align: center;
             filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.4));
         }
 
         .intro-subtitle {
             font-family: 'Playfair Display', serif; font-style: italic;
-            color: #ffd1dc; font-size: 1.15rem; margin-bottom: 30px; letter-spacing: 1px; opacity: 0.9;
+            color: #ffd1dc; font-size: 1.1rem; margin-bottom: 28px; letter-spacing: 0.5px; opacity: 0.9;
+            text-align: center; line-height: 1.5;
         }
 
         .enter-btn { 
@@ -109,7 +113,6 @@
         
         .aya-title .me-text { font-size: 3.8rem; color: #ffd1dc; -webkit-text-fill-color: #ffd1dc; }
 
-        /* تحسين الأداء عبر إزالة الخواص الثقيلة */
         .glass-section { 
             background: rgba(20, 6, 17, 0.94);
             border: 1px solid rgba(255, 77, 148, 0.25); box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -127,28 +130,28 @@
         }
 
         .map-container-box {
-            position: relative; width: 100%; max-width: 450px; margin: 15px auto 10px auto;
+            position: relative; width: 100%; max-width: 520px; margin: 20px auto 10px auto;
             background: rgba(14, 4, 12, 0.85); border: 1px solid rgba(255, 77, 148, 0.25);
-            border-radius: 22px; padding: 25px 16px;
+            border-radius: 22px; padding: 25px 20px;
         }
 
-        .connection-visual { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 100%; 
+        /* شريط المسافة الأفقي الجديد */
+        .connection-visual-horizontal { 
+            display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; width: 100%; 
         }
         
-        .country-node { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .country-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #ff4d94; font-weight: 600; }
-        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: #ffd1dc; opacity: 0.9; }
+        .country-node { display: flex; flex-direction: column; align-items: center; min-width: 75px; }
+        .country-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #ff4d94; font-weight: 600; }
+        .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.8rem; color: #ffd1dc; opacity: 0.9; }
         
-        /* شريط المسافة الجديد النابض بدون دائرة حول القلب */
-        .heart-bridge-vertical { 
-            display: flex; align-items: center; justify-content: center; position: relative; height: 75px; width: 100%; margin: 6px 0;
+        .heart-bridge-horizontal { 
+            display: flex; align-items: center; justify-content: center; position: relative; flex: 1; height: 36px; margin: 0 10px;
         }
         
-        .bridge-line-v {
-            width: 3px; height: 100%;
-            background: linear-gradient(180deg, #ff4d94, #da70d6, #ff4d94);
-            position: absolute; left: 50%; transform: translateX(-50%);
+        .bridge-line-h {
+            height: 3px; width: 100%;
+            background: linear-gradient(90deg, #ff4d94, #da70d6, #ff4d94);
+            position: absolute; top: 50%; transform: translateY(-50%);
             box-shadow: 0 0 10px rgba(255, 77, 148, 0.8);
             animation: stripPulse 1.8s ease-in-out infinite alternate;
         }
@@ -159,7 +162,7 @@
         }
 
         .beating-bridge-heart {
-            width: 34px; height: 34px; fill: #ff4d94; z-index: 2;
+            width: 32px; height: 32px; fill: #ff4d94; z-index: 2;
             filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.9));
             animation: heartBeat 1.2s ease-in-out infinite;
         }
@@ -172,7 +175,7 @@
         .distance-badge-box {
             margin-top: 20px; display: inline-block; background: rgba(255,77,148,0.12);
             border: 1px solid rgba(255, 77, 148, 0.3); padding: 10px 22px; border-radius: 25px;
-            font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1dc; font-size: 0.98rem;
+            font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1dc; font-size: 0.95rem;
         }
 
         .counter-box { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0 10px 0; width: 100%; }
@@ -237,18 +240,25 @@
         }
         .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-        .modal-card {
+        /* تفعيل التمرير الكامل والتصفح الشامل للألبومات */
+        .modal-card, .album-modal-card {
             background: linear-gradient(145deg, rgba(25, 8, 22, 0.98), rgba(12, 3, 11, 0.98));
             border: 1px solid rgba(255, 77, 148, 0.5);
-            padding: 30px 22px; 
-            border-radius: 30px; 
-            width: 90%;
-            max-width: 380px;
+            padding: 25px 18px; 
+            border-radius: 28px; 
+            width: 92%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             box-shadow: 0 20px 45px rgba(0,0,0,0.85), 0 0 25px rgba(255, 77, 148, 0.25);
             text-align: center; 
             transform: scale(0.9); 
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        .album-modal-card::-webkit-scrollbar, .modal-card::-webkit-scrollbar { width: 5px; }
+        .album-modal-card::-webkit-scrollbar-thumb, .modal-card::-webkit-scrollbar-thumb { background: #ff4d94; border-radius: 10px; }
 
         .album-modal-overlay.active .album-modal-card, .modal-overlay.active .modal-card { transform: scale(1); }
 
@@ -262,7 +272,7 @@
 
         .polaroid, .video-polaroid { 
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 12px 12px 20px 12px; border-radius: 12px; width: 250px; 
+            padding: 12px; border-radius: 14px; width: 100%; max-width: 320px; margin: 0 auto;
         }
         
         .floating-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 998; }
@@ -318,6 +328,7 @@
 
     <canvas id="constellation-canvas"></canvas>
 
+    <!-- شاشة الإنترو مرتبة ومتناسقة عمودياً -->
     <div id="intro-screen">
         <div class="intro-content-box">
             <h1>A Special Universe For Us...</h1>
@@ -339,14 +350,15 @@
         </div>
         <div class="floating-bubble" onclick="openFloatingModal()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4d94" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-            Tap for Us
+            Tap for Aya
         </div>
     </div>
 
+    <!-- ألبوم صور وفيديوهات Mohie مع إمكانية التمرير الكامل -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3rem; margin-bottom:20px;">My Album</h3>
-            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+            <div class="modal-media-grid" style="display:flex; flex-direction:column; align-items:center; gap:20px; width:100%;">
                 <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">My moments</p></div>
                 <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">Always thinking of you</p></div>
                 <div class="video-polaroid">
@@ -358,10 +370,11 @@
         </div>
     </div>
 
+    <!-- ألبوم صور وفيديوهات Aya مع إمكانية التمرير الكامل -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3rem; margin-bottom:20px;">Aya's Album</h3>
-            <div class="modal-media-grid" style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+            <div class="modal-media-grid" style="display:flex; flex-direction:column; align-items:center; gap:20px; width:100%;">
                 <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">Your lovely smile</p></div>
                 <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy" style="width:100%; border-radius:8px;"><p style="color:#fff; margin-top:8px; font-family:'Playfair Display'">The light of my days</p></div>
                 <div class="video-polaroid">
@@ -385,10 +398,10 @@
         </div>
     </div>
 
-    <!-- تم التعديل إلى Forever Together -->
+    <!-- النافذة الخاصة بـ Tap for Aya بـ عنوانها الجديد -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:12px;">Forever Together</h3>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:12px;">Tap For Aya</h3>
             <p id="modal-text-content"></p>
             
             <div class="comment-box-wrapper" id="commentSectionContainer">
@@ -427,18 +440,18 @@
         </h1>
     </div>
 
-    <!-- قسم المسافة المحدث: شريط ضوئي ينبض والقلب في الوسط مباشرة -->
+    <!-- بطاقة المسافة المحدثة مع خط أفقي بالعرض ممتد بين البلدين والقلب في المنتصف -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">No matter the miles between us, our hearts beat as one</p>
         <div class="map-container-box">
-            <div class="connection-visual">
+            <div class="connection-visual-horizontal">
                 <div class="country-node">
                     <span class="country-name">Egypt</span>
                     <span class="country-desc">My Heart</span>
                 </div>
-                <div class="heart-bridge-vertical">
-                    <div class="bridge-line-v"></div>
+                <div class="heart-bridge-horizontal">
+                    <div class="bridge-line-h"></div>
                     <svg class="beating-bridge-heart" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
@@ -512,7 +525,6 @@
         resizeCanvas();
 
         let particlesArray = [];
-        // تقليل النقاط لضمان سلاسة حركة الموقع وسرعته
         const numberOfParticles = window.innerWidth > 768 ? 12 : 8;
 
         class Particle {
@@ -601,7 +613,6 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 400);
             
-            // زيادة مدة إنشاء الأشكال لتسريع الاستجابة وعدم إرهاق ذاكرة الهاتف
             if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 600); }
         }
 
@@ -639,7 +650,6 @@
             }
         }
 
-        // تم تحديث الرسالة هنا إلى you are not Aya
         function verifySecretPassword() {
             let password = document.getElementById('secretPasswordInput').value;
             let errorMsg = document.getElementById('passwordErrorMsg');
@@ -742,7 +752,7 @@
         svgKiss.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff3366"><path d="M21.8 10.2c-.8-1.5-2.8-2.2-4.8-1.7-1.4.3-2.7 1.2-4.5 1.2-1.8 0-3.1-.9-4.5-1.2-2-.5-4 .2-4.8 1.7-.8 1.4-.3 3.2 1.2 4.4 1.8 1.4 4.5 1.9 8.1 1.9s6.3-.5 8.1-1.9c1.5-1.2 2-3 1.2-4.4zm-9.8.8c1.3 0 2.4-.7 3.6-1 .9-.2 1.8 0 2.4.5-.4.6-1.1 1.1-2 1.3-1.3.3-2.6-.2-4-.2s-2.7.5-4 .2c-.9-.2-1.6-.7-2-1.3.6-.5 1.5-.7 2.4-.5 1.2.3 2.3 1 3.6 1 z"/></svg>';
 
         const svgDoubleHeart = document.createElement('div');
-        svgDoubleHeart.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff8fa3"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M19 14l-.8-.7c-2.9-2.6-4.8-4.3-4.8-6.4 0-1.7 1.3-3 3-3 .9 0 1.8.4 2.4 1.1.6-.7 1.5-1.1 2.4-1.1 1.7 0 3 1.3 3 3 0 2.1-1.9 3.8-4.8 6.4l-.9.7z" fill="#ffd1dc"/></svg>';
+        svgDoubleHeart.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ff8fa3"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M19 14l-.8-.7c-2.9-2.6-4.8-4.3-4.8-6.4 0-1.7 1.3-3 3-3 .9 0 1.8.4 2.4 1.1.6-.7 1.5-1.1 2.4-1.1 1.7 0 3 1.3 3 0 2.1-1.9 3.8-4.8 6.4l-.9.7z" fill="#ffd1dc"/></svg>';
 
         const svgSparkle = document.createElement('div');
         svgSparkle.innerHTML = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="#ffd1dc"><path d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z"/></svg>';
@@ -750,7 +760,6 @@
         const fallingTemplates = [svgHeart1, svgHeart2, svgKiss, svgDoubleHeart, svgSparkle];
         const elementsContainer = document.getElementById('elements-container');
 
-        // تحديد حد أقصى للقلوب المتساقطة لتجنب ثقل الصفحة
         function createFallingElement() {
             if (elementsContainer.children.length > 12) return;
 
