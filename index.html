@@ -25,7 +25,6 @@
             text-align: center; 
         }
 
-        /* --- Intro Screen سينمائي فاخر --- */
         #intro-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: radial-gradient(circle at center, #1f0518 0%, #080206 60%, #020102 100%); 
@@ -135,7 +134,6 @@
             border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0.5;
         }
 
-        /* --- تحسين الأداء وخفض استهلاك المعالج للكلمات العائمة --- */
         .cascade-container {
             position: relative; width: 100%; height: 220px; overflow: hidden; margin: 30px auto 0; z-index: 2;
         }
@@ -178,7 +176,7 @@
             background: linear-gradient(135deg, rgba(35, 12, 28, 0.65), rgba(12, 4, 15, 0.75)); 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 77, 148, 0.3); width: 90%; max-width: 820px; 
+            border: 1px solid rgba(255, 77, 148, 0.3); width: 90%; max-width: 900px; 
             margin: 55px auto; padding: 45px 35px; border-radius: 35px; z-index: 2; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.6); 
             opacity: 0; transform: translateY(35px); transition: opacity 0.8s ease, transform 0.8s ease; 
@@ -314,32 +312,60 @@
             display: block; line-height: 1.6; text-align: center;
         }
 
-        .media-grid { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 28px; align-items: center; }
+        /* --- تعديل شبكة الوسائط لتكون الصور والفيديو بجانب بعضها بشكل متناسق --- */
+        .media-grid { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+            margin-top: 28px; 
+        }
         
         .polaroid { 
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 18px 40px rgba(0,0,0,0.6); 
-            padding: 15px 15px 32px 15px; border-radius: 25px; width: 220px; transition: transform 0.4s ease, border-color 0.4s ease; 
+            border: 1px solid rgba(255, 255, 255, 0.12); 
+            box-shadow: 0 18px 40px rgba(0,0,0,0.6); 
+            padding: 15px 15px 25px 15px; 
+            border-radius: 25px; 
+            width: 200px; 
+            transition: transform 0.4s ease, border-color 0.4s ease; 
         }
         .polaroid:hover { 
             transform: translateY(-10px) scale(1.03); 
             border-color: rgba(255, 77, 148, 0.65); 
         }
-        .polaroid img { width: 100%; height: 195px; object-fit: cover; border-radius: 15px; }
-        .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.05rem; }
+        .polaroid img { width: 100%; height: 175px; object-fit: cover; border-radius: 15px; }
+        .polaroid p { margin-top: 12px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 0.95rem; }
 
         .video-box { 
-            width: 220px; height: 280px; border-radius: 25px; overflow: hidden; 
-            border: 2px solid rgba(255, 77, 148, 0.5); background: #000; 
-            box-shadow: 0 12px 35px rgba(255, 77, 148, 0.25); transition: transform 0.4s ease;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
+            width: 200px; 
+            height: 250px; 
+            border-radius: 25px; 
+            overflow: hidden; 
+            border: 2px solid rgba(255, 77, 148, 0.5); 
+            background: #000; 
+            box-shadow: 0 12px 35px rgba(255, 77, 148, 0.25); 
+            transition: transform 0.4s ease;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative;
+            padding: 10px;
         }
         .video-box:hover { 
             transform: translateY(-10px) scale(1.03); 
             border-color: #ff4d94; 
         }
-        .video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .video-box video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 15px; 
+            display: block; 
+        }
 
         .msg-btn { 
             background: linear-gradient(135deg, rgba(255, 77, 148, 0.1), rgba(255, 77, 148, 0.22)); 
@@ -650,9 +676,11 @@
             <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2"><p>Always thinking of you</p></div>
             <div class="polaroid"><img src="my-love.jpg" alt="Aya"><p>Your lovely smile</p></div>
             <div class="polaroid"><img src="girl2.jpg" alt="Aya 2"><p>The light of my days</p></div>
+            <!-- تم التأكد من تشغيل الفيديو وجعله بجانب الصور بترتيب منسق -->
             <div class="video-box">
-                <video autoplay muted loop playsinline>
+                <video id="myVideoElement" autoplay muted loop playsinline preload="auto">
                     <source src="my-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
                 </video>
             </div>
         </div>
@@ -673,7 +701,6 @@
 
         updateLoveCounter();
 
-        // خفض عدد العناصر العائمة لـ 3 عناصر فقط لضمان سلاسة الأداء وعدم التعليق
         const cascadeContainer = document.getElementById('cascadeContainer');
         const wordCount = 3;
 
@@ -694,7 +721,13 @@
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 1200);
-            // زيادة الفاصل الزمني لإنشاء عناصر الخلفية لتقليل الحمل على المعالج
+            
+            // ضمان تشغيل الفيديو قسرياً عند الدخول لحل مشكلة عدم ظهوره
+            const vid = document.getElementById('myVideoElement');
+            if(vid) {
+                vid.play().catch(e => console.log("Video autoplay prevented:", e));
+            }
+
             setInterval(createFallingElement, 1200);
             initDewDrops();
         }
@@ -779,7 +812,7 @@
 
         function initDewDrops() {
             const dewContainer = document.getElementById('dew-container');
-            const dewCount = 10; // تقليل عدد النقاط المضيئة
+            const dewCount = 10;
             for (let i = 0; i < dewCount; i++) {
                 const dew = document.createElement('div');
                 dew.className = 'dew-drop';
