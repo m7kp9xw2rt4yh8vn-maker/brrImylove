@@ -14,21 +14,28 @@
         
         body { 
             background-color: #020202; 
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(255, 77, 148, 0.12) 0%, transparent 50%), 
-                radial-gradient(circle at 85% 85%, rgba(147, 51, 234, 0.12) 0%, transparent 50%), 
-                linear-gradient(135deg, #050103 0%, #020202 100%); 
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
             overflow-x: hidden; 
             text-align: center; 
         }
 
+        /* خلفية الكون والنجوم المضيئة */
+        #constellation-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
         #intro-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: radial-gradient(circle at center, #1f0518 0%, #080206 60%, #020102 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 9999; transition: opacity 0.8s ease, transform 0.8s ease; 
+            z-index: 9999; transition: opacity 0.6s ease, transform 0.6s ease; 
         }
 
         .intro-content-box {
@@ -67,7 +74,7 @@
             font-family: 'Playfair Display', serif; 
             border-radius: 50px; 
             cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
             box-shadow: 0 0 25px rgba(255, 77, 148, 0.3); 
             letter-spacing: 1px;
             backdrop-filter: blur(5px);
@@ -82,7 +89,7 @@
 
         .falling-element { 
             position: fixed; top: -50px; 
-            animation: fall linear infinite; z-index: 1; pointer-events: none; 
+            animation: fall linear infinite; z-index: 2; pointer-events: none; 
             opacity: 0.7;
             will-change: transform;
         }
@@ -92,7 +99,7 @@
         }
 
         .cascade-container {
-            position: relative; width: 100%; height: 200px; overflow: hidden; margin: 25px auto 0; z-index: 2;
+            position: relative; width: 100%; height: 200px; overflow: hidden; margin: 25px auto 0; z-index: 3;
         }
 
         .cascade-text {
@@ -116,7 +123,7 @@
             100% { transform: translateY(180px); opacity: 0; }
         }
 
-        .name-wrapper { margin-top: 15px; margin-bottom: 25px; z-index: 2; position: relative; }
+        .name-wrapper { margin-top: 15px; margin-bottom: 25px; z-index: 3; position: relative; }
         .aya-title { 
             font-family: 'Great Vibes', cursive; 
             font-size: 5.2rem; 
@@ -141,9 +148,10 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 77, 148, 0.3); 
             width: 90%; max-width: 900px; 
-            margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 2; 
+            margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 3; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,77,148,0.05); 
-            opacity: 0; transform: translateY(25px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            opacity: 0; transform: translateY(25px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative;
         }
         .glass-section.visible { opacity: 1; transform: translateY(0); }
         
@@ -249,7 +257,7 @@
             border: 1px solid rgba(255, 77, 148, 0.3);
             border-radius: 24px; padding: 20px 35px; min-width: 140px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            transition: transform 0.25s ease;
         }
         .counter-item:hover {
             transform: translateY(-5px);
@@ -289,7 +297,7 @@
             border-radius: 28px;
             width: 265px;
             cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
             will-change: transform;
         }
 
@@ -311,12 +319,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease;
             will-change: transform;
         }
 
         .album-card:hover .album-cover-container img {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
         .album-overlay-badge {
@@ -325,7 +333,8 @@
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             padding: 6px 16px;
             border-radius: 20px;
             border: 1px solid rgba(255, 77, 148, 0.5);
@@ -345,10 +354,11 @@
 
         .album-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex; justify-content: center; align-items: center; z-index: 10001;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
             padding: 15px;
             will-change: opacity;
         }
@@ -365,9 +375,10 @@
             overflow-y: auto;
             box-shadow: 0 0 45px rgba(255, 77, 148, 0.4);
             text-align: center;
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.92);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
+            -webkit-overflow-scrolling: touch;
         }
         .album-modal-overlay.active .album-modal-card { transform: scale(1); }
 
@@ -395,9 +406,10 @@
             border-radius: 25px; 
             width: 280px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
+            will-change: transform;
         }
-        .polaroid:hover { transform: translateY(-5px); }
+        .polaroid:hover { transform: translateY(-4px); }
         .polaroid img { width: 100%; height: 290px; object-fit: cover; border-radius: 16px; }
         .polaroid p { margin-top: 14px; font-family: 'Playfair Display', serif; color: #f0f0f0; font-size: 1.1rem; }
 
@@ -408,9 +420,10 @@
             border-radius: 25px; 
             width: 280px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
+            will-change: transform;
         }
-        .video-polaroid:hover { transform: translateY(-5px); }
+        .video-polaroid:hover { transform: translateY(-4px); }
         .video-polaroid video { 
             width: 100%; 
             height: 290px; 
@@ -429,7 +442,7 @@
             background: rgba(255, 77, 148, 0.12); 
             color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; 
             border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; 
-            transition: all 0.25s ease; 
+            transition: all 0.2s ease; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .msg-btn:hover { 
@@ -445,12 +458,13 @@
 
         .floating-bubble { 
             background: rgba(24, 8, 20, 0.85); 
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; 
             cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
             font-family: 'Playfair Display', serif; font-size: 1.05rem; 
             display: flex; align-items: center; gap: 10px; 
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .floating-bubble:hover { 
             transform: translateY(-3px) scale(1.03); 
@@ -469,10 +483,11 @@
 
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0, 0, 0, 0.82); 
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.8); 
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; 
+            opacity: 0; pointer-events: none; transition: opacity 0.25s ease; 
         }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -480,7 +495,7 @@
             background: linear-gradient(135deg, #180615, #0d0210); 
             border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; 
             box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); 
-            text-align: center; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
@@ -494,7 +509,7 @@
         .close-modal-btn { 
             background: #ff4d94; color: #fff; border: none; padding: 12px 38px; 
             font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 30px; 
-            cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; 
             box-shadow: 0 4px 15px rgba(255,77,148,0.4);
         }
         .close-modal-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255,77,148,0.6); }
@@ -571,10 +586,15 @@
             font-family: 'Playfair Display', serif; 
             font-size: 0.8rem; 
             text-align: left; 
+            position: relative;
+            z-index: 3;
         }
     </style>
 </head>
 <body>
+
+    <!-- خلفية الكون والنجوم المترابطة -->
+    <canvas id="constellation-canvas"></canvas>
 
     <div id="intro-screen">
         <div class="intro-content-box">
@@ -605,8 +625,8 @@
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>My Album</h3>
             <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo"><p>My moments</p></div>
-                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2"><p>Always thinking of you</p></div>
+                <div class="polaroid"><img src="my-photo1.jpg" alt="My Photo" loading="lazy"><p>My moments</p></div>
+                <div class="polaroid"><img src="my-photo2.jpg" alt="My Photo 2" loading="lazy"><p>Always thinking of you</p></div>
                 <div class="video-polaroid">
                     <video id="boyVideoElement" autoplay muted loop playsinline preload="auto">
                         <source src="my-video.mp4" type="video/mp4">
@@ -622,8 +642,8 @@
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
             <div class="modal-media-grid">
-                <div class="polaroid"><img src="my-love.jpg" alt="Aya"><p>Your lovely smile</p></div>
-                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2"><p>The light of my days</p></div>
+                <div class="polaroid"><img src="my-love.jpg" alt="Aya" loading="lazy"><p>Your lovely smile</p></div>
+                <div class="polaroid"><img src="girl2.jpg" alt="Aya 2" loading="lazy"><p>The light of my days</p></div>
                 <div class="video-polaroid">
                     <video id="ayaVideoElement" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
@@ -745,6 +765,141 @@
     </footer>
 
     <script>
+        /* نظام الكون والنجوم المترابطة الفائق الخفة (Constellation Stars) */
+        const canvas = document.getElementById('constellation-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let particlesArray = [];
+        const numberOfParticles = Math.min(window.innerWidth > 768 ? 50 : 25, 60);
+
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 130
+        };
+
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        window.addEventListener('touchmove', function(event) {
+            if(event.touches.length > 0) {
+                mouse.x = event.touches[0].clientX;
+                mouse.y = event.touches[0].clientY;
+            }
+        });
+
+        window.addEventListener('mouseout', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.color = Math.random() > 0.4 ? 'rgba(255, 77, 148, ' : 'rgba(192, 132, 252, ';
+                this.alpha = Math.random() * 0.6 + 0.3;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+                // تفاعل خفيف مع مؤشر الماوس/اللمس
+                if (mouse.x !== null && mouse.y !== null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        let force = (mouse.radius - distance) / mouse.radius;
+                        let directionX = dx / distance;
+                        let directionY = dy / distance;
+                        this.x -= directionX * force * 2;
+                        this.y -= directionY * force * 2;
+                    }
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color + this.alpha + ')';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function initConstellation() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        initConstellation();
+
+        function animateConstellation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // رسم خلفية تدرج كونية خفيفة جداً
+            let bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 50, canvas.width/2, canvas.height/2, canvas.width);
+            bgGrad.addColorStop(0, '#050103');
+            bgGrad.addColorStop(1, '#020202');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                for (let j = i; j < particlesArray.length; j++) {
+                    let dx = particlesArray[i].x - particlesArray[j].x;
+                    let dy = particlesArray[i].y - particlesArray[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 110) {
+                        ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                // ربط النجوم بالماوس عند الاقتراب
+                if (mouse.x !== null && mouse.y !== null) {
+                    let mdx = particlesArray[i].x - mouse.x;
+                    let mdy = particlesArray[i].y - mouse.y;
+                    let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                    if (mdist < 130) {
+                        ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
+                        ctx.lineWidth = 0.9;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateConstellation);
+        }
+        animateConstellation();
+
         function updateLoveCounter() {
             const startDate = new Date(2026, 5, 24);
             const today = new Date();
@@ -772,7 +927,7 @@
         function startExperience() {
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; }, 800);
+            setTimeout(() => { intro.style.display = 'none'; }, 600);
             setInterval(createFallingElement, 700);
         }
 
@@ -827,13 +982,9 @@
             bgMusic.pause();
         }
 
-        // تم تحديث الأيقونات لتشمل العناق (Hugs) وأيقونة قبلة واقعية ومجسمة (Realistic Kiss)
         const siteBackgroundIcons = [
-            // 1. قلوب نابضة
             '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
-            // 2. قبلة واقعية (شفاة متوهجة مع تأثير أحمر شفاه سينمائي وواقعي)
             '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>',
-            // 3. أيقونة العناق (شخصين يعانقان بعضهما بحرارة ودفء)
             '<svg viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
         ];
 
