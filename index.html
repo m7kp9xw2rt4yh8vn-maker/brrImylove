@@ -8,8 +8,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="manifest" href="./manifest.json">
     <title>For Aya & Our Eternal Love</title>
-    <!-- إضافة خط Amiri العربي الفاخر لرسالتك -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- استدعاء الخطوط العربية والإنجليزية الفاخرة -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
@@ -34,7 +34,7 @@
 
         #intro-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: radial-gradient(circle at center, #1f0518 0%, #080206 60%, #020102 100%); 
+            background: radial-gradient(circle at center, #2a0823 0%, #0c030a 60%, #020102 100%); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
             z-index: 9999; transition: opacity 0.5s ease; 
             will-change: opacity;
@@ -52,12 +52,13 @@
 
         #intro-screen h1 { 
             font-family: 'Great Vibes', cursive; 
-            font-size: 4.8rem; 
+            font-size: 5rem; 
             background: linear-gradient(to right, #ff4d94, #ffd1dc, #ff4d94);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 12px; 
             line-height: 1.2;
+            filter: drop-shadow(0 0 15px rgba(255, 77, 148, 0.4));
             transform: translateZ(0);
         }
 
@@ -73,24 +74,25 @@
 
         .enter-btn { 
             position: relative;
-            background: linear-gradient(135deg, rgba(255, 77, 148, 0.3), rgba(147, 51, 234, 0.3)); 
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.35), rgba(147, 51, 234, 0.35)); 
             color: #fff; 
-            border: 1px solid rgba(255, 77, 148, 0.6); 
-            padding: 16px 50px; 
+            border: 1px solid rgba(255, 77, 148, 0.7); 
+            padding: 16px 52px; 
             font-size: 1.3rem; 
             font-family: 'Playfair Display', serif; 
             border-radius: 50px; 
             cursor: pointer; 
-            transition: transform 0.2s ease, background 0.2s ease; 
-            box-shadow: 0 0 20px rgba(255, 77, 148, 0.2); 
+            transition: all 0.3s ease; 
+            box-shadow: 0 0 25px rgba(255, 77, 148, 0.25); 
             letter-spacing: 1px;
             transform: translateZ(0);
         }
 
         .enter-btn:hover { 
-            transform: scale(1.03) translateZ(0); 
-            background: linear-gradient(135deg, rgba(255, 77, 148, 0.8), rgba(147, 51, 234, 0.8));
+            transform: scale(1.04) translateZ(0); 
+            background: linear-gradient(135deg, rgba(255, 77, 148, 0.85), rgba(147, 51, 234, 0.85));
             border-color: #fff;
+            box-shadow: 0 0 35px rgba(255, 77, 148, 0.5);
         }
 
         .falling-element { 
@@ -98,13 +100,13 @@
             animation: fall linear infinite; z-index: 2; pointer-events: none; 
             will-change: transform, opacity;
             transform: translateZ(0);
-            filter: drop-shadow(0 0 6px rgba(255, 77, 148, 0.5));
+            filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.6));
         }
 
         @keyframes fall { 
             0% { transform: translateY(-5vh) rotate(0deg) scale(0.8) translateZ(0); opacity: 0; } 
-            15% { opacity: 0.85; }
-            85% { opacity: 0.85; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
             100% { transform: translateY(110vh) rotate(360deg) scale(1.1) translateZ(0); opacity: 0; } 
         }
 
@@ -115,7 +117,7 @@
         .cascade-text {
             position: absolute; 
             font-family: 'Great Vibes', cursive; 
-            font-size: 2.3rem; 
+            font-size: 2.5rem; 
             background: linear-gradient(135deg, #ff4d94, #ffb6c1, #da70d6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -137,7 +139,7 @@
         
         .aya-title { 
             font-family: 'Great Vibes', cursive; 
-            font-size: 5.2rem; 
+            font-size: 5.5rem; 
             line-height: 1.1;
             display: flex;
             flex-direction: column;
@@ -147,30 +149,32 @@
             background: linear-gradient(to right, #ff4d94, #d8b4fe, #ff4d94);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 77, 148, 0.3));
             transform: translateZ(0);
         }
         
         .aya-title .me-text {
-            font-size: 4.2rem;
+            font-size: 4.4rem;
             color: #ffd1dc;
             -webkit-text-fill-color: #ffd1dc;
         }
 
         .glass-section { 
-            background: linear-gradient(135deg, rgba(35, 12, 28, 0.6), rgba(12, 4, 15, 0.85)); 
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border-top: 1px solid rgba(255, 77, 148, 0.3); 
-            border-left: 1px solid rgba(255, 77, 148, 0.15);
-            border-right: 1px solid rgba(255, 77, 148, 0.1);
-            border-bottom: 1px solid rgba(255, 77, 148, 0.1);
+            background: linear-gradient(135deg, rgba(38, 12, 30, 0.65), rgba(14, 4, 18, 0.88)); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 77, 148, 0.25); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 15px rgba(255, 77, 148, 0.05);
             width: 90%; max-width: 900px; 
             margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 3; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
             opacity: 0; transform: translateY(20px) translateZ(0); 
-            transition: opacity 0.4s ease, transform 0.4s ease; 
+            transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease; 
             position: relative;
             will-change: opacity, transform;
+        }
+
+        .glass-section:hover {
+            border-color: rgba(255, 77, 148, 0.45);
         }
         
         .glass-section.visible { 
@@ -179,7 +183,8 @@
         }
         
         .glass-section h2 { 
-            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.5rem; margin-bottom: 20px; 
+            font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 3.6rem; margin-bottom: 20px; 
+            text-shadow: 0 0 15px rgba(255, 143, 163, 0.3);
         }
 
         .map-container-box {
@@ -187,10 +192,11 @@
             width: 100%;
             max-width: 650px;
             margin: 20px auto 10px auto;
-            background: rgba(18, 6, 15, 0.5);
-            border: 1px solid rgba(255, 77, 148, 0.2);
+            background: rgba(18, 6, 15, 0.6);
+            border: 1px solid rgba(255, 77, 148, 0.25);
             border-radius: 28px;
             padding: 35px 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
         .connection-visual {
@@ -217,7 +223,7 @@
 
         .bridge-line {
             width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 77, 148, 0.6), transparent);
             position: absolute; top: 50%; transform: translateY(-50%);
             overflow: hidden;
         }
@@ -238,42 +244,47 @@
         }
 
         .beating-bridge-heart {
-            width: 40px; height: 40px; fill: #ff4d94;
+            width: 42px; height: 42px; fill: #ff4d94;
             z-index: 2;
+            filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.8));
             animation: heartBeat 1.2s ease-in-out infinite;
             transform: translateZ(0);
         }
 
         @keyframes heartBeat {
             0%, 100% { transform: scale(1) translateZ(0); }
-            50% { transform: scale(1.2) translateZ(0); }
+            50% { transform: scale(1.22) translateZ(0); }
         }
 
         .distance-badge-box {
             margin-top: 25px; display: inline-block;
-            background: rgba(255,77,148,0.1);
-            border: 1px solid rgba(255, 77, 148, 0.3);
+            background: rgba(255,77,148,0.12);
+            border: 1px solid rgba(255, 77, 148, 0.35);
             padding: 12px 28px; border-radius: 30px;
             font-family: 'Playfair Display', serif; font-style: italic;
             color: #ffd1dc; font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .counter-box { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0 10px 0; }
 
         .counter-item {
-            background: rgba(255,77,148,0.08);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 24px; padding: 25px 40px; min-width: 150px;
-            transition: transform 0.2s ease;
+            background: rgba(255,77,148,0.09);
+            border: 1px solid rgba(255, 77, 148, 0.35);
+            border-radius: 24px; padding: 25px 45px; min-width: 160px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         
         .counter-item:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
+            border-color: #ff4d94;
         }
 
         .counter-number {
-            font-family: 'Playfair Display', serif; font-size: 3.2rem;
+            font-family: 'Playfair Display', serif; font-size: 3.4rem;
             color: #ff4d94; font-weight: 600;
+            text-shadow: 0 0 12px rgba(255, 77, 148, 0.4);
         }
 
         .counter-label {
@@ -291,16 +302,17 @@
         }
 
         .album-card {
-            background: rgba(25, 10, 20, 0.85);
+            background: rgba(25, 10, 20, 0.88);
             border: 1px solid rgba(255, 77, 148, 0.3);
             padding: 18px; border-radius: 28px; width: 280px; cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             transform: translateZ(0);
         }
 
         .album-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: rgba(255, 77, 148, 0.8);
+            box-shadow: 0 12px 30px rgba(255, 77, 148, 0.25);
         }
 
         .album-cover-container {
@@ -309,34 +321,36 @@
         }
 
         .album-cover-container img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;
         }
 
-        .album-card:hover .album-cover-container img { transform: scale(1.05); }
+        .album-card:hover .album-cover-container img { transform: scale(1.06); }
 
         .album-overlay-badge {
             position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.6); padding: 8px 20px; border-radius: 25px; 
+            background: rgba(0, 0, 0, 0.7); padding: 8px 20px; border-radius: 25px; 
             border: 1px solid rgba(255, 77, 148, 0.6); font-size: 0.9rem; font-family: 'Playfair Display', serif; color: #fff; white-space: nowrap;
+            backdrop-filter: blur(4px);
         }
 
         .album-title {
-            margin-top: 18px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.4rem;
+            margin-top: 18px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.5rem;
         }
 
         .msg-btn { 
             position: relative;
-            background: rgba(255, 77, 148, 0.1); 
-            color: #fff; border: 1px solid rgba(255, 77, 148, 0.5); padding: 14px 30px; margin: 10px; 
+            background: rgba(255, 77, 148, 0.12); 
+            color: #fff; border: 1px solid rgba(255, 77, 148, 0.5); padding: 14px 32px; margin: 10px; 
             border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.15rem; 
-            transition: background 0.2s ease, transform 0.2s ease; 
+            transition: all 0.3s ease; 
             transform: translateZ(0);
         }
         
         .msg-btn:hover { 
             background: linear-gradient(135deg, #ff4d94, #da70d6); 
-            transform: translateY(-2px); 
+            transform: translateY(-3px); 
             border-color: #fff;
+            box-shadow: 0 6px 20px rgba(255, 77, 148, 0.4);
         }
 
         #msg-display { 
@@ -349,8 +363,8 @@
         .album-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: rgba(5, 1, 4, 0.88); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
             opacity: 0; pointer-events: none; transition: opacity 0.3s ease; 
             padding: 15px;
@@ -358,15 +372,14 @@
         }
         .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* تعديل حجم الشاشة العائمة لتصبح أصغر وأفخم */
         .modal-card {
             background: rgba(22, 6, 20, 0.96);
-            border: 1px solid rgba(255, 77, 148, 0.7);
-            padding: 30px 22px; 
-            border-radius: 28px; 
+            border: 1px solid rgba(255, 77, 148, 0.6);
+            padding: 32px 24px; 
+            border-radius: 30px; 
             width: 100%;
-            max-width: 440px; 
-            box-shadow: 0 20px 45px rgba(0,0,0,0.85), 0 0 25px rgba(255, 77, 148, 0.2);
+            max-width: 480px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255, 77, 148, 0.25);
             text-align: center; 
             transform: scale(0.92); 
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -374,7 +387,7 @@
         }
 
         .album-modal-card {
-            background: rgba(24, 6, 21, 0.95);
+            background: rgba(24, 6, 21, 0.96);
             border: 1px solid #ff4d94;
             padding: 40px 25px; border-radius: 35px; width: 100%;
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
@@ -388,111 +401,118 @@
         }
 
         .close-modal-btn { 
-            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none; padding: 12px 40px; 
+            background: linear-gradient(135deg, #ff4d94, #da70d6); color: #fff; border: none; padding: 12px 42px; 
             font-family: 'Playfair Display', serif; font-size: 1.1rem; border-radius: 40px; 
             cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; 
             margin-top: 15px;
             transform: translateZ(0);
         }
-        .close-modal-btn:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(255,77,148,0.4); }
+        .close-modal-btn:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(255,77,148,0.5); }
 
         .polaroid, .video-polaroid { 
             background: rgba(255,255,255,0.03); 
             border: 1px solid rgba(255, 77, 148, 0.3); 
-            padding: 15px 15px 25px 15px; border-radius: 12px; width: 280px; 
+            padding: 15px 15px 25px 15px; border-radius: 14px; width: 280px; 
         }
         
         .floating-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 998; }
 
         .floating-bubble { 
-            background: rgba(24, 8, 20, 0.85); 
-            border: 1px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; 
-            cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
+            background: rgba(24, 8, 20, 0.9); 
+            border: 1px solid rgba(255, 77, 148, 0.6); color: #fff; padding: 14px 24px; border-radius: 35px; 
+            cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.5); 
             font-family: 'Playfair Display', serif; font-size: 1.1rem; 
-            display: flex; align-items: center; gap: 12px; transition: transform 0.2s ease, background 0.2s ease;
+            display: flex; align-items: center; gap: 12px; transition: all 0.3s ease;
             transform: translateZ(0);
+            backdrop-filter: blur(8px);
         }
-        .floating-bubble:hover { transform: translateY(-3px); background: rgba(255, 77, 148, 0.2); border-color: #ff4d94; }
+        .floating-bubble:hover { transform: translateY(-4px); background: rgba(255, 77, 148, 0.25); border-color: #ff4d94; box-shadow: 0 10px 30px rgba(255,77,148,0.4); }
 
-        /* تنسيق صندوق التعليقات */
+        /* تنسيق صندوق التعليقات المطور */
         .comment-box-wrapper {
             margin-top: 20px;
-            background: rgba(18, 6, 15, 0.6);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 18px;
-            padding: 16px;
+            background: rgba(18, 6, 15, 0.7);
+            border: 1px solid rgba(255, 77, 148, 0.35);
+            border-radius: 20px;
+            padding: 18px;
             text-align: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
 
         .comment-input, .password-input {
             width: 100%;
-            background: rgba(10, 3, 12, 0.9);
-            border: 1px solid rgba(255, 77, 148, 0.4);
+            background: rgba(10, 3, 12, 0.95);
+            border: 1px solid rgba(255, 77, 148, 0.45);
             border-radius: 14px;
-            padding: 12px 15px;
+            padding: 14px 16px;
             color: #fff;
             font-family: 'Playfair Display', serif;
-            font-size: 1rem;
+            font-size: 1.05rem;
             resize: none;
             outline: none;
             text-align: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .comment-input:focus, .password-input:focus {
             border-color: #ff4d94;
-            box-shadow: 0 0 10px rgba(255, 77, 148, 0.3);
+            box-shadow: 0 0 15px rgba(255, 77, 148, 0.4);
         }
 
         .comment-submit-btn, .password-submit-btn {
             background: linear-gradient(135deg, #ff4d94, #da70d6);
             color: #fff;
             border: none;
-            padding: 10px 28px;
-            border-radius: 20px;
+            padding: 10px 30px;
+            border-radius: 22px;
             font-family: 'Playfair Display', serif;
-            font-size: 0.98rem;
+            font-size: 1rem;
             cursor: pointer;
-            margin-top: 10px;
-            transition: transform 0.2s ease;
+            margin-top: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .password-submit-btn:hover, .comment-submit-btn:hover { transform: scale(1.03); }
+        .password-submit-btn:hover, .comment-submit-btn:hover { transform: scale(1.04); box-shadow: 0 4px 15px rgba(255,77,148,0.4); }
 
         .saved-comment-display {
             margin-top: 12px;
-            padding: 12px 15px;
-            background: rgba(255, 77, 148, 0.08);
-            border: 1px solid rgba(255, 77, 148, 0.3);
-            border-radius: 12px;
+            padding: 14px 18px;
+            background: rgba(255, 77, 148, 0.1);
+            border: 1px solid rgba(255, 77, 148, 0.4);
+            border-radius: 14px;
             font-family: 'Playfair Display', serif;
             color: #ffd1dc;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             text-align: center;
             word-break: break-word;
         }
 
-        /* تنسيق تحسين الخط العربي للرسالة ليكون فاخراً وجذاباً */
+        /* تنسيق الخط العربي المميز للرسالة بجمالية فائقة */
         #modal-text-content {
-            font-family: 'Amiri', serif;
-            color: #ffd1dc;
-            font-size: 1.25rem;
-            line-height: 1.8;
+            font-family: 'Amiri', 'Cairo', serif;
+            color: #ffe4e6;
+            font-size: 1.3rem;
+            line-height: 2.0;
             margin-bottom: 20px;
             text-align: right;
             direction: rtl;
-            max-height: 50vh;
+            max-height: 52vh;
             overflow-y: auto;
-            padding-right: 8px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 77, 148, 0.15);
+            text-shadow: 0 0 10px rgba(255, 77, 148, 0.2);
         }
 
         #modal-text-content::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         #modal-text-content::-webkit-scrollbar-thumb {
-            background: rgba(255, 77, 148, 0.5);
+            background: linear-gradient(135deg, #ff4d94, #da70d6);
             border-radius: 10px;
         }
 
-        footer { padding: 35px; color: #a8a8a8; font-family: 'Playfair Display', serif; font-size: 0.9rem; text-align: center; position: relative; z-index: 3; }
+        footer { padding: 35px; color: #a8a8a8; font-family: 'Playfair Display', serif; font-size: 0.95rem; text-align: center; position: relative; z-index: 3; }
     </style>
 </head>
 <body>
@@ -556,8 +576,8 @@
 
     <!-- نافذة طلب كلمة المرور -->
     <div class="modal-overlay" id="passwordModalOverlay" onclick="closePasswordModal(event)">
-        <div class="modal-card" style="border-color: rgba(255, 77, 148, 0.6);" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.2rem; margin-bottom:8px;">Secret Space</h3>
+        <div class="modal-card" style="border-color: rgba(255, 77, 148, 0.7);" onclick="event.stopPropagation()">
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.4rem; margin-bottom:8px;">Secret Space</h3>
             <p style="font-family:'Playfair Display', serif; color:#ffd1dc; font-size:1.05rem; margin-bottom:18px;">Please enter the secret password to unlock:</p>
             <input type="password" id="secretPasswordInput" class="password-input" placeholder="Enter password..." style="text-align: center; margin-bottom: 10px;">
             <p id="passwordErrorMsg" style="font-family: 'Playfair Display', serif; color: #ff4d94; font-size: 1rem; min-height: 22px; margin-bottom: 10px; font-style: italic;"></p>
@@ -570,22 +590,22 @@
     <!-- الشاشة العائمة المصغرة والأنيقة للرسالة والتعليق -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3rem; margin-bottom:12px;">Forever Together</h3>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:3.2rem; margin-bottom:14px;">Forever Together</h3>
             <p id="modal-text-content"></p>
             
             <div class="comment-box-wrapper" id="commentSectionContainer">
                 <div id="commentInputArea">
-                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.95rem; margin-bottom:8px;">Leave a special message for Aya (once only):</p>
-                    <textarea id="userCommentInput" class="comment-input" rows="2" placeholder="Write a sweet word for Aya..."></textarea>
+                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.98rem; margin-bottom:8px;">Leave a special message (once only):</p>
+                    <textarea id="userCommentInput" class="comment-input" rows="2" placeholder="Write a sweet note..."></textarea>
                     <button class="comment-submit-btn" onclick="saveUserComment()">Save Message</button>
                 </div>
                 <div id="commentDisplayArea" style="display:none;">
-                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.9rem; margin-bottom:5px;">Your saved note for Aya:</p>
+                    <p style="font-family:'Playfair Display', serif; color:#ff8fa3; font-size:0.92rem; margin-bottom:5px;">Your saved note:</p>
                     <div id="savedCommentText" class="saved-comment-display"></div>
                 </div>
             </div>
 
-            <button class="close-modal-btn" style="margin-top: 18px;" onclick="closeFloatingModal()">Close</button>
+            <button class="close-modal-btn" style="margin-top: 20px;" onclick="closeFloatingModal()">Close</button>
         </div>
     </div>
 
@@ -649,7 +669,7 @@
         <h2>Secret Notes</h2>
         <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place, Aya.')">About Us</button>
         <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
-        <button class="msg-btn" onclick="promptSecretNote()">Our Deepest Secret</button>
+        <button class="msg-btn" onclick="promptSecretNote()">Whispers of My Heart</button>
         <div id="msg-display"></div>
     </section>
 
@@ -839,7 +859,7 @@
                 document.getElementById('passwordModalOverlay').classList.remove('active');
                 openSecretContent();
             } else {
-                errorMsg.innerText = "You are not Aya";
+                errorMsg.innerText = "You are not authorized";
             }
         }
 
@@ -850,12 +870,12 @@
         }
 
         function openSecretContent() {
-            // النص العربي الخاص بك محمي كما هو بدون تغيير
+            // النص العربي الخاس بك محمي بالكامل دون تعديل
             const customMsg = "آية حبيبتي وزوجتي ونور عيني الموقع ده لينا احنا ذكرة حلوة بينا انتِ اغلي حد في حياتي واحسن حد فيها، فرحتك من فرحتي وحزنك يوجعني الله يديم الود والمحبة بينا انتِ نعمة كبيرة اوي ربنا ادهاني دايما جنبي ومعايا الدنيا كلها ماتكفيكي عندي، انتِ البنت الي نفسي اكمل حياتي معاها ولو محصلش نصيب انتِ حبي الأول والأخير صدق ربنا يرزقني بواحدة زيك ويرزقك بأبن الحلال يارب، بحبك ياروح قلبي ♥️💋🫂";
             
             const contentEl = document.getElementById('modal-text-content');
             contentEl.innerText = customMsg;
-            contentEl.style.fontFamily = "'Amiri', serif";
+            contentEl.style.fontFamily = "'Amiri', 'Cairo', serif";
             contentEl.style.direction = "rtl";
             contentEl.style.textAlign = "right";
 
@@ -866,7 +886,7 @@
         function saveUserComment() {
             const commentText = document.getElementById('userCommentInput').value.trim();
             if (commentText === "") {
-                alert("Please write a message for Aya first.");
+                alert("Please write a message first.");
                 return;
             }
             localStorage.setItem('aya_user_custom_comment', commentText);
@@ -891,7 +911,7 @@
         }
 
         const floatingMsgs = [
-            'Aya, you make my heart skip a beat every single day.',
+            'You make my heart skip a beat every single day.',
             'No matter where I go, my thoughts always lead back to you.',
             'You are the best thing that has ever happened to me.',
             'My love for you grows stronger with every second.'
