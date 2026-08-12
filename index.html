@@ -13,14 +13,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
         html {
-            background-color: #020202; /* يمنع ظهور لون المتصفح الأبيض نهائياً عند السحب */
-            overscroll-behavior-y: none; /* يمنع تأثير الارتداد أو المطاط في الهواتف */
+            background-color: #020202;
+            overscroll-behavior-y: none;
         }
 
         body { 
             background-color: #020202;
             background: radial-gradient(circle at center, #050103 0%, #020202 100%);
-            background-attachment: fixed; /* يثبت الخلفية لتظل فخمة أثناء السكرول */
+            background-attachment: fixed;
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
             overflow-x: hidden; 
@@ -35,7 +35,7 @@
             height: 100vh;
             pointer-events: none;
             z-index: 1;
-            transform: translateZ(0); /* تسريع عبر GPU */
+            transform: translateZ(0);
         }
 
         #intro-screen { 
@@ -225,11 +225,42 @@
 
         .album-modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.4rem; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,77,148,0.5); }
         .modal-media-grid { display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-bottom: 30px; padding: 10px; }
-        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 360px; transition: transform 0.3s ease; }
+        
+        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; transition: transform 0.3s ease; }
         .gallery-item:hover { transform: translateY(-8px); }
+        
         .modal-media { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid rgba(255, 77, 148, 0.3); transition: border-color 0.3s ease, box-shadow 0.3s ease; transform: translateZ(0); }
         .gallery-item:hover .modal-media { border-color: rgba(255, 77, 148, 0.8); box-shadow: 0 15px 45px rgba(255, 77, 148, 0.3); }
-        .gallery-item p { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.25rem; margin: 0; text-shadow: 0 0 10px rgba(255,209,220,0.3); }
+
+        /* Dock Design حاويات الـ Dock الزجاجية الاحترافية */
+        .image-dock {
+            background: linear-gradient(135deg, rgba(28, 10, 24, 0.85), rgba(14, 4, 15, 0.95));
+            border: 1px solid rgba(255, 77, 148, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 10px 22px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 12px rgba(255,77,148,0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            transition: all 0.25s ease;
+        }
+        .gallery-item:hover .image-dock {
+            border-color: rgba(255, 77, 148, 0.9);
+            box-shadow: 0 10px 30px rgba(255,77,148,0.25), inset 0 0 15px rgba(255,77,148,0.2);
+            transform: scale(1.02);
+        }
+        .image-dock p { 
+            font-family: 'Playfair Display', serif; 
+            color: #ffd1dc; 
+            font-size: 1.1rem; 
+            margin: 0; 
+            text-shadow: 0 0 8px rgba(255,209,220,0.3);
+            font-style: italic;
+        }
 
         .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .msg-btn:hover { background: #ff4d94; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,77,148,0.4); }
@@ -308,39 +339,51 @@
             <div class="modal-media-grid">
                 <div class="gallery-item">
                     <img src="my-photo1.jpg" class="modal-media" alt="Mohie 1" loading="lazy">
-                    <p>The beginning of everything</p>
+                    <div class="image-dock">
+                        <p>My Safe Haven</p>
+                    </div>
                 </div>
                 <div class="gallery-item">
                     <img src="my-photo2.jpg" class="modal-media" alt="Mohie 2" loading="lazy">
-                    <p>Unforgettable days</p>
+                    <div class="image-dock">
+                        <p>Thinking of You</p>
+                    </div>
                 </div>
                 <div class="gallery-item">
                     <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
-                    <p>My special moments</p>
+                    <div class="image-dock">
+                        <p>Waiting for Aya</p>
+                    </div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
         </div>
     </div>
 
-    <!-- Girl's Album Modal -->
+    <!-- Girl's Album Modal (مع تطبيق الـ Dock على صور أبا أيضاً) -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
             <div class="modal-media-grid">
                 <div class="gallery-item">
                     <img src="my-love.jpg" class="modal-media" alt="Aya" loading="lazy">
-                    <p>Your lovely smile</p>
+                    <div class="image-dock">
+                        <p>Your lovely smile</p>
+                    </div>
                 </div>
                 <div class="gallery-item">
                     <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
-                    <p>The light of my days</p>
+                    <div class="image-dock">
+                        <p>The light of my days</p>
+                    </div>
                 </div>
                 <div class="gallery-item">
                     <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
                     </video>
-                    <p>Precious moments</p>
+                    <div class="image-dock">
+                        <p>Precious moments</p>
+                    </div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
