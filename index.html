@@ -109,11 +109,12 @@
         
         .aya-title .me-text { font-size: 3.8rem; color: #ffd1dc; -webkit-text-fill-color: #ffd1dc; }
 
+        /* تحسين الأداء عبر إزالة الخواص الثقيلة */
         .glass-section { 
-            background: rgba(22, 7, 18, 0.88); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+            background: rgba(20, 6, 17, 0.94);
             border: 1px solid rgba(255, 77, 148, 0.25); box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             width: 90%; max-width: 850px; margin: 40px auto; padding: 35px 22px; border-radius: 28px; z-index: 3; 
-            opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity 0.4s ease, transform 0.4s ease; 
+            opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity 0.3s ease, transform 0.3s ease; 
             position: relative; will-change: opacity, transform; display: flex; flex-direction: column; align-items: center;
         }
 
@@ -125,10 +126,9 @@
             text-shadow: 0 0 10px rgba(255, 143, 163, 0.3);
         }
 
-        /* تعديل تصميم قسم المسافة ليصبح عمودياً والقلب في المنتصف تماماً */
         .map-container-box {
             position: relative; width: 100%; max-width: 450px; margin: 15px auto 10px auto;
-            background: rgba(14, 4, 12, 0.7); border: 1px solid rgba(255, 77, 148, 0.25);
+            background: rgba(14, 4, 12, 0.85); border: 1px solid rgba(255, 77, 148, 0.25);
             border-radius: 22px; padding: 25px 16px;
         }
 
@@ -140,41 +140,33 @@
         .country-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #ff4d94; font-weight: 600; }
         .country-desc { font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: #ffd1dc; opacity: 0.9; }
         
+        /* شريط المسافة الجديد النابض بدون دائرة حول القلب */
         .heart-bridge-vertical { 
-            display: flex; align-items: center; justify-content: center; position: relative; height: 50px; width: 100%;
+            display: flex; align-items: center; justify-content: center; position: relative; height: 75px; width: 100%; margin: 6px 0;
         }
         
         .bridge-line-v {
-            width: 2px; height: 100%;
-            background: linear-gradient(180deg, transparent, rgba(255, 77, 148, 0.6), transparent);
-            position: absolute; left: 50%; transform: translateX(-50%); overflow: hidden;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, #ff4d94, #da70d6, #ff4d94);
+            position: absolute; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255, 77, 148, 0.8);
+            animation: stripPulse 1.8s ease-in-out infinite alternate;
         }
 
-        .traveling-light-v {
-            width: 100%; height: 20px;
-            background: linear-gradient(180deg, transparent, #fff, transparent);
-            position: absolute; top: 0; left: 0;
-            animation: travelLineV 2s ease-in-out infinite;
-        }
-
-        @keyframes travelLineV {
-            0% { top: -20px; opacity: 0; }
-            50% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
+        @keyframes stripPulse {
+            0% { opacity: 0.4; box-shadow: 0 0 4px rgba(255, 77, 148, 0.4); }
+            100% { opacity: 1; box-shadow: 0 0 14px rgba(255, 77, 148, 0.9); }
         }
 
         .beating-bridge-heart {
-            width: 36px; height: 36px; fill: #ff4d94; z-index: 2;
-            filter: drop-shadow(0 0 8px rgba(255, 77, 148, 0.9));
+            width: 34px; height: 34px; fill: #ff4d94; z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(255, 77, 148, 0.9));
             animation: heartBeat 1.2s ease-in-out infinite;
-            background: rgba(14, 4, 12, 0.9);
-            border-radius: 50%;
-            padding: 2px;
         }
 
         @keyframes heartBeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.25); }
+            50% { transform: scale(1.28); }
         }
 
         .distance-badge-box {
@@ -239,13 +231,12 @@
 
         .album-modal-overlay, .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(4, 1, 3, 0.85); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            background: rgba(4, 1, 3, 0.88);
             display: flex; justify-content: center; align-items: center; z-index: 10000; 
             opacity: 0; pointer-events: none; transition: opacity 0.25s ease; padding: 12px;
         }
         .album-modal-overlay.active, .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* تحسين مظهر نافذة كلمة السر والرسائل المنبثقة UI Styling */
         .modal-card {
             background: linear-gradient(145deg, rgba(25, 8, 22, 0.98), rgba(12, 3, 11, 0.98));
             border: 1px solid rgba(255, 77, 148, 0.5);
@@ -277,10 +268,10 @@
         .floating-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 998; }
 
         .floating-bubble { 
-            background: rgba(20, 6, 17, 0.92); border: 1px solid rgba(255, 77, 148, 0.6); color: #fff; 
+            background: rgba(20, 6, 17, 0.95); border: 1px solid rgba(255, 77, 148, 0.6); color: #fff; 
             padding: 12px 20px; border-radius: 30px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.5); 
             font-family: 'Playfair Display', serif; font-size: 1rem; display: flex; align-items: center; gap: 10px; 
-            transition: all 0.25s ease; backdrop-filter: blur(3px);
+            transition: all 0.25s ease;
         }
         .floating-bubble:hover { transform: translateY(-3px); background: rgba(255, 77, 148, 0.25); border-color: #ff4d94; }
 
@@ -382,7 +373,6 @@
         </div>
     </div>
 
-    <!-- نافذة إدخال كلمة السر المحسنة UI -->
     <div class="modal-overlay" id="passwordModalOverlay" onclick="closePasswordModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
             <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:6px;">Secret Space</h3>
@@ -395,10 +385,10 @@
         </div>
     </div>
 
-    <!-- نافذة عرض الرسائل (تم تعديل العنوان لـ My Queen Aya) -->
+    <!-- تم التعديل إلى Forever Together -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeFloatingModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:12px;">My Queen Aya</h3>
+            <h3 style="font-family: 'Great Vibes'; color:#ff4d94; font-size:2.8rem; margin-bottom:12px;">Forever Together</h3>
             <p id="modal-text-content"></p>
             
             <div class="comment-box-wrapper" id="commentSectionContainer">
@@ -437,7 +427,7 @@
         </h1>
     </div>
 
-    <!-- قسم المسافة بالتصميم العمودي والقلب في المنتصف تماماً -->
+    <!-- قسم المسافة المحدث: شريط ضوئي ينبض والقلب في الوسط مباشرة -->
     <section class="glass-section">
         <h2>Our Distance</h2>
         <p class="counter-desc">No matter the miles between us, our hearts beat as one</p>
@@ -448,7 +438,7 @@
                     <span class="country-desc">My Heart</span>
                 </div>
                 <div class="heart-bridge-vertical">
-                    <div class="bridge-line-v"><div class="traveling-light-v"></div></div>
+                    <div class="bridge-line-v"></div>
                     <svg class="beating-bridge-heart" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
@@ -522,7 +512,8 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = window.innerWidth > 768 ? 20 : 10;
+        // تقليل النقاط لضمان سلاسة حركة الموقع وسرعته
+        const numberOfParticles = window.innerWidth > 768 ? 12 : 8;
 
         class Particle {
             constructor() {
@@ -610,7 +601,8 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 400);
             
-            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 220); }
+            // زيادة مدة إنشاء الأشكال لتسريع الاستجابة وعدم إرهاق ذاكرة الهاتف
+            if(!fallingInterval) { fallingInterval = setInterval(createFallingElement, 600); }
         }
 
         function openAlbumModal(modalId, videoId) {
@@ -647,6 +639,7 @@
             }
         }
 
+        // تم تحديث الرسالة هنا إلى you are not Aya
         function verifySecretPassword() {
             let password = document.getElementById('secretPasswordInput').value;
             let errorMsg = document.getElementById('passwordErrorMsg');
@@ -656,7 +649,7 @@
                 document.getElementById('passwordModalOverlay').classList.remove('active');
                 openSecretContent();
             } else {
-                errorMsg.innerText = "You are not authorized";
+                errorMsg.innerText = "you are not Aya";
             }
         }
 
@@ -757,7 +750,10 @@
         const fallingTemplates = [svgHeart1, svgHeart2, svgKiss, svgDoubleHeart, svgSparkle];
         const elementsContainer = document.getElementById('elements-container');
 
+        // تحديد حد أقصى للقلوب المتساقطة لتجنب ثقل الصفحة
         function createFallingElement() {
+            if (elementsContainer.children.length > 12) return;
+
             const template = fallingTemplates[Math.floor(Math.random() * fallingTemplates.length)];
             const el = template.cloneNode(true);
             el.className = 'falling-element';
