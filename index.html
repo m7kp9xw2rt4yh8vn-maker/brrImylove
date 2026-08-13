@@ -98,12 +98,31 @@
             position: fixed; top: -50px; 
             animation: fall linear infinite; z-index: 2; pointer-events: none; 
             opacity: 0;
-            will-change: transform;
         }
         
         @keyframes fall { 
             0% { transform: translate3d(0, -5vh, 0) rotate(0deg); opacity: 0.7; } 
             100% { transform: translate3d(0, 110vh, 0) rotate(360deg); opacity: 0; } 
+        }
+
+        /* تأثير قطرات الندى الماسية الجديدة */
+        .diamond-drop {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9), 0 0 15px 4px rgba(224, 255, 255, 0.7);
+            animation: diamondFall linear infinite;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes diamondFall {
+            0% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+            20% { opacity: 1; transform: translateY(20vh) scale(1.2); box-shadow: 0 0 12px 3px rgba(255, 255, 255, 1); }
+            80% { opacity: 0.8; transform: translateY(80vh) scale(1); }
+            100% { transform: translateY(110vh) scale(0.5); opacity: 0; }
         }
 
         .cascade-container {
@@ -120,7 +139,6 @@
             white-space: nowrap; 
             animation: lightCascade 6s ease-in-out infinite; 
             opacity: 0;
-            will-change: transform, opacity;
             filter: drop-shadow(0 0 10px rgba(255,77,148,0.4));
         }
 
@@ -150,17 +168,17 @@
             text-shadow: 0 0 25px rgba(255,209,220,0.6);
         }
 
+        /* تحسين الأداء: تقليل الـ blur و ازالة will-change الثقيلة للبطاقات */
         .glass-section { 
             background: linear-gradient(135deg, rgba(35, 12, 28, 0.75), rgba(12, 4, 15, 0.85)); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             border: 1px solid rgba(255, 77, 148, 0.3); 
             width: 90%; max-width: 900px; 
             margin: 45px auto; padding: 45px 30px; border-radius: 35px; z-index: 3; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,77,148,0.05); 
             opacity: 0; transform: translate3d(0, 25px, 0); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
             position: relative;
-            will-change: transform, opacity;
         }
         .glass-section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         
@@ -188,7 +206,7 @@
         
         .heart-bridge { display: flex; flex-direction: column; align-items: center; position: relative; height: 40px; justify-content: center; }
         .bridge-line { width: 2px; height: 100%; background: linear-gradient(180deg, transparent, rgba(255, 77, 148, 0.8), transparent); position: absolute; left: 50%; transform: translateX(-50%); }
-        .beating-bridge-heart { width: 38px; height: 38px; fill: #ff4d94; filter: drop-shadow(0 0 10px rgba(255,77,148,0.8)); z-index: 2; animation: simplePulse 2s ease-in-out infinite; will-change: transform; }
+        .beating-bridge-heart { width: 38px; height: 38px; fill: #ff4d94; filter: drop-shadow(0 0 10px rgba(255,77,148,0.8)); z-index: 2; animation: simplePulse 2s ease-in-out infinite; }
 
         @keyframes simplePulse {
             0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,77,148,0.6)); }
@@ -204,17 +222,16 @@
         .counter-desc { font-family: 'Playfair Display', serif; font-style: italic; color: #e9d5ff; font-size: 1.25rem; margin-top: 12px; line-height: 1.5; text-align: center; }
 
         .albums-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
-        .album-card { background: linear-gradient(135deg, rgba(25, 10, 20, 0.9), rgba(12, 4, 15, 0.95)); border: 1px solid rgba(255, 77, 148, 0.35); box-shadow: 0 10px 25px rgba(0,0,0,0.4); padding: 18px; border-radius: 28px; width: 310px; cursor: pointer; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease; will-change: transform; }
+        .album-card { background: linear-gradient(135deg, rgba(25, 10, 20, 0.9), rgba(12, 4, 15, 0.95)); border: 1px solid rgba(255, 77, 148, 0.35); box-shadow: 0 10px 25px rgba(0,0,0,0.4); padding: 18px; border-radius: 28px; width: 310px; cursor: pointer; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
         .album-card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(255, 77, 148, 0.9); box-shadow: 0 15px 35px rgba(255,77,148,0.25); }
         
-        .album-cover-container { width: 100%; height: 250px; border-radius: 20px; overflow: hidden; position: relative; transform: translateZ(0); }
-        .album-cover-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; will-change: transform; }
+        .album-cover-container { width: 100%; height: 250px; border-radius: 20px; overflow: hidden; position: relative; }
+        .album-cover-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
         .album-card:hover .album-cover-container img { transform: scale(1.06); }
         
         .album-overlay-badge { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255, 77, 148, 0.5); font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #ffd1dc; white-space: nowrap; }
         .album-title { margin-top: 15px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255,143,163,0.3); }
 
-        /* إضافة تنسيقات بطاقات الهدايا */
         .gifts-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-top: 35px; }
         .gift-card { background: rgba(255, 77, 148, 0.05); border: 1px solid rgba(255, 77, 148, 0.25); border-radius: 28px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 180px; height: 200px; cursor: pointer; }
         .gift-card:hover { transform: translateY(-10px) scale(1.05); border-color: rgba(255, 77, 148, 0.7); box-shadow: 0 15px 40px rgba(255,77,148,0.3); }
@@ -222,10 +239,10 @@
         .gift-card:hover svg { transform: scale(1.1) rotate(2deg); }
         .gift-name { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.1rem; font-style: italic; text-shadow: 0 0 10px rgba(255,209,220,0.4); }
 
-        .album-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10001; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; padding: 15px; will-change: opacity; }
+        .album-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10001; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; padding: 15px; }
         .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-        .album-modal-card { background: linear-gradient(135deg, #180615, #0d0210); border: 1.5px solid #ff4d94; padding: 35px 20px; border-radius: 35px; width: 100%; max-width: 950px; max-height: 92vh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; box-shadow: 0 0 45px rgba(255, 77, 148, 0.4); text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; scrollbar-width: thin; scrollbar-color: #ff4d94 transparent; }
+        .album-modal-card { background: linear-gradient(135deg, #180615, #0d0210); border: 1.5px solid #ff4d94; padding: 35px 20px; border-radius: 35px; width: 100%; max-width: 950px; max-height: 92vh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; box-shadow: 0 0 45px rgba(255, 77, 148, 0.4); text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); scrollbar-width: thin; scrollbar-color: #ff4d94 transparent; }
         .album-modal-card::-webkit-scrollbar { width: 8px; }
         .album-modal-card::-webkit-scrollbar-track { background: rgba(24, 6, 21, 0.5); border-radius: 10px; }
         .album-modal-card::-webkit-scrollbar-thumb { background: #ff4d94; border-radius: 10px; }
@@ -237,41 +254,34 @@
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; transition: transform 0.3s ease; }
         .gallery-item:hover { transform: translateY(-8px); }
         
-        .modal-media { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid rgba(255, 77, 148, 0.3); transition: border-color 0.3s ease, box-shadow 0.3s ease; transform: translateZ(0); }
+        .modal-media { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid rgba(255, 77, 148, 0.3); transition: border-color 0.3s ease, box-shadow 0.3s ease; }
         .gallery-item:hover .modal-media { border-color: rgba(255, 77, 148, 0.8); box-shadow: 0 15px 45px rgba(255, 77, 148, 0.3); }
 
         .image-dock {
             background: linear-gradient(135deg, rgba(28, 10, 24, 0.85), rgba(14, 4, 15, 0.95));
             border: 1px solid rgba(255, 77, 148, 0.4);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             padding: 10px 22px;
             border-radius: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 12px rgba(255,77,148,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             width: 100%;
-            transition: all 0.25s ease;
-        }
-        .gallery-item:hover .image-dock {
-            border-color: rgba(255, 77, 148, 0.9);
-            box-shadow: 0 10px 30px rgba(255,77,148,0.25), inset 0 0 15px rgba(255,77,148,0.2);
-            transform: scale(1.02);
         }
         .image-dock p { 
             font-family: 'Playfair Display', serif; 
             color: #ffd1dc; 
             font-size: 1.1rem; 
             margin: 0; 
-            text-shadow: 0 0 8px rgba(255,209,220,0.3);
             font-style: italic;
         }
 
         .msg-btn { background: rgba(255, 77, 148, 0.12); color: #fff; border: 1px solid rgba(255, 77, 148, 0.4); padding: 14px 28px; margin: 8px; border-radius: 30px; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.1rem; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .msg-btn:hover { background: #ff4d94; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,77,148,0.4); }
-        #msg-display { margin-top: 20px; font-size: 1.35rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; text-shadow: 0 0 10px rgba(255,209,220,0.3); min-height: 40px; }
+        #msg-display { margin-top: 20px; font-size: 1.35rem; color: #ffd1dc; font-style: italic; font-family: 'Playfair Display', serif; padding: 0 10px; min-height: 40px; }
 
         .floating-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; align-items: flex-end; }
         .floating-bubble { background: rgba(24, 8, 20, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1.5px solid rgba(255, 77, 148, 0.5); color: #fff; padding: 14px 24px; border-radius: 35px; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); font-family: 'Playfair Display', serif; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -279,9 +289,9 @@
         .music-bubble { border-color: rgba(168, 85, 247, 0.6); background: rgba(24, 12, 34, 0.85); }
         .music-bubble:hover { border-color: #a855f7; box-shadow: 0 10px 30px rgba(168,85,247,0.3); }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; will-change: opacity; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-card { background: linear-gradient(135deg, #180615, #0d0210); border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+        .modal-card { background: linear-gradient(135deg, #180615, #0d0210); border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 35px; width: 90%; max-width: 440px; box-shadow: 0 0 35px rgba(255, 77, 148, 0.3); text-align: center; transform: scale(0.92); transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
         .modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.2rem; margin-bottom: 18px; line-height: 1.2; text-shadow: 0 0 15px rgba(255,77,148,0.4); }
@@ -299,7 +309,7 @@
 
         .cinematic-headphone { width: 50px; height: 50px; fill: #d8b4fe; margin-bottom: 8px; filter: drop-shadow(0 0 8px rgba(216,180,254,0.6)); }
         .sound-waves { display: flex; gap: 3.5px; align-items: flex-end; height: 16px; }
-        .wave-bar { width: 3.5px; background: linear-gradient(to top, #ff4d94, #a855f7); border-radius: 3px; animation: soundWaveAnim 0.8s ease-in-out infinite alternate; will-change: transform; }
+        .wave-bar { width: 3.5px; background: linear-gradient(to top, #ff4d94, #a855f7); border-radius: 3px; animation: soundWaveAnim 0.8s ease-in-out infinite alternate; }
         .wave-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
         .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
         .wave-bar:nth-child(3) { height: 10px; animation-delay: 0.5s; }
@@ -365,11 +375,6 @@
             height: 70px;
             margin-bottom: 12px;
             direction: rtl;
-            transition: all 0.2s ease;
-        }
-        .comment-input:focus {
-            border-color: #ff4d94;
-            box-shadow: 0 0 12px rgba(255,77,148,0.3);
         }
         .comment-submit-btn {
             background: linear-gradient(135deg, #ff4d94, #9333ea);
@@ -380,12 +385,7 @@
             font-size: 1rem;
             border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
             box-shadow: 0 4px 15px rgba(255,77,148,0.4);
-        }
-        .comment-submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255,77,148,0.6);
         }
         .saved-comment-display {
             background: rgba(255, 77, 148, 0.08);
@@ -479,7 +479,7 @@
         </div>
     </div>
 
-    <!-- Chat Album Modal (Contains 30+ Screenshots/Chat Photos) -->
+    <!-- Chat Album Modal -->
     <div class="album-modal-overlay" id="chatAlbumModal" onclick="closeAlbumModal('chatAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Chat Memories Album</h3>
@@ -596,7 +596,7 @@
         <div id="msg-display"></div>
     </section>
 
-    <!-- البطاقة الجديدة: الدبدوب والقطة والورد -->
+    <!-- البطاقة الجديدة: الدبدوب والقطة والورد المحسن بقطرات الندى الماسية -->
     <section class="glass-section">
         <h2>Little Aya's Touches</h2>
         <p class="counter-desc">Just some small tokens of my love</p>
@@ -628,17 +628,35 @@
                     <text x="32" y="58" font-family="'Great Vibes', cursive" font-size="16" fill="#ff4d94" text-anchor="middle" style="text-shadow: 0 0 5px rgba(255,77,148,0.5);">Lily</text>
                 </svg>
             </div>
-            <!-- Red Rose Bouquet -->
+            <!-- Red Rose Bouquet (الإصدار الواقعي مع قطرة ندى ماسية) -->
             <div class="gift-card">
                 <svg width="80" height="80" viewBox="0 0 64 64" fill="none">
-                    <path d="M32 40 Q 28 54 20 60 Q 32 58 36 50 Z" fill="#2d6a4f"/>
-                    <path d="M32 40 Q 36 54 44 60 Q 32 58 28 50 Z" fill="#2d6a4f"/>
-                    <circle cx="32" cy="24" r="12" fill="#d00000"/>
-                    <path d="M 32 18 Q 38 24 32 30 Q 26 24 32 18 Z" fill="#9d0208"/>
-                    <circle cx="22" cy="32" r="10" fill="#d00000"/>
-                    <path d="M 22 26 Q 27 32 22 38 Q 17 32 22 26 Z" fill="#9d0208"/>
-                    <circle cx="42" cy="32" r="10" fill="#d00000"/>
-                    <path d="M 42 26 Q 47 32 42 38 Q 37 32 42 26 Z" fill="#9d0208"/>
+                    <defs>
+                        <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ff3366"/>
+                            <stop offset="50%" stop-color="#d00000"/>
+                            <stop offset="100%" stop-color="#660000"/>
+                        </linearGradient>
+                        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#40916c"/>
+                            <stop offset="100%" stop-color="#1b4332"/>
+                        </linearGradient>
+                        <filter id="diamondGlow">
+                            <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <path d="M32 42 Q 22 55 16 58 Q 28 58 34 46 Z" fill="url(#leafGrad)"/>
+                    <path d="M32 42 Q 42 55 48 58 Q 36 58 30 46 Z" fill="url(#leafGrad)"/>
+                    <path d="M32 45 L 32 62" stroke="#1b4332" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M32 12 C 50 12 55 32 32 44 C 9 32 14 12 32 12 Z" fill="url(#roseGrad)"/>
+                    <path d="M32 18 C 42 18 45 30 32 38 C 19 30 22 18 32 18 Z" fill="#990000"/>
+                    <path d="M32 23 C 37 23 38 28 32 32 C 26 28 27 23 32 23 Z" fill="#4d0000"/>
+                    <circle cx="38" cy="24" r="1.5" fill="#ffffff" filter="url(#diamondGlow)"/>
+                    <path d="M 37 23 L 39 25" stroke="#e0ffff" stroke-width="0.5"/>
                 </svg>
                 <span class="gift-name">Red Bouquet</span>
             </div>
@@ -649,7 +667,6 @@
         <h2>Our Memories Albums</h2>
         <p class="counter-desc">Tap an album to explore our special moments together</p>
         <div class="albums-grid">
-            <!-- ألبوم مهيب -->
             <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
                     <img src="my-photo1.jpg" alt="Mohie's Album Cover" loading="lazy">
@@ -658,7 +675,6 @@
                 <h3 class="album-title">Mohie's Album</h3>
             </div>
 
-            <!-- ألبوم آية -->
             <div class="album-card" onclick="openAlbumModal('girlAlbumModal', 'ayaVideoElement')">
                 <div class="album-cover-container">
                     <img src="my-love.jpg" alt="Aya's Album Cover" loading="lazy">
@@ -667,10 +683,8 @@
                 <h3 class="album-title">Aya's Album</h3>
             </div>
 
-            <!-- ألبوم الشات مع الصورة المصغرة الجديدة -->
             <div class="album-card" onclick="openAlbumModal('chatAlbumModal')">
                 <div class="album-cover-container">
-                    <!-- تم تغيير اسم الصورة هنا لتكون المصغرة للألبوم -->
                     <img src="chat-thumb.jpg" alt="Chat Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
                 </div>
@@ -695,26 +709,28 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = Math.min(window.innerWidth > 768 ? 40 : 20, 50);
+        const numberOfParticles = Math.min(window.innerWidth > 768 ? 30 : 15, 40); // تقليص عدد الجسيمات لتحسين الأداء
 
-        let mouse = { x: null, y: null, radius: 130 };
-        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; }, {passive: true});
-        window.addEventListener('touchmove', e => { if(e.touches.length > 0) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; } }, {passive: true});
+        let mouse = { x: null, y: null, radius: 100 };
+        let mouseTimeout;
+        window.addEventListener('mousemove', e => {
+            if(mouseTimeout) return;
+            mouseTimeout = setTimeout(() => {
+                mouse.x = e.clientX; 
+                mouse.y = e.clientY;
+                mouseTimeout = null;
+            }, 16); // تحديد معدل لتحديث الماوس بحوالي 60 إطار في الثانية
+        }, {passive: true});
+
         window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => { resizeCanvas(); initConstellation(); }, 250);
-        });
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
                 this.color = Math.random() > 0.4 ? 'rgba(255, 77, 148, ' : 'rgba(192, 132, 252, ';
                 this.alpha = Math.random() * 0.6 + 0.3;
             }
@@ -722,17 +738,6 @@
                 this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
                 if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
-
-                if (mouse.x !== null && mouse.y !== null) {
-                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
-                    let distSq = dx * dx + dy * dy;
-                    if (distSq < mouse.radius * mouse.radius) {
-                        let distance = Math.sqrt(distSq);
-                        let force = (mouse.radius - distance) / mouse.radius;
-                        this.x -= (dx / distance) * force * 1.5;
-                        this.y -= (dy / distance) * force * 1.5;
-                    }
-                }
             }
             draw() {
                 ctx.fillStyle = this.color + this.alpha + ')';
@@ -746,7 +751,6 @@
         }
         initConstellation();
 
-        // تحسين الأداء: إيقاف الأنميشن عندما لا تكون الصفحة مرئية
         let isPageVisible = true;
         document.addEventListener("visibilitychange", () => {
             isPageVisible = !document.hidden;
@@ -764,22 +768,11 @@
                         let dx = particlesArray[i].x - particlesArray[j].x;
                         let dy = particlesArray[i].y - particlesArray[j].y;
                         let distSq = dx * dx + dy * dy;
-                        if (distSq < 12100) {
+                        if (distSq < 10000) {
                             let distance = Math.sqrt(distSq);
-                            ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
-                            ctx.lineWidth = 0.6;
+                            ctx.strokeStyle = `rgba(255, 77, 148, ${0.12 * (1 - distance / 100)})`;
+                            ctx.lineWidth = 0.5;
                             ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
-                        }
-                    }
-
-                    if (mouse.x !== null && mouse.y !== null) {
-                        let mdx = particlesArray[i].x - mouse.x; let mdy = particlesArray[i].y - mouse.y;
-                        let mdistSq = mdx * mdx + mdy * mdy;
-                        if (mdistSq < 16900) {
-                            let mdist = Math.sqrt(mdistSq);
-                            ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
                         }
                     }
                 }
@@ -790,14 +783,13 @@
 
         const siteBackgroundIcons = [
             '<svg viewBox="0 0 24 24" fill="#ff4d94" stroke="#ff4d94" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
-            '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>',
-            '<svg viewBox="0 0 24 24" fill="none" stroke="#ffb6c1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+            '<svg viewBox="0 0 24 24" fill="url(#kissGrad)"><defs><linearGradient id="kissGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M12 12c-2.8 0-5.2-1.2-6.8-3.1-.7-.8-.4-2 .6-2.3 1.4-.4 3.4-.6 6.2-.6s4.8.2 6.2.6c1 .3 1.3 1.5.6 2.3-1.6 1.9-4 3.1-6.8 3.1zm0 2.5c2.5 0 5-.4 7.2-1.3-.7 2.3-3.2 4.8-7.2 4.8s-6.5-2.5-7.2-4.8c2.2.9 4.7 1.3 7.2 1.3z" filter="drop-shadow(0 0 6px rgba(255,117,140,0.8))"/></svg>'
         ];
 
         function initStaticFallingElements() {
             const container = document.getElementById('elements-container');
             const fragment = document.createDocumentFragment();
-            const numElements = 12;
+            const numElements = 8; // تقليل عدد العناصر المتحركة لتخفيف الحمل
             
             for (let i = 0; i < numElements; i++) {
                 const el = document.createElement('div');
@@ -805,7 +797,7 @@
                 el.className = 'falling-element';
                 el.style.left = Math.random() * 95 + 'vw';
                 
-                const size = Math.floor(Math.random() * 8) + 18;
+                const size = Math.floor(Math.random() * 6) + 16;
                 el.style.width = size + 'px';
                 el.style.height = size + 'px';
                 
@@ -818,6 +810,21 @@
             container.appendChild(fragment);
         }
 
+        // دالة توليد قطرات الندى الماسية المتحركة
+        function createDiamondDrops() {
+            const container = document.body;
+            const dropCount = 12; // عدد مثالي لإعطاء جمالية بدون أي تأثير على السرعة
+            
+            for (let i = 0; i < dropCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'diamond-drop';
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                drop.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(drop);
+            }
+        }
+
         function updateLoveCounter() {
             const startDate = new Date(2026, 5, 24);
             const today = new Date();
@@ -828,12 +835,12 @@
         updateLoveCounter();
 
         const cascadeContainer = document.getElementById('cascadeContainer');
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 3; i++) {
             const span = document.createElement('span');
             span.className = 'cascade-text';
             span.innerText = "I love you";
-            span.style.left = `${10 + (i * 25)}%`;
-            span.style.animationDelay = `${i * 1.5}s`;
+            span.style.left = `${15 + (i * 30)}%`;
+            span.style.animationDelay = `${i * 2}s`;
             span.style.animationDuration = '6s';
             cascadeContainer.appendChild(span);
         }
@@ -845,6 +852,7 @@
             intro.style.opacity = '0';
             setTimeout(() => { intro.style.display = 'none'; }, 600);
             initStaticFallingElements();
+            createDiamondDrops(); // تفعيل قطرات الندى فور الدخول للموقع
         }
 
         function openAlbumModal(modalId, videoId) {
@@ -949,7 +957,7 @@
                 localStorage.setItem('aya_secret_comment', commentInput.value.trim());
                 const wrapper = document.getElementById('commentAreaWrapper');
                 wrapper.innerHTML = `
-                    <p style="font-family: 'Playfair Display', serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px; text-align: right;">Leave your comment here (once):</p>
+                    <p style="font-family: 'Playfair Display, serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px; text-align: right;">Leave your comment here (once):</p>
                     <div class="saved-comment-display">Your saved comment: "${commentInput.value.trim()}"</div>
                 `;
             }
@@ -957,6 +965,7 @@
 
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, obs) => {
+            entries.date(entry => {});
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
