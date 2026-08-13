@@ -214,6 +214,14 @@
         .album-overlay-badge { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255, 77, 148, 0.5); font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #ffd1dc; white-space: nowrap; }
         .album-title { margin-top: 15px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255,143,163,0.3); }
 
+        /* إضافة تنسيقات بطاقات الهدايا */
+        .gifts-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-top: 35px; }
+        .gift-card { background: rgba(255, 77, 148, 0.05); border: 1px solid rgba(255, 77, 148, 0.25); border-radius: 28px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 180px; height: 200px; cursor: pointer; }
+        .gift-card:hover { transform: translateY(-10px) scale(1.05); border-color: rgba(255, 77, 148, 0.7); box-shadow: 0 15px 40px rgba(255,77,148,0.3); }
+        .gift-card svg { filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); margin-bottom: 15px; transition: transform 0.3s ease; }
+        .gift-card:hover svg { transform: scale(1.1) rotate(2deg); }
+        .gift-name { font-family: 'Playfair Display', serif; color: #ffd1dc; font-size: 1.1rem; font-style: italic; text-shadow: 0 0 10px rgba(255,209,220,0.4); }
+
         .album-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 10001; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; padding: 15px; will-change: opacity; }
         .album-modal-overlay.active { opacity: 1; pointer-events: auto; }
 
@@ -476,11 +484,7 @@
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Chat Memories Album</h3>
             <div class="modal-media-grid">
-                <!-- يمكنك تغيير مسارات الصور أدناه (chat1.jpg, chat2.jpg, ... chat30.jpg) حسب أسماء الصور لديك -->
-                <!-- تم وضع 30 عنصراً كنموذج جاهز لتعديل أسمائهم وصورهم بكل سهولة -->
-                
                 <script>
-                    // توليد 30 صورة للتشات تلقائياً كقالب، يمكنك تعديل أسماء الصور مباشرة هنا
                     for (let i = 1; i <= 30; i++) {
                         document.write(`
                             <div class="gallery-item">
@@ -490,7 +494,6 @@
                         `);
                     }
                 </script>
-
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('chatAlbumModal')">Close</button>
         </div>
@@ -593,6 +596,55 @@
         <div id="msg-display"></div>
     </section>
 
+    <!-- البطاقة الجديدة: الدبدوب والقطة والورد -->
+    <section class="glass-section">
+        <h2>Little Aya's Touches</h2>
+        <p class="counter-desc">Just some small tokens of my love</p>
+        <div class="gifts-grid">
+            <!-- Teddy Bear -->
+            <div class="gift-card">
+                <svg width="80" height="80" viewBox="0 0 64 64" fill="#d4a373">
+                    <circle cx="32" cy="36" r="18" fill="#d4a373"/>
+                    <circle cx="20" cy="22" r="8" fill="#d4a373"/>
+                    <circle cx="44" cy="22" r="8" fill="#d4a373"/>
+                    <circle cx="32" cy="40" r="10" fill="#faedcd"/>
+                    <circle cx="27" cy="34" r="2.5" fill="#333"/>
+                    <circle cx="37" cy="34" r="2.5" fill="#333"/>
+                    <path d="M32 38l-2 3h4z" fill="#333"/>
+                </svg>
+                <span class="gift-name">Big Bear</span>
+            </div>
+            <!-- Lily Cat -->
+            <div class="gift-card">
+                <svg width="80" height="80" viewBox="0 0 64 64" fill="#f8edeb">
+                    <path d="M16 46 C 16 26, 48 26, 48 46 Z" fill="#f8edeb"/>
+                    <polygon points="16,30 12,14 26,24" fill="#f8edeb"/>
+                    <polygon points="48,30 52,14 38,24" fill="#f8edeb"/>
+                    <polygon points="16,28 14,17 23,24" fill="#ffb6c1"/>
+                    <polygon points="48,28 50,17 41,24" fill="#ffb6c1"/>
+                    <circle cx="26" cy="36" r="3" fill="#333"/>
+                    <circle cx="38" cy="36" r="3" fill="#333"/>
+                    <polygon points="32,42 30,40 34,40" fill="#ffb6c1"/>
+                    <text x="32" y="58" font-family="'Great Vibes', cursive" font-size="16" fill="#ff4d94" text-anchor="middle" style="text-shadow: 0 0 5px rgba(255,77,148,0.5);">Lily</text>
+                </svg>
+            </div>
+            <!-- Red Rose Bouquet -->
+            <div class="gift-card">
+                <svg width="80" height="80" viewBox="0 0 64 64" fill="none">
+                    <path d="M32 40 Q 28 54 20 60 Q 32 58 36 50 Z" fill="#2d6a4f"/>
+                    <path d="M32 40 Q 36 54 44 60 Q 32 58 28 50 Z" fill="#2d6a4f"/>
+                    <circle cx="32" cy="24" r="12" fill="#d00000"/>
+                    <path d="M 32 18 Q 38 24 32 30 Q 26 24 32 18 Z" fill="#9d0208"/>
+                    <circle cx="22" cy="32" r="10" fill="#d00000"/>
+                    <path d="M 22 26 Q 27 32 22 38 Q 17 32 22 26 Z" fill="#9d0208"/>
+                    <circle cx="42" cy="32" r="10" fill="#d00000"/>
+                    <path d="M 42 26 Q 47 32 42 38 Q 37 32 42 26 Z" fill="#9d0208"/>
+                </svg>
+                <span class="gift-name">Red Bouquet</span>
+            </div>
+        </div>
+    </section>
+
     <section class="glass-section">
         <h2>Our Memories Albums</h2>
         <p class="counter-desc">Tap an album to explore our special moments together</p>
@@ -615,10 +667,11 @@
                 <h3 class="album-title">Aya's Album</h3>
             </div>
 
-            <!-- ألبوم الشات الجديد (أكثر من 30 صورة) -->
+            <!-- ألبوم الشات مع الصورة المصغرة الجديدة -->
             <div class="album-card" onclick="openAlbumModal('chatAlbumModal')">
                 <div class="album-cover-container">
-                    <img src="chat1.jpg" alt="Chat Album Cover" loading="lazy">
+                    <!-- تم تغيير اسم الصورة هنا لتكون المصغرة للألبوم -->
+                    <img src="chat-thumb.jpg" alt="Chat Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
                 </div>
                 <h3 class="album-title">Chat Memories</h3>
@@ -693,33 +746,41 @@
         }
         initConstellation();
 
+        // تحسين الأداء: إيقاف الأنميشن عندما لا تكون الصفحة مرئية
+        let isPageVisible = true;
+        document.addEventListener("visibilitychange", () => {
+            isPageVisible = !document.hidden;
+        });
+
         function animateConstellation() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (isPageVisible) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
 
-                for (let j = i; j < particlesArray.length; j++) {
-                    let dx = particlesArray[i].x - particlesArray[j].x;
-                    let dy = particlesArray[i].y - particlesArray[j].y;
-                    let distSq = dx * dx + dy * dy;
-                    if (distSq < 12100) {
-                        let distance = Math.sqrt(distSq);
-                        ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
+                    for (let j = i; j < particlesArray.length; j++) {
+                        let dx = particlesArray[i].x - particlesArray[j].x;
+                        let dy = particlesArray[i].y - particlesArray[j].y;
+                        let distSq = dx * dx + dy * dy;
+                        if (distSq < 12100) {
+                            let distance = Math.sqrt(distSq);
+                            ctx.strokeStyle = `rgba(255, 77, 148, ${0.15 * (1 - distance / 110)})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
+                        }
                     }
-                }
 
-                if (mouse.x !== null && mouse.y !== null) {
-                    let mdx = particlesArray[i].x - mouse.x; let mdy = particlesArray[i].y - mouse.y;
-                    let mdistSq = mdx * mdx + mdy * mdy;
-                    if (mdistSq < 16900) {
-                        let mdist = Math.sqrt(mdistSq);
-                        ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let mdx = particlesArray[i].x - mouse.x; let mdy = particlesArray[i].y - mouse.y;
+                        let mdistSq = mdx * mdx + mdy * mdy;
+                        if (mdistSq < 16900) {
+                            let mdist = Math.sqrt(mdistSq);
+                            ctx.strokeStyle = `rgba(216, 180, 254, ${0.25 * (1 - mdist / 130)})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.beginPath(); ctx.moveTo(particlesArray[i].x, particlesArray[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                        }
                     }
                 }
             }
