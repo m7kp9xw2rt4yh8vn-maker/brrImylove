@@ -300,7 +300,6 @@
 
         @keyframes soundWaveAnim { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1.2); } }
 
-        /* Secret Pass Modal Custom Styles */
         .secret-input {
             width: 100%;
             background: rgba(18, 6, 15, 0.85);
@@ -339,7 +338,6 @@
             text-shadow: 0 0 10px rgba(255,209,220,0.3);
         }
         
-        /* Interactive Comment Box Styles Inside Success Modal */
         .comment-box-container {
             margin-top: 15px;
             border-top: 1px solid rgba(255, 77, 148, 0.25);
@@ -434,21 +432,15 @@
             <div class="modal-media-grid">
                 <div class="gallery-item">
                     <img src="my-photo1.jpg" class="modal-media" alt="Mohie 1" loading="lazy">
-                    <div class="image-dock">
-                        <p>My Safe Haven</p>
-                    </div>
+                    <div class="image-dock"><p>My Safe Haven</p></div>
                 </div>
                 <div class="gallery-item">
                     <img src="my-photo2.jpg" class="modal-media" alt="Mohie 2" loading="lazy">
-                    <div class="image-dock">
-                        <p>Thinking of You</p>
-                    </div>
+                    <div class="image-dock"><p>Thinking of You</p></div>
                 </div>
                 <div class="gallery-item">
                     <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
-                    <div class="image-dock">
-                        <p>Waiting for Aya</p>
-                    </div>
+                    <div class="image-dock"><p>Waiting for Aya</p></div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
@@ -462,26 +454,45 @@
             <div class="modal-media-grid">
                 <div class="gallery-item">
                     <img src="my-love.jpg" class="modal-media" alt="Aya" loading="lazy">
-                    <div class="image-dock">
-                        <p>Your lovely smile</p>
-                    </div>
+                    <div class="image-dock"><p>Your lovely smile</p></div>
                 </div>
                 <div class="gallery-item">
                     <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
-                    <div class="image-dock">
-                        <p>The light of my days</p>
-                    </div>
+                    <div class="image-dock"><p>The light of my days</p></div>
                 </div>
                 <div class="gallery-item">
                     <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
                     </video>
-                    <div class="image-dock">
-                        <p>Precious moments</p>
-                    </div>
+                    <div class="image-dock"><p>Precious moments</p></div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
+        </div>
+    </div>
+
+    <!-- Chat Album Modal (Contains 30+ Screenshots/Chat Photos) -->
+    <div class="album-modal-overlay" id="chatAlbumModal" onclick="closeAlbumModal('chatAlbumModal', event)">
+        <div class="album-modal-card" onclick="event.stopPropagation()">
+            <h3>Chat Memories Album</h3>
+            <div class="modal-media-grid">
+                <!-- يمكنك تغيير مسارات الصور أدناه (chat1.jpg, chat2.jpg, ... chat30.jpg) حسب أسماء الصور لديك -->
+                <!-- تم وضع 30 عنصراً كنموذج جاهز لتعديل أسمائهم وصورهم بكل سهولة -->
+                
+                <script>
+                    // توليد 30 صورة للتشات تلقائياً كقالب، يمكنك تعديل أسماء الصور مباشرة هنا
+                    for (let i = 1; i <= 30; i++) {
+                        document.write(`
+                            <div class="gallery-item">
+                                <img src="chat${i}.jpg" class="modal-media" alt="Chat Memory ${i}" loading="lazy">
+                                <div class="image-dock"><p>Sweet Chat #${i}</p></div>
+                            </div>
+                        `);
+                    }
+                </script>
+
+            </div>
+            <button class="close-modal-btn" onclick="closeAlbumModal('chatAlbumModal')">Close</button>
         </div>
     </div>
 
@@ -514,7 +525,7 @@
         </div>
     </div>
 
-    <!-- Secret Password Floating Modal (Password protected for Aya) -->
+    <!-- Secret Password Floating Modal -->
     <div class="modal-overlay" id="secretModalOverlay" onclick="closeSecretModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
             <h3>Secret for Aya</h3>
@@ -578,7 +589,6 @@
         <h2>Secret Notes</h2>
         <button class="msg-btn" onclick="showMsg('You are my entire world and my safe place, Aya.')">About Us</button>
         <button class="msg-btn" onclick="showMsg('I promise to always love and cherish you forever.')">My Promise</button>
-        <!-- The new section dedicated to Aya protected by a password -->
         <button class="msg-btn" onclick="openSecretModal()" style="border-color: rgba(255, 77, 148, 0.8); background: rgba(255, 77, 148, 0.2);">Secret Eternal Vow</button>
         <div id="msg-display"></div>
     </section>
@@ -587,6 +597,7 @@
         <h2>Our Memories Albums</h2>
         <p class="counter-desc">Tap an album to explore our special moments together</p>
         <div class="albums-grid">
+            <!-- ألبوم مهيب -->
             <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
                     <img src="my-photo1.jpg" alt="Mohie's Album Cover" loading="lazy">
@@ -595,12 +606,22 @@
                 <h3 class="album-title">Mohie's Album</h3>
             </div>
 
+            <!-- ألبوم آية -->
             <div class="album-card" onclick="openAlbumModal('girlAlbumModal', 'ayaVideoElement')">
                 <div class="album-cover-container">
                     <img src="my-love.jpg" alt="Aya's Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
                 </div>
                 <h3 class="album-title">Aya's Album</h3>
+            </div>
+
+            <!-- ألبوم الشات الجديد (أكثر من 30 صورة) -->
+            <div class="album-card" onclick="openAlbumModal('chatAlbumModal')">
+                <div class="album-cover-container">
+                    <img src="chat1.jpg" alt="Chat Album Cover" loading="lazy">
+                    <div class="album-overlay-badge">View Album</div>
+                </div>
+                <h3 class="album-title">Chat Memories</h3>
             </div>
         </div>
     </section>
@@ -808,9 +829,7 @@
             bgMusic.pause();
         }
 
-        // Logic for Secret Password Modal (Aya's Box)
         function openSecretModal() {
-            // Reset the modal content to ask for password every time
             const contentArea = document.getElementById('secret-content-area');
             contentArea.innerHTML = `
                 <p style="font-size: 1.15rem; margin-bottom: 15px; font-family: 'Playfair Display', serif; color: #ffd1dc;">Enter your password to unlock this very special message:</p>
@@ -833,18 +852,14 @@
             const contentArea = document.getElementById('secret-content-area');
 
             if (passInput.value === 'Aya05') {
-                // Correct password - show the secret message and comment section
                 let savedComment = localStorage.getItem('aya_secret_comment');
-                
                 let commentSectionHTML = `
                     <div class="comment-box-container" id="commentAreaWrapper">
                         <p style="font-family: 'Playfair Display', serif; color: #ff8fa3; font-size: 1.05rem; margin-bottom: 8px; text-align: right;">Leave your comment here (once):</p>
                 `;
 
                 if (savedComment) {
-                    commentSectionHTML += `
-                        <div class="saved-comment-display">Your saved comment: "${savedComment}"</div>
-                    `;
+                    commentSectionHTML += `<div class="saved-comment-display">Your saved comment: "${savedComment}"</div>`;
                 } else {
                     commentSectionHTML += `
                         <textarea id="ayaCommentInput" class="comment-input" placeholder="Write your comment or feelings here..."></textarea>
@@ -861,7 +876,6 @@
                     <button class="close-modal-btn" style="margin-top: 15px;" onclick="closeSecretModal()">Close</button>
                 `;
             } else {
-                // Wrong password
                 errorBox.innerHTML = `<div class="secret-error-text">You are not Aya</div>`;
                 passInput.value = '';
                 passInput.focus();
@@ -880,11 +894,7 @@
             }
         }
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
