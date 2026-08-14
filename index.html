@@ -209,6 +209,7 @@
         
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; background: rgba(24, 6, 18, 0.6); border: 2px solid #ff4d94; border-radius: 20px; padding: 12px; }
         
+        /* تخصيص الصور والفيديوهات داخل الفريم لتأخذ الشكل الصحيح بدون فراغات */
         .modal-media { 
             width: 100%; 
             height: 420px; 
@@ -218,6 +219,19 @@
             background: #000; 
             display: block; 
             margin: 0 auto; 
+        }
+
+        /* جعل الفريم الخاص بالفيديو يتكيف تلقائياً مع أبعاد الفيديو الحقيقية ليلغي الحواف السوداء تماماً */
+        .gallery-item.video-item {
+            width: 100%;
+            max-width: 320px;
+        }
+        .gallery-item.video-item .modal-media {
+            height: auto;
+            width: 100%;
+            max-height: 480px;
+            object-fit: contain;
+            background: transparent;
         }
 
         .image-dock {
@@ -405,7 +419,7 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal (5 Photos & 1 Video) -->
+    <!-- Boy's Album Modal -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
@@ -430,7 +444,7 @@
                     <img src="my-photo5.jpg" class="modal-media" alt="Mohie 5" loading="lazy">
                     <div class="image-dock"><p>Endless Smile</p></div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item video-item">
                     <video id="mohieVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="my-video.mp4" type="video/mp4">
                     </video>
@@ -441,7 +455,7 @@
         </div>
     </div>
 
-    <!-- Girl's Album Modal (2 Photos & 3 Videos) -->
+    <!-- Girl's Album Modal -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
@@ -454,19 +468,19 @@
                     <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
                     <div class="image-dock"><p>The light of my days</p></div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item video-item">
                     <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
                     </video>
                     <div class="image-dock"><p>Precious moments</p></div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item video-item">
                     <video id="ayaVideoElement2" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video2.mp4" type="video/mp4">
                     </video>
                     <div class="image-dock"><p>Eternal Sweetness</p></div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item video-item">
                     <video id="ayaVideoElement3" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video3.mp4" type="video/mp4">
                     </video>
