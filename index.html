@@ -182,7 +182,7 @@
         .album-card { background: rgba(24, 6, 18, 0.9); border: 1px solid #ff4d94; padding: 18px; border-radius: 20px; width: 310px; cursor: pointer; }
         
         .album-cover-container { width: 100%; height: 250px; border-radius: 15px; overflow: hidden; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
-        .album-cover-container img { width: 100%; height: 100%; object-fit: contain; }
+        .album-cover-container img { width: 100%; height: 100%; object-fit: cover; }
         
         .album-overlay-badge { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); padding: 6px 16px; border-radius: 15px; border: 1px solid #ff4d94; font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #ffd1dc; white-space: nowrap; }
         .album-title { margin-top: 15px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; }
@@ -201,8 +201,8 @@
         
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; }
         
-        /* تعديل لعرض الصور بحجمها الطبيعي والملائم دون قص */
-        .modal-media { width: 100%; max-height: 400px; object-fit: contain; border-radius: 15px; border: 2px solid #ff4d94; background: #000; }
+        /* تعديل لعرض الصور داخل الفريم بملء الإطار تماماً دون أي مساحات سوداء */
+        .modal-media { width: 100%; height: 420px; object-fit: cover; border-radius: 15px; border: 2px solid #ff4d94; background: #000; }
 
         .image-dock {
             background: rgba(24, 6, 18, 0.9);
@@ -250,7 +250,6 @@
         
         .modal-card { background: #12040c; border: 1.5px solid #ff4d94; padding: 40px 30px; border-radius: 25px; width: 90%; max-width: 440px; text-align: center; }
         
-        /* تنسيق خاص ومحسن لنافذة الرسالة السرية لتوائم اللغة العربية تماماً وبشكل منسق مريح */
         .secret-modal-card {
             background: #12040c;
             border: 1.5px solid #ff4d94;
@@ -482,7 +481,6 @@
         </div>
     </div>
 
-    <!-- نافذة الرسالة السرية (تم تعديل الهيكل والستايل لتكون مخصصة ومرتبة باللغة العربية) -->
     <div class="modal-overlay" id="secretModalOverlay" onclick="closeSecretModal(event)">
         <div class="secret-modal-card" onclick="event.stopPropagation()">
             <h3>Secret for Aya</h3>
@@ -641,14 +639,14 @@
         resizeCanvas();
 
         let particlesArray = [];
-        const numberOfParticles = 35; // زيادة بسيطة لملء الموقع كاملاً بقطرات الندى اللامعة
+        const numberOfParticles = 35;
 
         class DewDrop {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2.5 + 1;
-                this.vy = Math.random() * 0.25 + 0.08; // حركة هادئة وبطيئة لقطرات الندى
+                this.vy = Math.random() * 0.25 + 0.08;
                 this.alpha = Math.random() * 0.7 + 0.3;
                 this.flashSpeed = Math.random() * 0.015 + 0.003;
             }
