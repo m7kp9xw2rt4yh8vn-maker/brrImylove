@@ -209,7 +209,6 @@
         
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; background: rgba(24, 6, 18, 0.6); border: 2px solid #ff4d94; border-radius: 20px; padding: 12px; }
         
-        /* تعديل مقاسات الفريم والفيديو ليأخذ حجم الفيديو بالكامل بدون أي أجزاء سوداء */
         .modal-media { 
             width: 100%; 
             height: 420px; 
@@ -406,7 +405,7 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal -->
+    <!-- Boy's Album Modal (5 Photos & 1 Video) -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
@@ -424,6 +423,14 @@
                     <div class="image-dock"><p>Waiting for Aya</p></div>
                 </div>
                 <div class="gallery-item">
+                    <img src="my-photo4.jpg" class="modal-media" alt="Mohie 4" loading="lazy">
+                    <div class="image-dock"><p>Always Together</p></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="my-photo5.jpg" class="modal-media" alt="Mohie 5" loading="lazy">
+                    <div class="image-dock"><p>Endless Smile</p></div>
+                </div>
+                <div class="gallery-item">
                     <video id="mohieVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="my-video.mp4" type="video/mp4">
                     </video>
@@ -434,7 +441,7 @@
         </div>
     </div>
 
-    <!-- Girl's Album Modal -->
+    <!-- Girl's Album Modal (2 Photos & 3 Videos) -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
@@ -458,6 +465,12 @@
                         <source src="aya-video2.mp4" type="video/mp4">
                     </video>
                     <div class="image-dock"><p>Eternal Sweetness</p></div>
+                </div>
+                <div class="gallery-item">
+                    <video id="ayaVideoElement3" class="modal-media" autoplay muted loop playsinline preload="auto">
+                        <source src="aya-video3.mp4" type="video/mp4">
+                    </video>
+                    <div class="image-dock"><p>Pure Grace Video</p></div>
                 </div>
                 <div class="gallery-item">
                     <img src="girl3.jpg" class="modal-media" alt="Aya 3" loading="lazy">
