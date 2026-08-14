@@ -377,7 +377,7 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal -->
+    <!-- Boy's Album Modal (تم حذف الصور 4 و 5 والفيديو) -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
@@ -393,20 +393,6 @@
                 <div class="gallery-item">
                     <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
                     <div class="image-dock"><p>Waiting for Aya</p></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="my-photo4.jpg" class="modal-media" alt="Mohie 4" loading="lazy">
-                    <div class="image-dock"><p>Strongest Bond</p></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="my-photo5.jpg" class="modal-media" alt="Mohie 5" loading="lazy">
-                    <div class="image-dock"><p>Always Beside You</p></div>
-                </div>
-                <div class="gallery-item">
-                    <video id="mohieVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
-                        <source src="mohie-video.mp4" type="video/mp4">
-                    </video>
-                    <div class="image-dock"><p>My Special Moments</p></div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
@@ -609,7 +595,7 @@
         <h2>Our Memories Albums</h2>
         <p class="counter-desc">Tap an album to explore our special moments together</p>
         <div class="albums-grid">
-            <div class="album-card" onclick="openAlbumModal('boyAlbumModal', 'mohieVideoElement')">
+            <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
                 <div class="album-cover-container">
                     <img src="my-photo1.jpg" alt="Mohie's Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
