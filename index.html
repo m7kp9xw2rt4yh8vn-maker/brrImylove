@@ -207,10 +207,8 @@
         .album-modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.4rem; margin-bottom: 25px; }
         .modal-media-grid { display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-bottom: 30px; padding: 10px; }
         
-        /* التعديل هنا: الفريم يأخذ حجم المحتوى بالضبط (fit-content) */
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: fit-content; max-width: 320px; background: rgba(24, 6, 18, 0.6); border: 2px solid #ff4d94; border-radius: 20px; padding: 12px; margin: 0 auto; }
         
-        /* التعديل هنا: تخصيص الصور والفيديوهات بدون زوم وبدون خلفية سوداء */
         .modal-media { 
             width: 100%; 
             height: auto; 
@@ -221,7 +219,6 @@
             margin: 0 auto; 
         }
 
-        /* جعل الفريم الخاص بالفيديو يتكيف تلقائياً مع أبعاد الفيديو الحقيقية ليلغي الحواف السوداء تماماً */
         .gallery-item.video-item {
             width: fit-content;
             max-width: 320px;
@@ -386,6 +383,53 @@
             font-style: italic;
         }
 
+        /* ستايل شجرة الأماني التفاعلية الجديدة */
+        .wish-tree-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 20px auto 0 auto;
+            background: rgba(12, 2, 8, 0.6);
+            border: 1px solid rgba(255, 77, 148, 0.4);
+            border-radius: 20px;
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .wish-tree-svg {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            display: block;
+        }
+
+        .tree-hint {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #ffd1dc;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .tree-star {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ffd1dc;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            box-shadow: 0 0 10px #ff4d94, 0 0 20px #ff4d94;
+            transform: translate(-50%, -50%) scale(0);
+            animation: popStar 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        @keyframes popStar {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
         footer { padding: 25px; color: #777; font-family: 'Playfair Display', serif; font-size: 0.8rem; text-align: left; position: relative; z-index: 3; }
     </style>
 </head>
@@ -435,7 +479,6 @@
                     <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
                     <div class="image-dock"><p>Waiting for Aya</p></div>
                 </div>
-                <!-- تم حذف الصورة 4 والصورة 5 من هنا بناءً على طلبك -->
                 <div class="gallery-item video-item">
                     <video id="mohieVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="my-video.mp4" type="video/mp4">
@@ -680,6 +723,24 @@
         </div>
     </section>
 
+    <!-- قسم شجرة الأماني الرسومية التفاعلية -->
+    <section class="glass-section" style="text-align: center;">
+        <h2>Our Eternal Wish Tree</h2>
+        <p class="counter-desc">Click anywhere on the branches to hang a glowing star for us</p>
+        
+        <div class="wish-tree-container" id="wishTreeContainer">
+            <svg viewBox="0 0 400 350" class="wish-tree-svg" id="wishTreeSvg" onclick="plantStar(event)">
+                <path d="M190,330 Q195,250 180,200 Q160,150 130,120 Q100,90 70,70" stroke="#ff4d94" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <path d="M180,200 Q210,140 250,110 Q290,80 330,60" stroke="#ff4d94" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M150,160 Q170,120 190,80 Q210,40 220,20" stroke="#ff4d94" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M230,140 Q250,120 280,100" stroke="#ff4d94" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M120,130 Q90,110 60,100" stroke="#ff4d94" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M160,330 L220,330 Q210,270 190,250 Z" fill="#ff4d94" opacity="0.8"/>
+            </svg>
+            <div class="tree-hint">Click on the branches to light up a star ✨</div>
+        </div>
+    </section>
+
     <footer>
         <p>Made with all my heart for Aya & Mohie</p>
     </footer>
@@ -888,6 +949,21 @@
                     <div class="saved-comment-display">Your saved comment: "${commentInput.value.trim()}"</div>
                 `;
             }
+        }
+
+        // دالة تفاعل شجرة الأماني الرسومية
+        function plantStar(event) {
+            const container = document.getElementById('wishTreeContainer');
+            const rect = container.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            const star = document.createElement('div');
+            star.className = 'tree-star';
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            
+            container.appendChild(star);
         }
     </script>
 </body>
