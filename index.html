@@ -383,7 +383,7 @@
             font-style: italic;
         }
 
-        /* ستايل شجرة الأماني التفاعلية الجديدة */
+        /* ستايل شجرة الأماني بقلوب متوهجة بدلاً من النجوم */
         .wish-tree-container {
             position: relative;
             width: 100%;
@@ -412,22 +412,45 @@
             opacity: 0.8;
         }
 
-        .tree-star {
+        .tree-heart-item {
             position: absolute;
-            width: 16px;
-            height: 16px;
-            background: #ffd1dc;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            box-shadow: 0 0 10px #ff4d94, 0 0 20px #ff4d94;
+            width: 20px;
+            height: 20px;
+            background: #ff4d94;
             transform: translate(-50%, -50%) scale(0);
-            animation: popStar 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: popHeart 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
+            box-shadow: 0 0 12px #ff4d94, 0 0 20px #ff8fa3;
         }
 
-        @keyframes popStar {
+        .tree-heart-item::before,
+        .tree-heart-item::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4d94;
+            border-radius: 50%;
+        }
+
+        .tree-heart-item::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .tree-heart-item::after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes popHeart {
             to {
-                transform: translate(-50%, -50%) scale(1);
+                transform: translate(-50%, -50%) scale(1) rotate(-45deg);
             }
+        }
+
+        .tree-heart-item {
+            transform: translate(-50%, -50%) scale(0) rotate(-45deg);
         }
 
         footer { padding: 25px; color: #777; font-family: 'Playfair Display', serif; font-size: 0.8rem; text-align: left; position: relative; z-index: 3; }
@@ -673,7 +696,7 @@
                     <polygon points="32,42 30,40 34,40" fill="#ffb6c1"/>
                     <text x="32" y="58" font-family="'Great Vibes', cursive" font-size="16" fill="#ff4d94" text-anchor="middle">Lily</text>
                 </svg>
-                <span class="gift-name">Lily Cat</span>
+                <span class="gift-name">Cat</span>
             </div>
             <div class="gift-card">
                 <svg width="80" height="80" viewBox="0 0 64 64" fill="none">
@@ -723,13 +746,13 @@
         </div>
     </section>
 
-    <!-- قسم شجرة الأماني الرسومية التفاعلية -->
+    <!-- قسم شجرة الأماني بقلوب متوهجة -->
     <section class="glass-section" style="text-align: center;">
         <h2>Our Eternal Wish Tree</h2>
-        <p class="counter-desc">Click anywhere on the branches to hang a glowing star for us</p>
+        <p class="counter-desc">Click anywhere on the branches to hang a glowing heart for us</p>
         
         <div class="wish-tree-container" id="wishTreeContainer">
-            <svg viewBox="0 0 400 350" class="wish-tree-svg" id="wishTreeSvg" onclick="plantStar(event)">
+            <svg viewBox="0 0 400 350" class="wish-tree-svg" id="wishTreeSvg" onclick="plantHeart(event)">
                 <path d="M190,330 Q195,250 180,200 Q160,150 130,120 Q100,90 70,70" stroke="#ff4d94" stroke-width="8" fill="none" stroke-linecap="round"/>
                 <path d="M180,200 Q210,140 250,110 Q290,80 330,60" stroke="#ff4d94" stroke-width="6" fill="none" stroke-linecap="round"/>
                 <path d="M150,160 Q170,120 190,80 Q210,40 220,20" stroke="#ff4d94" stroke-width="5" fill="none" stroke-linecap="round"/>
@@ -737,7 +760,7 @@
                 <path d="M120,130 Q90,110 60,100" stroke="#ff4d94" stroke-width="4" fill="none" stroke-linecap="round"/>
                 <path d="M160,330 L220,330 Q210,270 190,250 Z" fill="#ff4d94" opacity="0.8"/>
             </svg>
-            <div class="tree-hint">Click on the branches to light up a star ✨</div>
+            <div class="tree-hint">Click on the branches to light up a glowing heart</div>
         </div>
     </section>
 
@@ -951,19 +974,19 @@
             }
         }
 
-        // دالة تفاعل شجرة الأماني الرسومية
-        function plantStar(event) {
+        // دالة تفاعل شجرة الأماني لتوليد قلوب متوهجة عند النقر
+        function plantHeart(event) {
             const container = document.getElementById('wishTreeContainer');
             const rect = container.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
             
-            const star = document.createElement('div');
-            star.className = 'tree-star';
-            star.style.left = `${x}px`;
-            star.style.top = `${y}px`;
+            const heart = document.createElement('div');
+            heart.className = 'tree-heart-item';
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
             
-            container.appendChild(star);
+            container.appendChild(heart);
         }
     </script>
 </body>
