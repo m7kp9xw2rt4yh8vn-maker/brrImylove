@@ -190,6 +190,7 @@
         
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; background: rgba(24, 6, 18, 0.6); border: 2px solid #ff4d94; border-radius: 20px; padding: 12px; }
         
+        /* عرض الصور بأبعادها الطبيعية الكاملة داخل الفريم */
         .modal-media { width: 100%; height: auto; max-height: 480px; object-fit: contain; border-radius: 12px; background: #0a0106; display: block; margin: 0 auto; }
 
         .image-dock {
@@ -377,31 +378,33 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal -->
+    <!-- Boy's Album Modal (تمت إضافة صورتين وفيديو ليصبح المجموع 5 صور وفيديو) -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
             <div class="modal-media-grid">
                 <div class="gallery-item">
-                    <img src="my-photo1.jpg" onerror="this.onerror=null; this.src='my-photo1.png';" class="modal-media" alt="Mohie 1" loading="lazy">
+                    <img src="my-photo1.jpg" class="modal-media" alt="Mohie 1" loading="lazy">
                     <div class="image-dock"><p>My Safe Haven</p></div>
                 </div>
                 <div class="gallery-item">
-                    <img src="my-photo2.jpg" onerror="this.onerror=null; this.src='my-photo2.png';" class="modal-media" alt="Mohie 2" loading="lazy">
+                    <img src="my-photo2.jpg" class="modal-media" alt="Mohie 2" loading="lazy">
                     <div class="image-dock"><p>Thinking of You</p></div>
                 </div>
                 <div class="gallery-item">
-                    <img src="my-photo3.jpg" onerror="this.onerror=null; this.src='my-photo3.png';" class="modal-media" alt="Mohie 3" loading="lazy">
+                    <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
                     <div class="image-dock"><p>Waiting for Aya</p></div>
                 </div>
+                <!-- الصور الجديدة المضافة لألبوم الرجل -->
                 <div class="gallery-item">
-                    <img src="my-photo4.jpg" onerror="this.onerror=null; this.src='my-photo4.png';" class="modal-media" alt="Mohie 4" loading="lazy">
+                    <img src="my-photo4.jpg" class="modal-media" alt="Mohie 4" loading="lazy">
                     <div class="image-dock"><p>Strongest Bond</p></div>
                 </div>
                 <div class="gallery-item">
-                    <img src="my-photo5.jpg" onerror="this.onerror=null; this.src='my-photo5.png';" class="modal-media" alt="Mohie 5" loading="lazy">
+                    <img src="my-photo5.jpg" class="modal-media" alt="Mohie 5" loading="lazy">
                     <div class="image-dock"><p>Always Beside You</p></div>
                 </div>
+                <!-- الفيديو المضاف لألبوم الرجل -->
                 <div class="gallery-item">
                     <video id="mohieVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="mohie-video.mp4" type="video/mp4">
@@ -413,29 +416,32 @@
         </div>
     </div>
 
-    <!-- Girl's Album Modal -->
+    <!-- Girl's Album Modal (تمت إضافة صورة وفيديوهين ليصبح المجموع 3 صور وفيديوهين) -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
             <div class="modal-media-grid">
                 <div class="gallery-item">
-                    <img src="my-love.jpg" onerror="this.onerror=null; this.src='my-love.png';" class="modal-media" alt="Aya 1" loading="lazy">
+                    <img src="my-love.jpg" class="modal-media" alt="Aya 1" loading="lazy">
                     <div class="image-dock"><p>Your lovely smile</p></div>
                 </div>
                 <div class="gallery-item">
-                    <img src="girl2.jpg" onerror="this.onerror=null; this.src='girl2.png';" class="modal-media" alt="Aya 2" loading="lazy">
+                    <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
                     <div class="image-dock"><p>The light of my days</p></div>
                 </div>
+                <!-- الصورة الجديدة المضافة لألبوم الفتاة -->
                 <div class="gallery-item">
-                    <img src="girl3.jpg" onerror="this.onerror=null; this.src='girl3.png';" class="modal-media" alt="Aya 3" loading="lazy">
+                    <img src="girl3.jpg" class="modal-media" alt="Aya 3" loading="lazy">
                     <div class="image-dock"><p>Pure Grace</p></div>
                 </div>
+                <!-- الفيديو الأول -->
                 <div class="gallery-item">
                     <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
                     </video>
                     <div class="image-dock"><p>Precious moments</p></div>
                 </div>
+                <!-- الفيديو الثاني المضاف لألبوم الفتاة -->
                 <div class="gallery-item">
                     <video id="ayaVideoElement2" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video2.mp4" type="video/mp4">
@@ -730,14 +736,14 @@
 
         function openAlbumModal(modalId, videoId) {
             document.getElementById(modalId).classList.add('active');
+            if (videoId) {
+                const vid = document.getElementById(videoId);
+                if (vid) { vid.currentTime = 0; vid.play().catch(e => {}); }
+            }
+            // تشغيل كل الفيديوهات الموجودة داخل المودال تلقائياً
             const modal = document.getElementById(modalId);
             const videos = modal.querySelectorAll('video');
-            videos.forEach(v => { 
-                v.currentTime = 0; 
-                v.play().catch(e => {
-                    console.log("Autoplay blocked, user interaction required");
-                }); 
-            });
+            videos.forEach(v => { v.currentTime = 0; v.play().catch(e => {}); });
         }
 
         function closeAlbumModal(modalId, e) {
