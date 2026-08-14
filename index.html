@@ -190,7 +190,7 @@
             width: 100%;
             height: auto;
             max-height: 500px;
-            object-fit: contain;
+            object-fit: cover;
             border-radius: 12px;
             display: block;
         }
@@ -209,7 +209,8 @@
         
         .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; background: rgba(24, 6, 18, 0.6); border: 2px solid #ff4d94; border-radius: 20px; padding: 12px; }
         
-        .modal-media { width: 100%; height: auto; max-height: 480px; object-fit: contain; border-radius: 12px; background: #0a0106; display: block; margin: 0 auto; }
+        /* تعديل هنا لإزالة الفراغات السوداء وجعل الفيديو يملأ الفريم تماماً */
+        .modal-media { width: 100%; height: 380px; object-fit: cover; border-radius: 12px; background: #0a0106; display: block; margin: 0 auto; }
 
         .image-dock {
             background: rgba(24, 6, 18, 0.9);
@@ -645,7 +646,6 @@
             </div>
         </div>
 
-        <!-- قسم صورة الذكاء الاصطناعي أسفل الألبومات -->
         <div class="ai-art-container">
             <img src="ai-art.jpg" class="ai-art-image" alt="AI Generated Love Art" loading="lazy">
             <div class="image-dock" style="margin-top: 12px;"><p>Our Universe in AI Vision</p></div>
