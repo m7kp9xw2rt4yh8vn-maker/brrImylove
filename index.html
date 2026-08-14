@@ -188,19 +188,10 @@
         .album-modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.4rem; margin-bottom: 25px; }
         .modal-media-grid { display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-bottom: 30px; padding: 10px; }
         
-        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 320px; }
+        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; background: rgba(24, 6, 18, 0.6); border: 2px solid #ff4d94; border-radius: 20px; padding: 12px; }
         
-        /* تعديل الفريم ليأخذ شكل وحجم الصورة الحقيقي تماماً دون أي فراغات سوداء */
-        .modal-media { 
-            width: 100%; 
-            height: auto; 
-            max-height: 520px; 
-            object-fit: cover; 
-            border-radius: 18px; 
-            border: 2px solid #ff4d94; 
-            background: transparent; 
-            display: block;
-        }
+        /* عرض الصور بأبعادها الطبيعية الكاملة داخل الفريم */
+        .modal-media { width: 100%; height: auto; max-height: 480px; object-fit: contain; border-radius: 12px; background: #0a0106; display: block; margin: 0 auto; }
 
         .image-dock {
             background: rgba(24, 6, 18, 0.9);
@@ -387,7 +378,7 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal -->
+    <!-- Boy's Album Modal (تمت إضافة صورتين وفيديو ليصبح المجموع 5 صور وفيديو) -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
@@ -404,53 +395,58 @@
                     <img src="my-photo3.jpg" class="modal-media" alt="Mohie 3" loading="lazy">
                     <div class="image-dock"><p>Waiting for Aya</p></div>
                 </div>
+                <!-- الصور الجديدة المضافة لألبوم الرجل -->
                 <div class="gallery-item">
                     <img src="my-photo4.jpg" class="modal-media" alt="Mohie 4" loading="lazy">
-                    <div class="image-dock"><p>Always Together</p></div>
+                    <div class="image-dock"><p>Strongest Bond</p></div>
                 </div>
                 <div class="gallery-item">
                     <img src="my-photo5.jpg" class="modal-media" alt="Mohie 5" loading="lazy">
-                    <div class="image-dock"><p>Endless Love</p></div>
+                    <div class="image-dock"><p>Always Beside You</p></div>
                 </div>
+                <!-- الفيديو المضاف لألبوم الرجل -->
                 <div class="gallery-item">
-                    <video class="modal-media" autoplay muted loop playsinline preload="auto">
+                    <video id="mohieVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="mohie-video.mp4" type="video/mp4">
                     </video>
-                    <div class="image-dock"><p>Precious Memories</p></div>
+                    <div class="image-dock"><p>My Special Moments</p></div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('boyAlbumModal')">Close</button>
         </div>
     </div>
 
-    <!-- Girl's Album Modal -->
+    <!-- Girl's Album Modal (تمت إضافة صورة وفيديوهين ليصبح المجموع 3 صور وفيديوهين) -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
             <div class="modal-media-grid">
                 <div class="gallery-item">
-                    <img src="my-love.jpg" class="modal-media" alt="Aya" loading="lazy">
+                    <img src="my-love.jpg" class="modal-media" alt="Aya 1" loading="lazy">
                     <div class="image-dock"><p>Your lovely smile</p></div>
                 </div>
                 <div class="gallery-item">
                     <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
                     <div class="image-dock"><p>The light of my days</p></div>
                 </div>
+                <!-- الصورة الجديدة المضافة لألبوم الفتاة -->
+                <div class="gallery-item">
+                    <img src="girl3.jpg" class="modal-media" alt="Aya 3" loading="lazy">
+                    <div class="image-dock"><p>Pure Grace</p></div>
+                </div>
+                <!-- الفيديو الأول -->
                 <div class="gallery-item">
                     <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
                     </video>
                     <div class="image-dock"><p>Precious moments</p></div>
                 </div>
+                <!-- الفيديو الثاني المضاف لألبوم الفتاة -->
                 <div class="gallery-item">
-                    <video class="modal-media" autoplay muted loop playsinline preload="auto">
+                    <video id="ayaVideoElement2" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video2.mp4" type="video/mp4">
                     </video>
-                    <div class="image-dock"><p>Beautiful Soul</p></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="girl-photo3.jpg" class="modal-media" alt="Aya 3" loading="lazy">
-                    <div class="image-dock"><p>My Queen</p></div>
+                    <div class="image-dock"><p>Eternal Sweetness</p></div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeAlbumModal('girlAlbumModal')">Close</button>
@@ -619,7 +615,7 @@
         <h2>Our Memories Albums</h2>
         <p class="counter-desc">Tap an album to explore our special moments together</p>
         <div class="albums-grid">
-            <div class="album-card" onclick="openAlbumModal('boyAlbumModal')">
+            <div class="album-card" onclick="openAlbumModal('boyAlbumModal', 'mohieVideoElement')">
                 <div class="album-cover-container">
                     <img src="my-photo1.jpg" alt="Mohie's Album Cover" loading="lazy">
                     <div class="album-overlay-badge">View Album</div>
@@ -744,6 +740,10 @@
                 const vid = document.getElementById(videoId);
                 if (vid) { vid.currentTime = 0; vid.play().catch(e => {}); }
             }
+            // تشغيل كل الفيديوهات الموجودة داخل المودال تلقائياً
+            const modal = document.getElementById(modalId);
+            const videos = modal.querySelectorAll('video');
+            videos.forEach(v => { v.currentTime = 0; v.play().catch(e => {}); });
         }
 
         function closeAlbumModal(modalId, e) {
