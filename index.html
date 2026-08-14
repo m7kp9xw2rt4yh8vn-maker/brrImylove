@@ -176,6 +176,25 @@
         .album-overlay-badge { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); padding: 6px 16px; border-radius: 15px; border: 1px solid #ff4d94; font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #ffd1dc; white-space: nowrap; }
         .album-title { margin-top: 15px; font-family: 'Great Vibes', cursive; color: #ff8fa3; font-size: 2.2rem; }
 
+        .ai-art-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 25px auto 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #ff4d94;
+            background: rgba(24, 6, 18, 0.9);
+            padding: 12px;
+        }
+        .ai-art-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
+        }
+
         .gifts-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-top: 35px; }
         .gift-card { background: rgba(24, 6, 18, 0.9); border: 1px solid #ff4d94; border-radius: 20px; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 180px; height: 200px; cursor: pointer; }
         .gift-card svg { margin-bottom: 15px; }
@@ -377,7 +396,7 @@
         </div>
     </div>
 
-    <!-- Boy's Album Modal (تمت إضافة الفيديو هنا) -->
+    <!-- Boy's Album Modal -->
     <div class="album-modal-overlay" id="boyAlbumModal" onclick="closeAlbumModal('boyAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Mohie's Album</h3>
@@ -405,7 +424,7 @@
         </div>
     </div>
 
-    <!-- Girl's Album Modal (تم نقل الصورة الثالثة girl3.jpg لتصبح أسفل الفيديوهات) -->
+    <!-- Girl's Album Modal -->
     <div class="album-modal-overlay" id="girlAlbumModal" onclick="closeAlbumModal('girlAlbumModal', event)">
         <div class="album-modal-card" onclick="event.stopPropagation()">
             <h3>Aya's Album</h3>
@@ -624,6 +643,12 @@
                 </div>
                 <h3 class="album-title">Chat Memories</h3>
             </div>
+        </div>
+
+        <!-- قسم صورة الذكاء الاصطناعي أسفل الألبومات -->
+        <div class="ai-art-container">
+            <img src="ai-art.jpg" class="ai-art-image" alt="AI Generated Love Art" loading="lazy">
+            <div class="image-dock" style="margin-top: 12px;"><p>Our Universe in AI Vision</p></div>
         </div>
     </section>
 
