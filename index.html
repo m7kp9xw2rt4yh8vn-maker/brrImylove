@@ -188,9 +188,19 @@
         .album-modal-card h3 { font-family: 'Great Vibes', cursive; color: #ff4d94; font-size: 3.4rem; margin-bottom: 25px; }
         .modal-media-grid { display: flex; justify-content: center; align-items: center; gap: 35px; flex-wrap: wrap; margin-bottom: 30px; padding: 10px; }
         
-        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 320px; }
+        .gallery-item { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 320px; }
         
-        .modal-media { width: 100%; height: auto; max-height: 450px; object-fit: contain; border-radius: 15px; border: 2px solid #ff4d94; background: #12040c; }
+        /* تعديل الفريم ليأخذ شكل وحجم الصورة الحقيقي تماماً دون أي فراغات سوداء */
+        .modal-media { 
+            width: 100%; 
+            height: auto; 
+            max-height: 520px; 
+            object-fit: cover; 
+            border-radius: 18px; 
+            border: 2px solid #ff4d94; 
+            background: transparent; 
+            display: block;
+        }
 
         .image-dock {
             background: rgba(24, 6, 18, 0.9);
@@ -402,7 +412,6 @@
                     <img src="my-photo5.jpg" class="modal-media" alt="Mohie 5" loading="lazy">
                     <div class="image-dock"><p>Endless Love</p></div>
                 </div>
-                <!-- تم تصحيح اسم الفيديو هنا ليطابق mohie-video.mp4 -->
                 <div class="gallery-item">
                     <video class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="mohie-video.mp4" type="video/mp4">
@@ -427,7 +436,6 @@
                     <img src="girl2.jpg" class="modal-media" alt="Aya 2" loading="lazy">
                     <div class="image-dock"><p>The light of my days</p></div>
                 </div>
-                <!-- تم تصحيح اسم الفيديو هنا ليطابق aya-video.mp4 -->
                 <div class="gallery-item">
                     <video id="ayaVideoElement" class="modal-media" autoplay muted loop playsinline preload="auto">
                         <source src="aya-video.mp4" type="video/mp4">
@@ -440,7 +448,6 @@
                     </video>
                     <div class="image-dock"><p>Beautiful Soul</p></div>
                 </div>
-                <!-- تم تصحيح اسم الصورة هنا ليطابق girl-photo3.jpg -->
                 <div class="gallery-item">
                     <img src="girl-photo3.jpg" class="modal-media" alt="Aya 3" loading="lazy">
                     <div class="image-dock"><p>My Queen</p></div>
